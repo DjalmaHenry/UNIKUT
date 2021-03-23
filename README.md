@@ -14,6 +14,3 @@
 
 - Matricula: 202010968-0
 - GitHub: [AlysonFarias](https://github.com/alysonfarias)
-
-
-Lorem ipsum
