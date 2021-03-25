@@ -13,3 +13,7 @@
 ### Nome: Alyson José de Farias Ramos
 - Matricula: 202013039-9
 - GitHub: [AlysonFarias](https://github.com/alysonfarias)
+
+## Nome: Marcos Rigel Silvestre da Silva
+- Matricula: 202010974-2
+- GitHub: [MarcosRigel](https://github.com/MarcosRigel)
