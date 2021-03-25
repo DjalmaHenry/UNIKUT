@@ -9,12 +9,16 @@ public class UNIKUT {
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
         int op;
+        String login;
         while (true) {
             menuDesLog();
             op = in.nextInt();
             switch (op) {
                 case 1:
                     //criação de conta
+                    System.out.print("Digite o login: ");
+                    login = in.nextLine();
+                    cadastro.cadastrarUsuario(login);
                     //pós criação \/
                     break;
                 case 2:

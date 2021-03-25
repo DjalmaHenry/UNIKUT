@@ -11,9 +11,9 @@ public class Cadastro {
         usuarios = new Usuario[100];
         this.qtd = 0;
     }
-    
+
     public void cadastrarUsuario(String login) {
-        Usuario u = new Usuario(login,"","");
+        Usuario u = new Usuario(login, "", "");
         boolean achouUsuario;
         achouUsuario = buscarUsuario(u);
         if (achouUsuario == true) {
@@ -23,9 +23,8 @@ public class Cadastro {
             System.out.println("===================================================");
         } else {
             Scanner in = new Scanner(System.in);
-            String senha;
+            String senha, nome = "";
             int op;
-            String nome = "";
             System.out.println("Informe sua senha: ");
             senha = in.nextLine();
             System.out.println("Deseja inserir um nome na sua conta?");
@@ -40,7 +39,7 @@ public class Cadastro {
                     case 2:
                         nome = "Convidado";
                         System.out.println("===================================================");
-                        System.out.println("Seu nome foi definido como convidado!");
+                        System.out.println("Seu nome foi definido como 'Convidado!'");
                         System.out.println("===================================================");
                         break;
                     default:
@@ -48,8 +47,8 @@ public class Cadastro {
                         System.err.println("Opção invalida!");
                         System.out.println("===================================================");
                 }
-                
-            } while (op!= 1 && op != 2);
+
+            } while (op != 1 && op != 2);
             usuarios[this.qtd] = new Usuario(login, senha, nome);
             this.qtd++; // usuario cadastrado.
             System.out.println("===================================================");
@@ -57,7 +56,7 @@ public class Cadastro {
             System.out.println("===================================================");
         }
     }
-    
+
     private boolean buscarUsuario(Usuario u) {
         if (this.qtd == 0) {
             return false;

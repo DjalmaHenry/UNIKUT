@@ -22,6 +22,7 @@ public class Usuario implements Comparable<Usuario>{
     private void setSenha(String senha) {
         this.senha = senha;
     }
+    
     public String getNome() {
         return nome;
     }
