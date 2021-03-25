@@ -45,9 +45,15 @@ public class UNIKUT {
                     //Alteração de perfil
                     break;
                 case 3:
-                    //Exibir histórico de mensagens
+                    //Procurar e adicionar um amigo novo
                     break;
                 case 4:
+                    //Ver pedidos e aceitar pedidos de amizade
+                    break;
+                case 5:
+                    //Exibir histórico de mensagens
+                    break;
+                case 6:
                     //Enviar mensagem
                     break;
                 case 0:
@@ -75,8 +81,10 @@ public class UNIKUT {
         System.out.println("MENU:");
         System.out.println("1 - Sair da conta.");
         System.out.println("2 - Alterar perfil.");
-        System.out.println("3 - Ver histórico de mensagens.");
-        System.out.println("4 - Enviar mensagem.");
+        System.out.println("3 - Adicionar amigo.");
+        System.out.println("4 - Aceitar pedido de amizade.");
+        System.out.println("5 - Ver histórico de mensagens.");
+        System.out.println("6 - Enviar mensagem.");
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");
