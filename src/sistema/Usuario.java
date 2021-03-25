@@ -5,10 +5,10 @@ public class Usuario implements Comparable<Usuario>{
     private String senha;
     private String nome;
     
-    public Usuario(String l, String s) {
+    public Usuario(String l, String s, String n) {
         this.login = l;
         this.senha = s;
-        this.nome = "Convidado";
+        this.nome = n;
     }
 
     public String getLogin() {
