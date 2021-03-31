@@ -1,6 +1,6 @@
 package aplicacao;
 
-import sistema.Cadastro;
+import sistema.*;
 import java.util.Scanner;
 
 public class UNIKUT {
@@ -9,7 +9,8 @@ public class UNIKUT {
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
         int op;
-        String login;
+        String login, senha;
+        boolean achouConta;
         while (true) {
             menuDesLog();
             op = in.nextInt();
@@ -23,8 +24,19 @@ public class UNIKUT {
                     break;
                 case 2:
                     //login em conta
+                    System.out.print("Digite o seu login: ");
+                    login = in.nextLine();
+                    System.out.print("Digite a sua senha: ");
+                    senha = in.nextLine();
+                    Usuario  user = cadastro.procurarUsuario(login, senha);
                     //pós login \/
-                    logado(cadastro, in);
+                    if (user != null) {
+                    logado(cadastro, in, user);
+                    }else {
+                        System.out.println("=====================================");
+                        System.err.println("Login ou senha incorretos!");
+                        System.out.println("=====================================");
+                    }
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -36,7 +48,7 @@ public class UNIKUT {
         }
     }
 
-    public static void logado(Cadastro cadastro, Scanner in) {
+    public static void logado(Cadastro cadastro, Scanner in, Usuario user) {
         int op;
         do {
             menuLog();
