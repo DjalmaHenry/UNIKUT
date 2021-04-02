@@ -10,7 +10,6 @@ public class UNIKUT {
         Cadastro cadastro = new Cadastro();
         int op;
         String login, senha;
-        boolean achouConta;
         while (true) {
             menuDesLog();
             op = in.nextInt();
