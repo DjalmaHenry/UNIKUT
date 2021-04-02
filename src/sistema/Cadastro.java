@@ -84,4 +84,51 @@ public class Cadastro {
             return null; // login não encontrado.
         }
     }
+    
+    public void alterarDados(Usuario u){
+        Scanner in = new Scanner(System.in);
+        int op;
+        String novoNome, novaSenha;
+        do {
+            System.out.println("Menu de opções\n"
+            + "1 - Alterar nome\n"
+            + "2 - Alterar senha\n"
+            + "3 - Alterar login e senha\n"
+            + "4- Voltar ao menu anterior");
+
+            op = in.nextInt();
+            in.nextLine();
+            switch (op) {
+                case 1:                
+                    System.out.println("Digite seu NOVO nome: ");
+                    novoNome = in.nextLine();
+                    in.nextLine();
+                    u.alterarNome(novoNome);
+                    break;
+                case 2:
+                    System.out.println("Digite sua NOVA senha: ");
+                    novaSenha = in.nextLine();
+                    in.nextLine();
+                    u.alterarSenha(novaSenha);
+                    break;
+                case 3:
+                    System.out.println("Digite seu NOVO nome: ");
+                    novoNome = in.nextLine();
+                    in.nextLine();
+                    System.out.println("Digite sua NOVA senha: ");
+                    novaSenha = in.nextLine();
+                    in.nextLine();
+                    u.alterarNomeSenha(novoNome, novaSenha);
+                    break;    
+                case 4:
+                    System.out.println("Voltando ao menu...");
+                    return;
+                default:
+                    System.err.println("Opção inválida!");
+                    break;
+            }
+            
+        } while (op != 4);
+        
+    }
 }

@@ -39,6 +39,11 @@ public class Usuario implements Comparable<Usuario>{
         this.senha = s;
     }
     
+    public void alterarNomeSenha(String n, String s){
+        setNome(n);
+        setSenha(s);
+    }
+    
     @Override
     public String toString () {
         String nome, login, dados;

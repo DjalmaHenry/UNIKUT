@@ -17,16 +17,19 @@ public class UNIKUT {
                 case 1:
                     //criação de conta
                     System.out.print("Digite o login: ");
-                    login = in.nextLine();
+                    login = in.next();
+                    in.nextLine();
                     cadastro.cadastrarUsuario(login);
                     //pós criação \/
                     break;
                 case 2:
                     //login em conta
                     System.out.print("Digite o seu login: ");
-                    login = in.nextLine();
+                    login = in.next();
+                    in.nextLine();
                     System.out.print("Digite a sua senha: ");
-                    senha = in.nextLine();
+                    senha = in.next();
+                    in.nextLine();
                     Usuario  user = cadastro.procurarUsuario(login, senha);
                     //pós login \/
                     if (user != null) {
@@ -58,6 +61,7 @@ public class UNIKUT {
                     break;
                 case 2:
                     //Alteração de perfil
+                    cadastro.alterarDados(user);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
