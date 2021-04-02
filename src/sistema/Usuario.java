@@ -5,10 +5,10 @@ public class Usuario implements Comparable<Usuario>{
     private String senha;
     private String nome;
     
-    public Usuario(String l, String s, String n) {
-        this.login = l;
-        this.senha = s;
-        this.nome = n;
+    public Usuario(String login, String senha, String nome) {
+        this.login = login;
+        this.senha = senha;
+        this.nome = nome;
     }
 
     public String getLogin() {
@@ -41,9 +41,9 @@ public class Usuario implements Comparable<Usuario>{
     
     @Override
     public String toString () {
-        String no, lo, dados;
-        no = "Nome: "+this.getNome()+"\n";
-        lo = "Login: "+this.getLogin()+"\n";
+        String nome, login, dados;
+        nome = "Nome: "+this.getNome()+"\n";
+        login = "Login: "+this.getLogin()+"\n";
         dados = nome + login;
         return dados;
     }

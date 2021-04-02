@@ -14,14 +14,14 @@ public class Cadastro {
 
     public void cadastrarUsuario(String login) {
         Usuario u = new Usuario(login, "", "");
-        boolean achouUsuario;
+        int achouUsuario;
         achouUsuario = buscarUsuario(u);
-        if (achouUsuario == true) {
+        if (achouUsuario >= 0) { // login ja encontrado no vetor.
             System.out.println("===================================================");
             System.err.println("O Usuário já se encontra cadastrado!");
             System.out.println("Informe um login diferente!");
             System.out.println("===================================================");
-        } else {
+        } else { // login não encontrado, processo de cadastro...
             Scanner in = new Scanner(System.in);
             String senha, nome = "";
             int op;
@@ -57,15 +57,31 @@ public class Cadastro {
         }
     }
 
-    private boolean buscarUsuario(Usuario u) {
+    private int buscarUsuario(Usuario u) {
+        int i = 0;
         if (this.qtd == 0) {
-            return false;
+            return i; 
         }
-        for (int i = 0; i < this.qtd; i++) {
+        for (i = 0 ; i < this.qtd; i++) {
             if (usuarios[i].compareTo(u) == 0) {
-                return true;
+                return i; // retorna posição do usuario no vetor.
             }
         }
-        return false;
+        return -1; // login não encontrado.
+    }
+    
+    public Usuario procurarUsuario(String login, String senha) {
+        int achouUsuario;
+        Usuario u = new Usuario (login,"","");
+        achouUsuario = buscarUsuario(u);
+        if (achouUsuario >= 0) {
+            if (senha.equals(usuarios[achouUsuario].getSenha())) {
+                return usuarios[achouUsuario]; // retorna o usuario.
+            } else {
+                return null; // senha incorreta.
+            }
+        } else {
+            return null; // login não encontrado.
+        }
     }
 }
