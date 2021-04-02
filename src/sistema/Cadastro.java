@@ -129,6 +129,46 @@ public class Cadastro {
             }
 
         } while (op != 4);
-
     }
+    
+    public static void AdicaoAmigos(String nome) {
+        int aux = 1;
+        int a;
+ 
+        if(login.equals(login)) {
+            System.out.println("já esta cadastrada");
+        } 
+        else {
+            for(int i=0;i<usuario.length;i++) {
+                if(usuario[i] != null) {
+                    a = sc.nextInt();
+                    aux += 1;
+                }
+            }
+            usuario[aux] = nome;
+        }
+    }
+ 
+    public static boolean pendencia(String pendente) {
+        Scanner sc = new Scanner(System.in);
+        char aceitar = sc.next.CharAt(0);
+ 
+        if (login != null) {
+            if(aceitar == 's') {
+                return true;
+            }
+            return false;
+        }
+    } 
+    
+     public static buscar() {
+        String aux;
+        for(int i = 0; i<usuario.length; i++) {
+            if(usuario[i] != null) {
+                return null;
+            } else {
+                aux.getLogin();
+            }
+        }
+    } 
 }
