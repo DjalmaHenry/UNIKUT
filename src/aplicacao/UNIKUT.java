@@ -10,31 +10,29 @@ public class UNIKUT {
         Cadastro cadastro = new Cadastro();
         int op;
         String login, senha;
-        while (true) {
+        do {
             menuDesLog();
             op = in.nextInt();
+            in.nextLine();
             switch (op) {
                 case 1:
                     //criação de conta
                     System.out.print("Digite o login: ");
-                    login = in.next();
-                    in.nextLine();
+                    login = in.nextLine();
                     cadastro.cadastrarUsuario(login);
                     //pós criação \/
                     break;
                 case 2:
                     //login em conta
                     System.out.print("Digite o seu login: ");
-                    login = in.next();
-                    in.nextLine();
+                    login = in.nextLine();
                     System.out.print("Digite a sua senha: ");
-                    senha = in.next();
-                    in.nextLine();
-                    Usuario  user = cadastro.procurarUsuario(login, senha);
+                    senha = in.nextLine();
+                    Usuario user = cadastro.procurarUsuario(login, senha);
                     //pós login \/
                     if (user != null) {
-                    logado(cadastro, in, user);
-                    }else {
+                        logado(cadastro, in, user);
+                    } else {
                         System.out.println("=====================================");
                         System.err.println("Login ou senha incorretos!");
                         System.out.println("=====================================");
@@ -42,12 +40,11 @@ public class UNIKUT {
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
-                    System.exit(0);
                     break;
                 default:
                     System.err.println("UNIKUT - Erro, opção inválida.");
             }
-        }
+        } while (op != 0);
     }
 
     public static void logado(Cadastro cadastro, Scanner in, Usuario user) {

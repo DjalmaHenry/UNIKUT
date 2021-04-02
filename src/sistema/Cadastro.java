@@ -16,7 +16,7 @@ public class Cadastro {
         Usuario u = new Usuario(login, "", "");
         int achouUsuario;
         achouUsuario = buscarUsuario(u);
-        if (achouUsuario >= 0) { // login ja encontrado no vetor.
+        if (achouUsuario != -1) { // login ja encontrado no vetor.
             System.out.println("===================================================");
             System.err.println("O Usuário já se encontra cadastrado!");
             System.out.println("Informe um login diferente!");
@@ -25,12 +25,13 @@ public class Cadastro {
             Scanner in = new Scanner(System.in);
             String senha, nome = "";
             int op;
-            System.out.println("Informe sua senha: ");
+            System.out.print("Informe sua senha: ");
             senha = in.nextLine();
             System.out.println("Deseja inserir um nome na sua conta?");
             do {
                 System.out.print("Digite 1 - para sim ou 2 - para não: ");
                 op = in.nextInt();
+                in.nextLine();
                 switch (op) {
                     case 1:
                         System.out.print("Informe o nome: ");
@@ -60,19 +61,19 @@ public class Cadastro {
     private int buscarUsuario(Usuario u) {
         int i = 0;
         if (this.qtd == 0) {
-            return i; 
+            return -1;
         }
-        for (i = 0 ; i < this.qtd; i++) {
+        for (i = 0; i < this.qtd; i++) {
             if (usuarios[i].compareTo(u) == 0) {
                 return i; // retorna posição do usuario no vetor.
             }
         }
         return -1; // login não encontrado.
     }
-    
+
     public Usuario procurarUsuario(String login, String senha) {
         int achouUsuario;
-        Usuario u = new Usuario (login,"","");
+        Usuario u = new Usuario(login, "", "");
         achouUsuario = buscarUsuario(u);
         if (achouUsuario >= 0) {
             if (senha.equals(usuarios[achouUsuario].getSenha())) {
@@ -84,42 +85,41 @@ public class Cadastro {
             return null; // login não encontrado.
         }
     }
-    
-    public void alterarDados(Usuario u){
+
+    public void alterarDados(Usuario u) {
         Scanner in = new Scanner(System.in);
         int op;
         String novoNome, novaSenha;
         do {
             System.out.println("Menu de opções\n"
-            + "1 - Alterar nome\n"
-            + "2 - Alterar senha\n"
-            + "3 - Alterar login e senha\n"
-            + "4- Voltar ao menu anterior");
+                    + "1 - Alterar nome\n"
+                    + "2 - Alterar senha\n"
+                    + "3 - Alterar nome e senha\n"
+                    + "4- Voltar ao menu anterior");
 
             op = in.nextInt();
             in.nextLine();
             switch (op) {
-                case 1:                
+                case 1:
                     System.out.println("Digite seu NOVO nome: ");
                     novoNome = in.nextLine();
-                    in.nextLine();
                     u.alterarNome(novoNome);
+                    System.out.println("Nome alterado com sucesso!");
                     break;
                 case 2:
                     System.out.println("Digite sua NOVA senha: ");
                     novaSenha = in.nextLine();
-                    in.nextLine();
                     u.alterarSenha(novaSenha);
+                    System.out.println("Senha alterado com sucesso!");
                     break;
                 case 3:
                     System.out.println("Digite seu NOVO nome: ");
                     novoNome = in.nextLine();
-                    in.nextLine();
                     System.out.println("Digite sua NOVA senha: ");
                     novaSenha = in.nextLine();
-                    in.nextLine();
                     u.alterarNomeSenha(novoNome, novaSenha);
-                    break;    
+                    System.out.println("Nome e senha alterado com sucesso!");
+                    break;
                 case 4:
                     System.out.println("Voltando ao menu...");
                     return;
@@ -127,8 +127,8 @@ public class Cadastro {
                     System.err.println("Opção inválida!");
                     break;
             }
-            
+
         } while (op != 4);
-        
+
     }
 }
