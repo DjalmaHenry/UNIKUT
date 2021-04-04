@@ -1,6 +1,7 @@
 package sistema;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Cadastro {
 
@@ -130,45 +131,87 @@ public class Cadastro {
 
         } while (op != 4);
     }
-    
-    public static void AdicaoAmigos(String nome) {
-        int aux = 1;
-        int a;
- 
-        if(login.equals(login)) {
-            System.out.println("já esta cadastrada");
-        } 
-        else {
-            for(int i=0;i<usuario.length;i++) {
-                if(usuario[i] != null) {
-                    a = sc.nextInt();
-                    aux += 1;
-                }
+
+    public void exibeListaAmigosPendentes(Usuario u) {
+        int qtdUsuario;
+        qtdUsuario = buscarUsuario(u);
+        if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
+            System.err.println("Lista de amigos pendentes vázia!");
+        } else {
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
+                System.out.println(usuarios[qtdUsuario].getListaAmigosPendentes(i));
             }
-            usuario[aux] = nome;
         }
     }
- 
-    public static boolean pendencia(String pendente) {
-        Scanner sc = new Scanner(System.in);
-        char aceitar = sc.next.CharAt(0);
- 
-        if (login != null) {
-            if(aceitar == 's') {
-                return true;
+
+    public void exibeListaAmigos(Usuario u) {
+        int qtdUsuario;
+        qtdUsuario = buscarUsuario(u);
+        if (usuarios[qtdUsuario].getQtdListaAmigos() == 0) {
+            System.err.println("Lista de amigos vázia!");
+        } else {
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
+                System.out.println(usuarios[qtdUsuario].getListaAmigos(i));
             }
-            return false;
         }
-    } 
-    
-     public static buscar() {
-        String aux;
-        for(int i = 0; i<usuario.length; i++) {
-            if(usuario[i] != null) {
-                return null;
+    }
+
+    public void aceitaAmigos(Usuario u) {
+        Scanner in = new Scanner(System.in);
+        int qtdUsuario;
+        qtdUsuario = buscarUsuario(u);
+        if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
+            return;
+        } else {
+            String amigo;
+            System.out.println("Informe o login do amigo que deseja aceitar:");
+            amigo = in.next();
+            in.nextLine();
+            Usuario usu = new Usuario(amigo);
+            int qtdAmigo = buscarUsuario(usu);
+            String eu = u.getLogin();
+            boolean achou = false;
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
+                if (usuarios[qtdUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
+                    achou = true;
+                }
+            }
+            if (achou == false) {
+                System.err.println("Erro, amigo não encontrado na lista de pendentes!");
             } else {
-                aux.getLogin();
+                usuarios[qtdUsuario].setListaAmigos(amigo);
+                usuarios[qtdAmigo].setListaAmigos(eu);
+                System.out.println("UNIKUT - Pedido aceito com sucesso!");
             }
         }
-    } 
+    }
+
+    public void adicaoAmigos(Usuario u, String amigo) {
+        int qtdUsuario, qtdAmigo;
+        String eu = u.getLogin();
+        qtdUsuario = buscarUsuario(u);
+        Usuario usu = new Usuario(amigo);
+        qtdAmigo = buscarUsuario(usu);
+        if (qtdAmigo == -1) {
+            System.err.println("Erro, este usuário não existe!");
+        } else if (u.getLogin().compareTo(amigo) == 0) {
+            System.err.println("Erro, você não pode adicionar você mesmo!");
+        } else {
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
+                if (usuarios[qtdUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
+                    System.err.println("Pedido de amizade já enviado! Aguarde ele(a) aceitar.");
+                    return;
+                }
+            }
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
+                if (usuarios[qtdUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
+                    System.err.println("Erro, esse usuário já encontra-se na sua lista de amizade.");
+                    return;
+                }
+            }
+            usuarios[qtdUsuario].setListaAmigosPendentes(amigo);
+            usuarios[qtdAmigo].setListaAmigosPendentes(eu);
+            System.out.println("UNIKUT - Pedido de amizade enviado com sucesso!");
+        }
+    }
 }

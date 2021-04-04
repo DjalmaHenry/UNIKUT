@@ -62,14 +62,27 @@ public class UNIKUT {
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
+                    String amigo;
+                    System.out.println("Adicionar amigos:");
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.adicaoAmigos(user, amigo);
                     break;
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
+                    System.out.println("Aceitar amigos pendentes:");
+                    cadastro.exibeListaAmigosPendentes(user);
+                    cadastro.aceitaAmigos(user);
                     break;
                 case 5:
-                    //Exibir histórico de mensagens
+                    //ver lista de amizades
+                    cadastro.exibeListaAmigos(user);
                     break;
                 case 6:
+                    //Exibir histórico de mensagens
+                    break;
+                case 7:
                     //Enviar mensagem
                     break;
                 case 0:
@@ -99,8 +112,9 @@ public class UNIKUT {
         System.out.println("2 - Alterar perfil.");
         System.out.println("3 - Adicionar amigo.");
         System.out.println("4 - Aceitar pedido de amizade.");
-        System.out.println("5 - Ver histórico de mensagens.");
-        System.out.println("6 - Enviar mensagem.");
+        System.out.println("5 - Ver lista de amizades.");
+        System.out.println("6 - Ver histórico de mensagens.");
+        System.out.println("7 - Enviar mensagem.");
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");
