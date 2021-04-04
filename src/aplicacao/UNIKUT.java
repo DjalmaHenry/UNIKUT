@@ -34,7 +34,7 @@ public class UNIKUT {
                         logado(cadastro, in, user);
                     } else {
                         System.out.println("=====================================");
-                        System.err.println("Login ou senha incorretos!");
+                        System.err.println("UNIKUT - Login ou senha incorretos!");
                         System.out.println("=====================================");
                     }
                     break;
@@ -63,7 +63,7 @@ public class UNIKUT {
                 case 3:
                     //Procurar e adicionar um amigo novo
                     String amigo;
-                    System.out.println("Adicionar amigos:");
+                    System.out.println("UNIKUT - Adicionar amigos:");
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
@@ -96,8 +96,7 @@ public class UNIKUT {
     }
 
     public static void menuDesLog() {
-        System.out.println("=============================");
-        System.out.println("MENU:");
+        System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Criar uma conta.");
         System.out.println("2 - Logar em uma conta.");
         System.out.println("0 - Sair do programa.");
@@ -106,8 +105,10 @@ public class UNIKUT {
     }
 
     public static void menuLog() {
-        System.out.println("=============================");
-        System.out.println("MENU:");
+        System.out.println("___________________________________________________");
+        System.out.println("Você logou em sua conta!");
+        System.out.println("___________________________________________________");
+        System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");
         System.out.println("2 - Alterar perfil.");
         System.out.println("3 - Adicionar amigo.");

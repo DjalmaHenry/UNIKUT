@@ -19,7 +19,7 @@ public class Cadastro {
         achouUsuario = buscarUsuario(u);
         if (achouUsuario != -1) { // login ja encontrado no vetor.
             System.out.println("===================================================");
-            System.err.println("O Usuário já se encontra cadastrado!");
+            System.err.println("UNIKUT -O Usuário já se encontra cadastrado!");
             System.out.println("Informe um login diferente!");
             System.out.println("===================================================");
         } else { // login não encontrado, processo de cadastro...
@@ -40,9 +40,9 @@ public class Cadastro {
                         break;
                     case 2:
                         nome = "Convidado";
-                        System.out.println("===================================================");
-                        System.out.println("Seu nome foi definido como 'Convidado!'");
-                        System.out.println("===================================================");
+                        System.out.println("___________________________________________________");
+                        System.out.println("UNIKUT - Seu nome foi definido como 'Convidado!'");
+                        System.out.println("___________________________________________________");
                         break;
                     default:
                         System.out.println("===================================================");
@@ -54,7 +54,7 @@ public class Cadastro {
             usuarios[this.qtd] = new Usuario(login, senha, nome);
             this.qtd++; // usuario cadastrado.
             System.out.println("===================================================");
-            System.out.println("Usuário cadastrado!");
+            System.out.println("UNIKUT - Usuário cadastrado!");
             System.out.println("===================================================");
         }
     }
