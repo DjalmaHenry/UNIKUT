@@ -199,7 +199,7 @@ public class Cadastro {
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
                 if (usuarios[qtdUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
-                    System.err.println("Pedido de amizade já enviado! Aguarde ele(a) aceitar.");
+                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
                     return;
                 }
             }
