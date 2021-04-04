@@ -1,5 +1,7 @@
 package sistema;
 
+import java.util.GregorianCalendar;
+
 public class Usuario implements Comparable<Usuario> {
 
     private String login;
@@ -9,15 +11,42 @@ public class Usuario implements Comparable<Usuario> {
     private String[] listaAmigosPendentes;
     private int qtdListaAmigos;
     private int qtdListaAmigosPendentes;
+    private String[][] mensagens;
+    private int[] qtdMensagens;
+    private int[][] horaMensagens;
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
-        listaAmigos = new String[100];
-        listaAmigosPendentes = new String[100];
-        qtdListaAmigos = 0;
-        qtdListaAmigosPendentes = 0;
+        this.mensagens = new String[100][1000];
+        this.qtdMensagens = new int[100];
+        this.horaMensagens = new int[100][1000];
+    }
+    
+    public String getMensagem(int amigo, int mensagem) {
+        return mensagens[amigo][mensagem];
+    }
+
+    public void setMensagens(int amigo, String mensagem) {
+        if (this.qtdMensagens[amigo] == 100) {
+            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+        } else {
+            GregorianCalendar calendar = new GregorianCalendar();
+            int hora = calendar.HOUR_OF_DAY;
+            this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
+            this.qtdMensagens[amigo]++;
+            this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
+            System.out.println("Mensagem enviada!");
+        }
+    }
+    
+    public int getHoraMensagens(int amigo, int mensagem) {
+        return horaMensagens[amigo][mensagem];
+    }
+
+    public int getQtdMensagens(int pessoa) {
+        return qtdMensagens[pessoa];
     }
 
     public Usuario(String login) {

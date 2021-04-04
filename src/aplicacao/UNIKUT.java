@@ -31,10 +31,13 @@ public class UNIKUT {
                     Usuario user = cadastro.procurarUsuario(login, senha);
                     //pós login \/
                     if (user != null) {
+                        System.out.println("___________________________________________________");
+                        System.out.println("Você logou em sua conta!");
+                        System.out.println("___________________________________________________");
                         logado(cadastro, in, user);
                     } else {
-                    System.err.println("UNIKUT - Login ou senha incorretos!");
-                        }
+                        System.err.println("UNIKUT - Login ou senha incorretos!");
+                    }
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -79,9 +82,17 @@ public class UNIKUT {
                     break;
                 case 6:
                     //Exibir histórico de mensagens
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.historicoMensagens(user, amigo);
                     break;
                 case 7:
                     //Enviar mensagem
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.enviarMensagem(user, amigo, in);
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -103,9 +114,6 @@ public class UNIKUT {
     }
 
     public static void menuLog() {
-        System.out.println("___________________________________________________");
-        System.out.println("Você logou em sua conta!");
-        System.out.println("___________________________________________________");
         System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");
         System.out.println("2 - Alterar perfil.");

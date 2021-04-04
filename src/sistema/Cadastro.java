@@ -3,6 +3,7 @@ package sistema;
 import java.util.Scanner;
 
 public class Cadastro {
+
     public static final Scanner in = new Scanner(System.in);
     private Usuario[] usuarios;
     private int qtd;
@@ -17,7 +18,7 @@ public class Cadastro {
         int achouUsuario;
         achouUsuario = buscarUsuario(userAux);
         if (achouUsuario != -1) { // login ja encontrado no vetor.
-            System.err.println("UNIKUT -O Usuário já se encontra cadastrado!");
+            System.err.println("UNIKUT - O Usuário já se encontra cadastrado!");
             System.out.println("Informe um login diferente!");
         } else { // login não encontrado, processo de cadastro...
             String senha, nome = "";
@@ -91,21 +92,21 @@ public class Cadastro {
             in.nextLine();
             switch (op) {
                 case 1:
-                //altera nome
+                    //altera nome
                     System.out.println("Digite seu NOVO nome: ");
                     novoNome = in.nextLine();
                     user.alterarNome(novoNome);
                     System.out.println("Nome alterado com sucesso!");
                     break;
                 case 2:
-                //altera senha
+                    //altera senha
                     System.out.println("Digite sua NOVA senha: ");
                     novaSenha = in.nextLine();
                     user.alterarSenha(novaSenha);
                     System.out.println("Senha alterado com sucesso!");
                     break;
                 case 3:
-                //altera nome e senha
+                    //altera nome e senha
                     System.out.println("Digite seu NOVO nome: ");
                     novoNome = in.nextLine();
                     System.out.println("Digite sua NOVA senha: ");
@@ -114,11 +115,11 @@ public class Cadastro {
                     System.out.println("Nome e senha alterado com sucesso!");
                     break;
                 case 4:
-                //encerra e volta ao menu anterior
+                    //encerra e volta ao menu anterior
                     System.out.println("Voltando ao menu...");
                     return;
                 default:
-                //verificação de numeros fora do menu
+                    //verificação de numeros fora do menu
                     System.err.println("Opção inválida!");
                     break;
             }
@@ -198,7 +199,13 @@ public class Cadastro {
             }
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
                 if (usuarios[qtdUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
-                    System.err.println("Erro, esse usuário já encontra-se na sua lista de amizade.");
+                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
+                    return;
+                }
+            }
+            for (int i = 0; i < usuarios[qtdAmigo].getQtdListaAmigos(); i++) {
+                if (usuarios[qtdAmigo].getListaAmigos(i).compareTo(usuarios[qtdUsuario].getLogin()) == 0) {
+                    System.err.println("Erro, pedido de amizade já enviado!");
                     return;
                 }
             }
@@ -206,5 +213,40 @@ public class Cadastro {
             usuarios[qtdAmigo].setListaAmigosPendentes(eu);
             System.out.println("UNIKUT - Pedido de amizade enviado com sucesso!");
         }
+    }
+
+    public void historicoMensagens(Usuario user, String amigo) {
+        int i = 0, j = 0;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        int qtdUsuario = buscarUsuario(user);
+        System.out.println("=============================");
+        System.out.println("Histórico de mensagens:");
+        if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
+            System.err.println("Histórico de mensagens vázio!");
+        } else {
+            while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
+                if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) < usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, i)) {
+                    System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
+                    i++;
+                } else {
+                    System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
+                    j++;
+                }
+            }
+        }
+    }
+
+    public void enviarMensagem(Usuario user, String amigo, Scanner in) {
+        String mensagem;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        int qtdUsuario = buscarUsuario(user);
+        System.out.println("=============================");
+        System.out.println("Digite a mensagem:");
+        System.out.print("-> ");
+        mensagem = in.next();
+        in.nextLine();
+        usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
     }
 }
