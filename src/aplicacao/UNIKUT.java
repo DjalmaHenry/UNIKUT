@@ -33,10 +33,8 @@ public class UNIKUT {
                     if (user != null) {
                         logado(cadastro, in, user);
                     } else {
-                        System.out.println("=====================================");
-                        System.err.println("UNIKUT - Login ou senha incorretos!");
-                        System.out.println("=====================================");
-                    }
+                    System.err.println("UNIKUT - Login ou senha incorretos!");
+                        }
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
