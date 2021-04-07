@@ -1,6 +1,7 @@
 package sistema;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Usuario implements Comparable<Usuario> {
 
@@ -13,17 +14,32 @@ public class Usuario implements Comparable<Usuario> {
     private int qtdListaAmigosPendentes;
     private String[][] mensagens;
     private int[] qtdMensagens;
-    private double[][] horaMensagens;
+    private String[][] horaMensagens;
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
+        this.listaAmigos = new String[100];
+        this.listaAmigosPendentes = new String[100];
         this.mensagens = new String[100][1000];
         this.qtdMensagens = new int[100];
-        this.horaMensagens = new double[100][1000];
+        this.horaMensagens = new String[100][1000];
     }
-    
+
+    public boolean buscaAmigo(String amigo) {
+        if (this.qtdListaAmigos == 0) {
+            return false;
+        } else {
+            for (int i = 0; i < this.qtdListaAmigos; i++) {
+                if (listaAmigos[i].compareTo(amigo) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String getMensagem(int amigo, int mensagem) {
         return mensagens[amigo][mensagem];
     }
@@ -32,18 +48,17 @@ public class Usuario implements Comparable<Usuario> {
         if (this.qtdMensagens[amigo] == 100) {
             System.err.println("Mensagem NÃO enviada, memória cheia!!!");
         } else {
-            GregorianCalendar calendar = new GregorianCalendar();
-            double hora = calendar.HOUR;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            String hora = (dtf.format(LocalDateTime.now()));
             this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
-            this.qtdMensagens[amigo]++;
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
-            System.out.println("variavel " + hora);
-            System.out.println("vetor " + horaMensagens[amigo][this.qtdMensagens[amigo]]);
+            this.qtdMensagens[amigo]++;
+            System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
             System.out.println("Mensagem enviada!");
         }
     }
-    
-    public int getHoraMensagens(int amigo, int mensagem) {
+
+    public String getHoraMensagens(int amigo, int mensagem) {
         return horaMensagens[amigo][mensagem];
     }
 

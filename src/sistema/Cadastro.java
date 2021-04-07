@@ -197,19 +197,18 @@ public class Cadastro {
                     return;
                 }
             }
-            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
-                if (usuarios[qtdUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
-                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
-                    return;
-                }
-            }
-            for (int i = 0; i < usuarios[qtdAmigo].getQtdListaAmigos(); i++) {
-                if (usuarios[qtdAmigo].getListaAmigos(i).compareTo(usuarios[qtdUsuario].getLogin()) == 0) {
+            for (int i = 0; i < usuarios[qtdAmigo].getQtdListaAmigosPendentes(); i++) {
+                if (usuarios[qtdAmigo].getListaAmigosPendentes(i).compareTo(usuarios[qtdUsuario].getLogin()) == 0) {
                     System.err.println("Erro, pedido de amizade já enviado!");
                     return;
                 }
             }
-            usuarios[qtdUsuario].setListaAmigosPendentes(amigo);
+            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
+                if (usuarios[qtdUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
+                    System.err.println("Este usuário já encontra-se na lista de amizades!");
+                    return;
+                }
+            }
             usuarios[qtdAmigo].setListaAmigosPendentes(eu);
             System.out.println("UNIKUT - Pedido de amizade enviado com sucesso!");
         }
@@ -220,20 +219,35 @@ public class Cadastro {
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
         int qtdUsuario = buscarUsuario(user);
-        System.out.println("=============================");
-        System.out.println("Histórico de mensagens:");
-        if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
-            System.err.println("Histórico de mensagens vázio!");
-        } else {
-            while (i <= usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) && j <= usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
-                if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) < usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) {
-                    System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
-                    i++;
-                } else {
-                    System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
-                    j++;
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        if (resultado == true) {
+            System.out.println("=============================");
+            System.out.println("Histórico de mensagens:");
+            if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
+                System.err.println("Histórico de mensagens vázio!");
+            } else {
+                while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
+                    if (usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) == null) {
+                        System.out.println(usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i));
+                        System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
+                        i++;
+                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {
+                        System.out.println(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j));
+                        System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
+                        j++;
+                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) < 0) {
+                        System.out.println(usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i));
+                        System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
+                        i++;
+                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) > 0) {
+                        System.out.println(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j));
+                        System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
+                        j++;
+                    }
                 }
             }
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
         }
     }
 
@@ -242,11 +256,15 @@ public class Cadastro {
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
         int qtdUsuario = buscarUsuario(user);
-        System.out.println("=============================");
-        System.out.println("Digite a mensagem:");
-        System.out.print("-> ");
-        mensagem = in.next();
-        in.nextLine();
-        usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        if (resultado == true) {
+            System.out.println("=============================");
+            System.out.println("Digite a mensagem:");
+            System.out.print("-> ");
+            mensagem = in.nextLine();
+            usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
+        }
     }
 }
