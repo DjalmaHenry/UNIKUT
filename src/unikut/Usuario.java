@@ -2,6 +2,8 @@ package unikut;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import static unikut.Cadastro.ANSI_GREEN;
+import static unikut.Cadastro.ANSI_RESET;
 
 public class Usuario implements Comparable<Usuario> {
 
@@ -54,7 +56,8 @@ public class Usuario implements Comparable<Usuario> {
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
             this.qtdMensagens[amigo]++;
             System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
-            System.out.println("Mensagem enviada!");
+            System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
+
         }
     }
 

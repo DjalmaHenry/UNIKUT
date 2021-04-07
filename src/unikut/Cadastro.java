@@ -4,6 +4,26 @@ import java.util.Scanner;
 
 public class Cadastro {
 
+    //colors text - cores de textos
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    // background colors - cores de fundo
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
     public static final Scanner in = new Scanner(System.in);
     private Usuario[] usuarios;
     private int qtd;
@@ -37,7 +57,7 @@ public class Cadastro {
                         break;
                     case 2:
                         nome = "Convidado";
-                        System.out.println("UNIKUT - Seu nome foi definido como 'Convidado!'");
+                        System.out.println(ANSI_GREEN + "UNIKUT - Seu nome foi definido como 'Convidado!'" + ANSI_RESET);
                         break;
                     default:
                         System.err.println("Opção invalida!");
@@ -46,7 +66,8 @@ public class Cadastro {
             } while (op != 1 && op != 2);
             usuarios[this.qtd] = new Usuario(login, senha, nome);
             this.qtd++; // usuario cadastrado.
-            System.out.println("UNIKUT - Usuário cadastrado!");
+            System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
+
         }
     }
 
@@ -96,14 +117,14 @@ public class Cadastro {
                     System.out.println("Digite seu NOVO nome: ");
                     novoNome = in.nextLine();
                     user.alterarNome(novoNome);
-                    System.out.println("Nome alterado com sucesso!");
+                    System.out.println(ANSI_GREEN + "Nome alterado com sucesso!" + ANSI_RESET);
                     break;
                 case 2:
                     //altera senha
                     System.out.println("Digite sua NOVA senha: ");
                     novaSenha = in.nextLine();
                     user.alterarSenha(novaSenha);
-                    System.out.println("Senha alterado com sucesso!");
+                    System.out.println(ANSI_GREEN + "Senha alterado com sucesso!" + ANSI_RESET);
                     break;
                 case 3:
                     //altera nome e senha
@@ -112,7 +133,7 @@ public class Cadastro {
                     System.out.println("Digite sua NOVA senha: ");
                     novaSenha = in.nextLine();
                     user.alterarNomeSenha(novoNome, novaSenha);
-                    System.out.println("Nome e senha alterado com sucesso!");
+                    System.out.println(ANSI_GREEN + "Nome e senha alterado com sucesso!" + ANSI_RESET);
                     break;
                 case 4:
                     //encerra e volta ao menu anterior
@@ -175,7 +196,8 @@ public class Cadastro {
             } else {
                 usuarios[qtdUsuario].setListaAmigos(amigo);
                 usuarios[qtdAmigo].setListaAmigos(eu);
-                System.out.println("UNIKUT - Pedido aceito com sucesso!");
+                System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
+
             }
         }
     }
@@ -210,7 +232,8 @@ public class Cadastro {
                 }
             }
             usuarios[qtdAmigo].setListaAmigosPendentes(eu);
-            System.out.println("UNIKUT - Pedido de amizade enviado com sucesso!");
+            System.out.println(ANSI_GREEN + "UNIKUT - Pedido de amizade enviado com sucesso!" + ANSI_RESET);
+
         }
     }
 
@@ -228,20 +251,21 @@ public class Cadastro {
             } else {
                 while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
                     if (usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) == null) {
-                        System.out.println(usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i));
-                        System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
+                        System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
+                        System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET);
                         i++;
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {
-                        System.out.println(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j));
-                        System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
+                        System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
+                        System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET);
                         j++;
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) < 0) {
-                        System.out.println(usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i));
-                        System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
+                        System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
+                        System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET);
                         i++;
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) > 0) {
-                        System.out.println(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j));
-                        System.out.println(usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j));
+
+                        System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
+                        System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET);
                         j++;
                     }
                 }
@@ -253,18 +277,26 @@ public class Cadastro {
 
     public void enviarMensagem(Usuario user, String amigo, Scanner in) {
         String mensagem;
+        boolean option = true;
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
         int qtdUsuario = buscarUsuario(user);
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
         if (resultado == true) {
-            System.out.println("=============================");
-            System.out.println("Digite a mensagem:");
-            System.out.print("-> ");
-            mensagem = in.nextLine();
-            usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+            while (option != false) {
+                System.out.println("=============================");
+                System.out.println("Digite a mensagem:");
+                System.out.print("-> ");
+                mensagem = in.nextLine();
+                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+                System.out.println("Deseja enviar outra mensagem? [true/false]");
+
+                option = in.nextBoolean();
+                in.nextLine();
+            }
         } else {
             System.err.println("Erro, usuário não está na lista de amizades!");
         }
+
     }
 }
