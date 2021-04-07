@@ -1,4 +1,4 @@
-package sistema;
+package unikut;
 
 import java.util.Scanner;
 
