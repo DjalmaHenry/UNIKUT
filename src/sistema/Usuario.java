@@ -13,7 +13,7 @@ public class Usuario implements Comparable<Usuario> {
     private int qtdListaAmigosPendentes;
     private String[][] mensagens;
     private int[] qtdMensagens;
-    private int[][] horaMensagens;
+    private double[][] horaMensagens;
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
@@ -21,7 +21,7 @@ public class Usuario implements Comparable<Usuario> {
         this.nome = nome;
         this.mensagens = new String[100][1000];
         this.qtdMensagens = new int[100];
-        this.horaMensagens = new int[100][1000];
+        this.horaMensagens = new double[100][1000];
     }
     
     public String getMensagem(int amigo, int mensagem) {
@@ -33,10 +33,12 @@ public class Usuario implements Comparable<Usuario> {
             System.err.println("Mensagem NÃO enviada, memória cheia!!!");
         } else {
             GregorianCalendar calendar = new GregorianCalendar();
-            int hora = calendar.HOUR_OF_DAY;
+            double hora = calendar.HOUR;
             this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
             this.qtdMensagens[amigo]++;
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
+            System.out.println("variavel " + hora);
+            System.out.println("vetor " + horaMensagens[amigo][this.qtdMensagens[amigo]]);
             System.out.println("Mensagem enviada!");
         }
     }

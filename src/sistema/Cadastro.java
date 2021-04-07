@@ -225,8 +225,8 @@ public class Cadastro {
         if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
             System.err.println("Histórico de mensagens vázio!");
         } else {
-            while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
-                if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) < usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, i)) {
+            while (i <= usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) && j <= usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
+                if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) < usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) {
                     System.out.println(usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i));
                     i++;
                 } else {
