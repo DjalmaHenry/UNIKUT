@@ -2,11 +2,9 @@ package unikut;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import static unikut.Cadastro.ANSI_GREEN;
-import static unikut.Cadastro.ANSI_RESET;
+import  static unikut.CoresTerminal.*;
 
 public class Usuario implements Comparable<Usuario> {
-    private String teste;
     private String login;
     private String senha;
     private String nome;
