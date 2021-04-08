@@ -6,7 +6,7 @@ import static unikut.Cadastro.ANSI_GREEN;
 import static unikut.Cadastro.ANSI_RESET;
 
 public class Usuario implements Comparable<Usuario> {
-
+    private String teste;
     private String login;
     private String senha;
     private String nome;
