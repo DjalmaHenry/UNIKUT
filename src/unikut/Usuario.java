@@ -1,7 +1,10 @@
-package sistema;
+package unikut;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import  static unikut.CoresTerminal.*;
 
 public class Usuario implements Comparable<Usuario> {
-
     private String login;
     private String senha;
     private String nome;
@@ -9,15 +12,59 @@ public class Usuario implements Comparable<Usuario> {
     private String[] listaAmigosPendentes;
     private int qtdListaAmigos;
     private int qtdListaAmigosPendentes;
+    private String[][] mensagens;
+    private int[] qtdMensagens;
+    private String[][] horaMensagens;
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
-        listaAmigos = new String[100];
-        listaAmigosPendentes = new String[100];
-        qtdListaAmigos = 0;
-        qtdListaAmigosPendentes = 0;
+        this.listaAmigos = new String[100];
+        this.listaAmigosPendentes = new String[100];
+        this.mensagens = new String[100][1000];
+        this.qtdMensagens = new int[100];
+        this.horaMensagens = new String[100][1000];
+    }
+
+    public boolean buscaAmigo(String amigo) {
+        if (this.qtdListaAmigos == 0) {
+            return false;
+        } else {
+            for (int i = 0; i < this.qtdListaAmigos; i++) {
+                if (listaAmigos[i].compareTo(amigo) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public String getMensagem(int amigo, int mensagem) {
+        return mensagens[amigo][mensagem];
+    }
+
+    public void setMensagens(int amigo, String mensagem) {
+        if (this.qtdMensagens[amigo] == 100) {
+            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+        } else {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            String hora = (dtf.format(LocalDateTime.now()));
+            this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
+            this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
+            this.qtdMensagens[amigo]++;
+            System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
+            System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
+
+        }
+    }
+
+    public String getHoraMensagens(int amigo, int mensagem) {
+        return horaMensagens[amigo][mensagem];
+    }
+
+    public int getQtdMensagens(int pessoa) {
+        return qtdMensagens[pessoa];
     }
 
     public Usuario(String login) {

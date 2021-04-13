@@ -1,9 +1,11 @@
-package aplicacao;
+package unikut;
 
-import sistema.*;
 import java.util.Scanner;
+import static unikut.CoresTerminal.*;
 
-public class UNIKUT {
+
+public class Aplicacao {
+
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -31,11 +33,12 @@ public class UNIKUT {
                     Usuario user = cadastro.procurarUsuario(login, senha);
                     //pós login \/
                     if (user != null) {
+                        System.out.println("___________________________________________________");
+                        System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
+                        System.out.println("___________________________________________________");
                         logado(cadastro, in, user);
                     } else {
-                        System.out.println("=====================================");
                         System.err.println("UNIKUT - Login ou senha incorretos!");
-                        System.out.println("=====================================");
                     }
                     break;
                 case 0:
@@ -81,9 +84,17 @@ public class UNIKUT {
                     break;
                 case 6:
                     //Exibir histórico de mensagens
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.historicoMensagens(user, amigo);
                     break;
                 case 7:
                     //Enviar mensagem
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.enviarMensagem(user, amigo, in);
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -105,9 +116,6 @@ public class UNIKUT {
     }
 
     public static void menuLog() {
-        System.out.println("___________________________________________________");
-        System.out.println("Você logou em sua conta!");
-        System.out.println("___________________________________________________");
         System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");
         System.out.println("2 - Alterar perfil.");
