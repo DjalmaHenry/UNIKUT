@@ -11,7 +11,7 @@ public class Aplicacao {
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
         int op;
-        int b;
+    
         String login, senha;
         do {
             menuDesLog();
