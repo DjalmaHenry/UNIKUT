@@ -279,6 +279,33 @@ public class Cadastro {
         } else {
             System.err.println("Erro, usuário não está na lista de amizades!");
         }
+    }
 
+    ///////////////////////////////////////////////////////////////////////////
+    public void Mural(Usuario user, String amigos) {
+        System.out.println("Quantos amigos você deseja adicionar?");
+        String msg, op;
+        int n = in.nextInt();
+        Usuario[] grupo = new Usuario[n];
+        
+        for(int i = 0; i < grupo.length; i++) {
+            in.nextLine();
+            String usuarios = in.nextLine();
+            grupo[i] = new Usuario(usuarios);
+        }
+        
+        System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
+        op = in.nextLine();
+        while(op == "sim"){
+            System.out.print("Digite uma mensagem ");
+            msg = in.nextLine();
+            for (int i =0; i < grupo.length;i++) {
+                 System.out.println(msg);
+                 grupo[i] = new Usuario(msg);
+            }
+            System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
+            op = in.nextLine();
+        }
+        in.close();
     }
 }
