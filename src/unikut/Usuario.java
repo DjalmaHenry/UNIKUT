@@ -2,10 +2,12 @@ package unikut;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import  static unikut.CoresTerminal.*;
+import java.util.Arrays;
+import static unikut.CoresTerminal.*;
 
 public class Usuario implements Comparable<Usuario> {
-    private String login;
+
+    private final String login;
     private String senha;
     private String nome;
     private String[] listaAmigos;
@@ -13,6 +15,16 @@ public class Usuario implements Comparable<Usuario> {
     private int qtdListaAmigos;
     private int qtdListaAmigosPendentes;
     private String[][] mensagens;
+    private String[][] senhaMensagemSecreta;
+    private String senhaPadrao;
+
+    public String getSenhaPadrao() {
+        return senhaPadrao;
+    }
+
+    public void setSenhaPadrao(String senhaPadrao) {
+        this.senhaPadrao = senhaPadrao;
+    }
     private int[] qtdMensagens;
     private String[][] horaMensagens;
 
@@ -23,8 +35,10 @@ public class Usuario implements Comparable<Usuario> {
         this.listaAmigos = new String[100];
         this.listaAmigosPendentes = new String[100];
         this.mensagens = new String[100][1000];
+        this.senhaMensagemSecreta = new String[100][1000];
         this.qtdMensagens = new int[100];
         this.horaMensagens = new String[100][1000];
+
     }
 
     public boolean buscaAmigo(String amigo) {
@@ -44,6 +58,12 @@ public class Usuario implements Comparable<Usuario> {
         return mensagens[amigo][mensagem];
     }
 
+    public String getSenhaMensagemSecreta(int amigo, int mensagem) {
+//   original       return senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]];
+        return senhaMensagemSecreta[amigo][mensagem];
+
+    }
+
     public void setMensagens(int amigo, String mensagem) {
         if (this.qtdMensagens[amigo] == 100) {
             System.err.println("Mensagem NÃO enviada, memória cheia!!!");
@@ -52,10 +72,33 @@ public class Usuario implements Comparable<Usuario> {
             String hora = (dtf.format(LocalDateTime.now()));
             this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
-            this.qtdMensagens[amigo]++;
             System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
+            this.qtdMensagens[amigo]++;
             System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
 
+        }
+    }
+
+    public void setMensagensSecreta(int amigo, String mensagem, String senha) {
+        if (this.qtdMensagens[amigo] == 100) {
+            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+        } else {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            String hora = (dtf.format(LocalDateTime.now()));
+            this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
+            this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
+            this.senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]] = senha;
+            this.qtdMensagens[amigo]++;
+            
+            System.out.println("DADOS ___________________");
+            System.out.println(amigo);
+            System.out.println(this.qtdMensagens[amigo]);
+            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]]);
+            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo] - 1]);
+            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo] + 1]);
+            System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
+            System.out.println("___________________");
+            System.out.println(ANSI_GREEN + "Mensagem secreta enviada! o usuario que recebe deve digita a senha definida por você" + ANSI_RESET);
         }
     }
 

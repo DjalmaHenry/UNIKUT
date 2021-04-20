@@ -3,15 +3,25 @@ package unikut;
 import java.util.Scanner;
 import static unikut.CoresTerminal.*;
 
-
 public class Aplicacao {
 
-
     public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
         int op;
         String login, senha;
+
+        // NECESSARIO APAGAR NO FINAL
+        //PARA OTIMIZAçÂO DE TEMPO
+        cadastro.cadastrarUsuario("a", "Alyson");
+        Usuario user1 = cadastro.procurarUsuario("a", "");
+        cadastro.cadastrarUsuario("s", "Conta Teste");
+        Usuario user2 = cadastro.procurarUsuario("s", "");
+        cadastro.adicaoAmigos(user1, "s");
+        cadastro.aceitaAmigos(user2);
+
+        // _________________________________________
         do {
             menuDesLog();
             op = in.nextInt();
@@ -21,7 +31,7 @@ public class Aplicacao {
                     //criação de conta
                     System.out.print("Digite o login: ");
                     login = in.nextLine();
-                    cadastro.cadastrarUsuario(login);
+                    cadastro.cadastrarUsuario(login, "testee");
                     //pós criação \/
                     break;
                 case 2:
@@ -52,6 +62,7 @@ public class Aplicacao {
 
     public static void logado(Cadastro cadastro, Scanner in, Usuario user) {
         int op;
+        System.out.println("Bem vindo, " + user.getNome() + ".");
         do {
             menuLog();
             op = in.nextInt();
