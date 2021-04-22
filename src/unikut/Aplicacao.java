@@ -3,16 +3,16 @@ package unikut;
 import java.util.Scanner;
 import static unikut.CoresTerminal.*;
 
-
 public class Aplicacao {
 
-
     public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
         int op;
-    
         String login, senha;
+
+        
         do {
             menuDesLog();
             op = in.nextInt();
@@ -53,6 +53,7 @@ public class Aplicacao {
 
     public static void logado(Cadastro cadastro, Scanner in, Usuario user) {
         int op;
+        System.out.println("Bem vindo, " + user.getNome() + ".");
         do {
             menuLog();
             op = in.nextInt();
