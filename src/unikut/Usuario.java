@@ -41,6 +41,10 @@ public class Usuario implements Comparable<Usuario> {
 
     }
 
+    public Usuario(String login) {
+        this.login = login;
+    }
+
     public boolean buscaAmigo(String amigo) {
         if (this.qtdListaAmigos == 0) {
             return false;
@@ -72,7 +76,7 @@ public class Usuario implements Comparable<Usuario> {
             String hora = (dtf.format(LocalDateTime.now()));
             this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
-            System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
+           // System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
             this.qtdMensagens[amigo]++;
             System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
 
@@ -89,15 +93,6 @@ public class Usuario implements Comparable<Usuario> {
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
             this.senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]] = senha;
             this.qtdMensagens[amigo]++;
-            
-            System.out.println("DADOS ___________________");
-            System.out.println(amigo);
-            System.out.println(this.qtdMensagens[amigo]);
-            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]]);
-            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo] - 1]);
-            System.out.println(senhaMensagemSecreta[amigo][this.qtdMensagens[amigo] + 1]);
-            System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
-            System.out.println("___________________");
             System.out.println(ANSI_GREEN + "Mensagem secreta enviada! o usuario que recebe deve digita a senha definida por você" + ANSI_RESET);
         }
     }
@@ -108,10 +103,6 @@ public class Usuario implements Comparable<Usuario> {
 
     public int getQtdMensagens(int pessoa) {
         return qtdMensagens[pessoa];
-    }
-
-    public Usuario(String login) {
-        this.login = login;
     }
 
     public String getLogin() {

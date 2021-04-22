@@ -12,16 +12,7 @@ public class Aplicacao {
         int op;
         String login, senha;
 
-        // NECESSARIO APAGAR NO FINAL
-        //PARA OTIMIZAçÂO DE TEMPO
-        cadastro.cadastrarUsuario("a", "Alyson");
-        Usuario user1 = cadastro.procurarUsuario("a", "");
-        cadastro.cadastrarUsuario("s", "Conta Teste");
-        Usuario user2 = cadastro.procurarUsuario("s", "");
-        cadastro.adicaoAmigos(user1, "s");
-        cadastro.aceitaAmigos(user2);
-
-        // _________________________________________
+        
         do {
             menuDesLog();
             op = in.nextInt();
@@ -31,7 +22,7 @@ public class Aplicacao {
                     //criação de conta
                     System.out.print("Digite o login: ");
                     login = in.nextLine();
-                    cadastro.cadastrarUsuario(login, "testee");
+                    cadastro.cadastrarUsuario(login);
                     //pós criação \/
                     break;
                 case 2:

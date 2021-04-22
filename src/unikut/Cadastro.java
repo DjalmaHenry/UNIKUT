@@ -15,42 +15,42 @@ public class Cadastro {
         this.qtd = 0;
     }
 
-    public void cadastrarUsuario(String login, String nome) {
+    public void cadastrarUsuario(String login) {
         Usuario userAux = new Usuario(login, "", "");
-//        int achouUsuario;
-//        achouUsuario = buscarUsuario(userAux);
-//        if (achouUsuario != -1) { // login ja encontrado no vetor.
-//            System.err.println("UNIKUT - O Usuário já se encontra cadastrado!");
-//            System.out.println("Informe um login diferente!");
-//        } else { // login não encontrado, processo de cadastro...
-//            String senha, nome = "";
-//            int op;
-//            System.out.print("Informe sua senha: ");
-//            senha = in.nextLine();
-//            System.out.println("Deseja inserir um nome na sua conta?");
-//            do {
-//                System.out.print("Digite 1 - para sim ou 2 - para não: ");
-//                op = in.nextInt();
-//                in.nextLine();
-//                switch (op) {
-//                    case 1:
-//                        System.out.print("Informe o nome: ");
-//                        nome = in.nextLine();
-//                        break;
-//                    case 2:
-//                        nome = "Convidado";
-//                        System.out.println(ANSI_GREEN + "UNIKUT - Seu nome foi definido como 'Convidado!'" + ANSI_RESET);
-//                        break;
-//                    default:
-//                        System.err.println("Opção invalida!");
-//                }
-//
-//            } while (op != 1 && op != 2);
-        usuarios[this.qtd] = new Usuario(login, "", nome);
+        int achouUsuario;
+        achouUsuario = buscarUsuario(userAux);
+        if (achouUsuario != -1) { // login ja encontrado no vetor.
+            System.err.println("UNIKUT - O Usuário já se encontra cadastrado!");
+            System.out.println("Informe um login diferente!");
+        } else { // login não encontrado, processo de cadastro...
+            String senha, nome = "";
+            int op;
+            System.out.print("Informe sua senha: ");
+            senha = in.nextLine();
+            System.out.println("Deseja inserir um nome na sua conta?");
+            do {
+                System.out.print("Digite 1 - para sim ou 2 - para não: ");
+                op = in.nextInt();
+                in.nextLine();
+                switch (op) {
+                    case 1:
+                        System.out.print("Informe o nome: ");
+                        nome = in.nextLine();
+                        break;
+                    case 2:
+                        nome = "Convidado";
+                        System.out.println(ANSI_GREEN + "UNIKUT - Seu nome foi definido como 'Convidado!'" + ANSI_RESET);
+                        break;
+                    default:
+                        System.err.println("Opção invalida!");
+                }
+
+            } while (op != 1 && op != 2);
+        usuarios[this.qtd] = new Usuario(login, senha, nome);
         this.qtd++; // usuario cadastrado.
-//            System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
-//
-//        }
+         System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
+
+        }
     }
 
     private int buscarUsuario(Usuario user) {
@@ -233,27 +233,13 @@ public class Cadastro {
                 System.err.println("Histórico de mensagens vázio!");
             } else {
                 while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
-//____________________________________________
                     if (usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) == null) {
-                        System.out.println("CASO 1111111111111");
                         //hora
                         System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
                         // mensagemV
                         // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
                         // mostra direto
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, i) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 0) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 2) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 0) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 2) + "   2 2");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 0) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 2) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, i) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 0) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 2) + "      4");
-//                        System.out.println(" I = " + i);
+
                         if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
                             System.out.println("");
                             System.err.print("[Mens. Secreta]");
@@ -262,10 +248,7 @@ public class Cadastro {
                             do {
                                 System.out.print("A mensagem é secreta! digite a senha: ");
                                 senhaParaTestar = in.nextLine();
-                                System.out.println(senhaParaTestar + "op senhaparatestar");
 
-                                // tentando esse usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) != null
-                                // original -> usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
                                     System.out.println(ANSI_BLUE
                                             + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
@@ -303,32 +286,10 @@ public class Cadastro {
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {
                         //hora
                         //resolvido-solicita  a senha apenas para quem recebe
-                        System.out.println("CASO 222222222222222222");
                         System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
                         // mensagemV
                         // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
                         // mostra direto
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, i) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 0) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 2) + "  1 1");
-//
-//                        System.out.println(i);
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 0) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 2) + "   2 2");
-//
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 0) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 2) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, i) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 0) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 2) + "      4");
-//                        System.out.println(" I = " + i);
-// ORIGINAL if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
-                        // anteriror usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i)
-
-                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) != null);
-                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) == null);
                         if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) {
                             System.err.print("[Mens. Secreta]");
                             System.out.print(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ANSI_RESET);
@@ -336,9 +297,8 @@ public class Cadastro {
                             do {
                                 System.out.print("A mensagem é secreta! digite a senha: ");
                                 senhaParaTestar = in.nextLine();
-                                System.out.println(senhaParaTestar + "op senhaparatestar");
 
-                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i).compareTo(senhaParaTestar) == 0) {
+                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
                                     System.out.println(ANSI_YELLOW + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
                                     break;
                                     // mostrando senha pq resultados batem
@@ -351,13 +311,14 @@ public class Cadastro {
                                     //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
                                     switch (opcaoSenhaSecreta) {
                                         case 1:
-                                            System.out.println("Tentando novamente");
+                                            System.err.println("Tentando novamente");
                                             break;
                                         case 2:
                                             System.err.println("Mensagem continuará oculta");
                                             break;
                                         default:
-                                            System.out.println("Opção inválida, tente novamente");
+                                            System.out.println("Ops, sua opção é invalida, tente novamente");
+                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
                                             opcaoSenhaSecreta = in.nextInt();
                                             in.nextLine();
 
@@ -374,28 +335,11 @@ public class Cadastro {
 //____________________________________________
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) < 0) {
                         //hora
-                        System.out.println("CASO 333333333333333333");
                         System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
 
                         // mensagemV
                         // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
                         // mostra direto
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, i) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 0) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 2) + "  1 1");
-//
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 0) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 2) + "   2 2");
-//
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 0) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 2) + "       3");
-//
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, i) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 0) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 2) + "      4");
-                        System.out.println(" I = " + i);
                         if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
                             System.err.print("[Mens. Secreta]");
                             System.out.print(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ANSI_RESET);
@@ -403,12 +347,11 @@ public class Cadastro {
                             do {
                                 System.out.print("A mensagem é secreta! digite a senha: ");
                                 senhaParaTestar = in.nextLine();
-                                System.out.println(senhaParaTestar + "op senhaparatestar");
 
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
                                     System.out.println(ANSI_BLUE + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
                                     break;
-// mostrando senha pq resultados batem
+                                    // mostrando senha pq resultados batem
                                 } else {
                                     // tratando exceçao de senha errada
                                     System.out
@@ -417,16 +360,18 @@ public class Cadastro {
                                     in.nextLine();
                                     //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
                                     switch (opcaoSenhaSecreta) {
+
                                         case 1:
-                                            System.out.println("Tentando novamente");
+                                            System.err.println("Tentando novamente");
                                             break;
                                         case 2:
                                             System.err.println("Mensagem continuará oculta");
                                             break;
                                         default:
-                                            System.out.println("Opção inválida, tente novamente");
+                                            System.out.println("Ops, sua opção é invalida, tente novamente");
+                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
                                             opcaoSenhaSecreta = in.nextInt();
-
+                                            in.nextLine();
                                     }
 
                                 }
@@ -440,25 +385,10 @@ public class Cadastro {
 //____________________________________________                        
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) > 0) {
                         //hora
-                        System.out.println("CASO 444444444444444444444");
                         System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
                         // mensagemV
                         // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
                         // mostra direto
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, i) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 0) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdAmigo, 2) + "  1 1");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 0) + "   2 2");
-//                        System.out.println(usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, 2) + "   2 2");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 0) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, 2) + "       3");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, i) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 0) + "      4");
-//                        System.out.println(usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdUsuario, 2) + "      4");
-//                        System.out.println(" I = " + i);
-
                         if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
                             System.err.print("[Mens. Secreta]");
                             System.out.print(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ANSI_RESET);
@@ -467,9 +397,8 @@ public class Cadastro {
                             do {
                                 System.out.print("A mensagem é secreta! digite a senha: ");
                                 senhaParaTestar = in.nextLine();
-                                System.out.println(senhaParaTestar + "op senhaparatestar");
 
-                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, i).compareTo(senhaParaTestar) == 0) {
+                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
 
                                     System.out.println(ANSI_YELLOW + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
                                     // mostrando senha pq resultados batem
@@ -483,16 +412,16 @@ public class Cadastro {
                                     //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
                                     switch (opcaoSenhaSecreta) {
                                         case 1:
-                                            System.out.println("Tentando novamente");
+                                            System.err.println("Tentando novamente");
                                             break;
                                         case 2:
                                             System.err.println("Mensagem continuará oculta");
                                             break;
                                         default:
-                                            System.out.println("Opção inválida, tente novamente");
+                                            System.out.println("Ops, sua opção é invalida, tente novamente");
+                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
                                             opcaoSenhaSecreta = in.nextInt();
                                             in.nextLine();
-
                                     }
 
                                 }
@@ -514,27 +443,28 @@ public class Cadastro {
 
     public void enviarMensagem(Usuario user, String amigo, Scanner in) {
         String mensagem, senha;
-        int opcaoMensagemAdicionais = -1;
+
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
         int qtdUsuario = buscarUsuario(user);
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
         int opcaoMensagemSecreta;
         String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
-        // falta ajeitar
         if (resultado == true) {
-            //   do {
+
             System.out.println("=============================");
             System.out.println("Digite a mensagem:");
             System.out.print("-> ");
             mensagem = in.nextLine();
-            System.out.println("mensagem" + mensagem);
-            System.out.println("Mensagem seja secreta? 1-Sim  2-Não");
+            System.out.println("Mensagem será secreta? 1-Sim  2-Não");
             opcaoMensagemSecreta = in.nextInt();
             in.nextLine();
-            System.out.println(opcaoMensagemSecreta);
-            System.out.println(opcaoMensagemSecreta + "opMensagem");
-            //while (opcaoMensagemSecreta != 1 || opcaoMensagemSecreta != 2) {
+
+            while (opcaoMensagemSecreta != 1 && opcaoMensagemSecreta != 2) {
+                System.out.println("Opçao inválida!");
+                System.out.println("Mensagem será secreta? 1-Sim  2-Não");
+
+            }
 
             if (opcaoMensagemSecreta == 1) {
                 if (senhaPadrao == null) {
@@ -542,36 +472,14 @@ public class Cadastro {
                     System.out.println("Digite a senha da mensagem: ");
                     auxSenha = in.nextLine();
                     usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
-                    System.out.println(usuarios[qtdUsuario].getSenhaPadrao() + "variavel senha");
                     usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
                 } else {
                     usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
                 }
-            } else if (opcaoMensagemSecreta == 2) {
-
-                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
             } else {
-                System.err.println("Opção inválida ! 1 - Sim ou 2 - não");
-                System.out.print("Digite novamente: ");
-                opcaoMensagemSecreta = in.nextInt();
-                in.nextLine();
-                System.out.println(opcaoMensagemSecreta + "opMensagem");
+                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
             }
-            //}
 
-//                System.out.println("Deseja enviar outra mensagem? 1-Sim  2-Não");
-//                opcaoMensagemAdicionais = in.nextInt();
-//                in.nextLine();
-//                System.out.println(opcaoMensagemAdicionais + "opc mens adicionais 1111");
-//
-//                while (opcaoMensagemAdicionais != 1 || opcaoMensagemAdicionais != 2) {
-//                    System.err.println("Opção inválida ! 1 - Sim ou 2 - não");
-//                    opcaoMensagemAdicionais = in.nextInt();
-//                    in.nextLine();
-//                    System.out.println(opcaoMensagemAdicionais + "opc mens adicionais 2222");
-//                }
-//
-//            } while (opcaoMensagemAdicionais != 2);
         } else {
             System.err.println("Erro, usuário não está na lista de amizades!");
         }
