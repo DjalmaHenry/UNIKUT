@@ -98,11 +98,6 @@ public class Aplicacao {
                     in.nextLine();
                     cadastro.enviarMensagem(user, amigo, in);
                     break;
-                case 8:
-                    System.out.println("Informe o login do amigo:");
-                    amigo = in.next();
-                    in.nextLine();
-                    cadastro.Mural(user, amigos);
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
                     System.exit(0);
@@ -131,7 +126,6 @@ public class Aplicacao {
         System.out.println("5 - Ver lista de amizades.");
         System.out.println("6 - Ver histórico de mensagens.");
         System.out.println("7 - Enviar mensagem.");
-        System.out.println("8 - Criar Mural");
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");
