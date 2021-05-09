@@ -15,6 +15,7 @@ public class Usuario implements Comparable<Usuario> {
     private int qtdListaAmigos;
     private int qtdListaAmigosPendentes;
     private String[][] mensagens;
+    private String[][] solicitacaoMural;
     private String[][] senhaMensagemSecreta;
     private String senhaPadrao;
     private boolean[] decisaoMatch; // variavel de armazenamento da decisao de match.
@@ -22,6 +23,9 @@ public class Usuario implements Comparable<Usuario> {
     private String[] nomesMatch; // variavel de armazenagem, dos nomes do Match dos usuarios.
     private String[] matchTotais; // variavel de armazenagem dos Match aceitos.
     private int qtdMatchTotais; // variavel de armazenagem da quantidade de Match
+    private int[] qtdMensagens;
+    private int[] qtdSolicicacoesMural;
+    private String[][] horaMensagens;
 
     public String getSenhaPadrao() {
         return senhaPadrao;
@@ -30,8 +34,6 @@ public class Usuario implements Comparable<Usuario> {
     public void setSenhaPadrao(String senhaPadrao) {
         this.senhaPadrao = senhaPadrao;
     }
-    private int[] qtdMensagens;
-    private String[][] horaMensagens;
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
@@ -40,8 +42,10 @@ public class Usuario implements Comparable<Usuario> {
         this.listaAmigos = new String[100];
         this.listaAmigosPendentes = new String[100];
         this.mensagens = new String[100][1000];
+        this.solicitacaoMural = new String[100][10];
         this.senhaMensagemSecreta = new String[100][1000];
         this.qtdMensagens = new int[100];
+        this.qtdSolicicacoesMural = new int[100];
         this.horaMensagens = new String[100][1000];
         this.decisaoMatch = new boolean[100];
         this.nomesMatch = new String[100];
@@ -75,6 +79,10 @@ public class Usuario implements Comparable<Usuario> {
 
     }
 
+    public String getSolicitacaoMural(int amigo, int mensagem) {
+        return mensagens[amigo][mensagem];
+    }
+
     public void setMensagens(int amigo, String mensagem) {
         if (this.qtdMensagens[amigo] == 100) {
             System.err.println("Mensagem NÃO enviada, memória cheia!!!");
@@ -83,7 +91,7 @@ public class Usuario implements Comparable<Usuario> {
             String hora = (dtf.format(LocalDateTime.now()));
             this.mensagens[amigo][this.qtdMensagens[amigo]] = mensagem;
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
-           // System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
+            // System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
             this.qtdMensagens[amigo]++;
             System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
 
@@ -101,6 +109,16 @@ public class Usuario implements Comparable<Usuario> {
             this.senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]] = senha;
             this.qtdMensagens[amigo]++;
             System.out.println(ANSI_GREEN + "Mensagem secreta enviada! o usuario que recebe deve digita a senha definida por você" + ANSI_RESET);
+        }
+    }
+
+    public void setSolicitacaoMural(int amigo, String mensagem) {
+        if (this.qtdSolicicacoesMural[amigo] == 10) {
+            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+        } else {
+            this.solicitacaoMural[amigo][this.qtdSolicicacoesMural[amigo]] = mensagem;
+            this.qtdSolicicacoesMural[amigo]++;
+            System.out.println(ANSI_GREEN + "Solicitação enviada!" + ANSI_RESET);
         }
     }
 
@@ -179,7 +197,7 @@ public class Usuario implements Comparable<Usuario> {
         setNome(n);
         setSenha(s);
     }
-    
+
     public int getQtdMatchTotais() {
         return this.qtdMatchTotais;
     }
@@ -212,8 +230,6 @@ public class Usuario implements Comparable<Usuario> {
     public String getnomesMatch(int posicao) {
         return this.nomesMatch[posicao];
     }
-
-    
 
     public void executarMatch(String login) {
         this.setDecisaoMatch(false, qtdMatch);

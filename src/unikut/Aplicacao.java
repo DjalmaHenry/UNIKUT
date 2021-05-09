@@ -123,11 +123,15 @@ public class Aplicacao {
                     cadastro.enviarMensagem(user, amigo, in);
                     break;
                 case 8:
-                    System.out.println("Informe o login do amigo:");
-                    amigo = in.next();
-                    in.nextLine();
-                    cadastro.Mural(user, amigo);
+                    //enviar mensagem para mural
+                    break;
                 case 9:
+                    //mural pendentes
+                    break;
+                case 10:
+                    //mostrar mural
+                    break;
+                case 11:
                     cadastro.exibirMatch(user);
                     break;
                 case 0:
@@ -187,15 +191,18 @@ public class Aplicacao {
                     cadastro.enviarMensagem(user, amigo, in);
                     break;
                 case 8:
-                    System.out.println("Informe o login do amigo:");
-                    amigo = in.next();
-                    in.nextLine();
-                    cadastro.Mural(user, amigo);
+                    //enviar mensagem para mural
                     break;
                 case 9:
-                    cadastro.exibirMatch(user);
+                    //mural pendentes
                     break;
                 case 10:
+                    //mostrar mural
+                    break;
+                case 11:
+                    cadastro.exibirMatch(user);
+                    break;
+                case 12:
                     System.out.println("Informe o login da conta que deseja alterar:");
                     login = in.next();
                     in.nextLine();
@@ -206,7 +213,7 @@ public class Aplicacao {
                         System.err.println("UNIKUT - Usuário não cadastrado!");
                     }
                     break;
-                case 11:
+                case 13:
                     System.out.println("Informe o login da conta que deseja excluir:");
                     login = in.next();
                     in.nextLine();
@@ -241,9 +248,11 @@ public class Aplicacao {
         System.out.println("4 - Aceitar pedido de amizade.");
         System.out.println("5 - Ver lista de amizades.");
         System.out.println("6 - Ver histórico de mensagens.");
-        System.out.println("7 - Enviar mensagem.");
-        System.out.println("8 - Criar Mural");
-        System.out.println("9 - Exibir Matchs.");
+        System.out.println("7 - Enviar mensagem para amigo.");
+        System.out.println("8 - Enviar mensagem para mural.");
+        System.out.println("9 - Mural pendentes.");
+        System.out.println("10 - Mostrar mural.");
+        System.out.println("11 - Exibir Matchs.");
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");
@@ -257,11 +266,13 @@ public class Aplicacao {
         System.out.println("4 - Aceitar pedido de amizade.");
         System.out.println("5 - Ver lista de amizades.");
         System.out.println("6 - Ver histórico de mensagens.");
-        System.out.println("7 - Enviar mensagem.");
-        System.out.println("8 - Criar Mural");
-        System.out.println("9 - Exibir Matchs.");
-        System.out.println(ANSI_BLUE + "10 - Alterar perfil de uma conta." + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "11 - Excluir uma conta." + ANSI_RESET);
+        System.out.println("7 - Enviar mensagem para amigo.");
+        System.out.println("8 - Enviar mensagem para mural.");
+        System.out.println("9 - Mural pendentes.");
+        System.out.println("10 - Mostrar mural.");
+        System.out.println("11 - Exibir Matchs.");
+        System.out.println(ANSI_BLUE + "12 - Alterar perfil de uma conta." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "13 - Excluir uma conta." + ANSI_RESET);
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");

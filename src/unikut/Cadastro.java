@@ -9,14 +9,18 @@ public class Cadastro {
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
     protected boolean[] admin;
+    protected String[] mural;
+    protected int qtdMural;
     protected int qtd;
 
     public Cadastro() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
+        mural = new String[1000];
+        this.qtdMural = 0;
         this.qtd = 0;
     }
-    
+
     public boolean getAdmin(Usuario user) {
         int qtdUsuario = buscarUsuario(user);
         return admin[qtdUsuario];
@@ -53,9 +57,9 @@ public class Cadastro {
                 }
 
             } while (op != 1 && op != 2);
-        usuarios[this.qtd] = new Usuario(login, senha, nome);
-        this.qtd++; // usuario cadastrado.
-         System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
+            usuarios[this.qtd] = new Usuario(login, senha, nome);
+            this.qtd++; // usuario cadastrado.
+            System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
 
         }
     }
@@ -340,7 +344,7 @@ public class Cadastro {
 
                                 if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
 
-                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() +": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
+                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
                                     // mostrando senha pq resultados batem
                                     break;
                                 } else {
@@ -424,7 +428,7 @@ public class Cadastro {
             System.err.println("Erro, usuário não está na lista de amizades!");
         }
     }
-    
+
     public void adicaoAmigos(Usuario user, String amigo) {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
@@ -546,31 +550,27 @@ public class Cadastro {
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////
     public void Mural(Usuario user, String amigos) {
         System.out.println("Quantos amigos você deseja adicionar?");
         String msg, op;
         int n = in.nextInt();
         Usuario[] grupo = new Usuario[n];
-        
-        for(int i = 0; i < grupo.length; i++) {
-            in.nextLine();
+        for (int i = 0; i < grupo.length; i++) {
             String usuarios = in.nextLine();
             grupo[i] = new Usuario(usuarios);
         }
-        
+
         System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
         op = in.nextLine();
-        while(op == "sim"){
+        while (op.compareTo("sim") == 0) {
             System.out.print("Digite uma mensagem ");
             msg = in.nextLine();
-            for (int i =0; i < grupo.length;i++) {
-                 System.out.println(msg);
-                 grupo[i] = new Usuario(msg);
+            for (int i = 0; i < grupo.length; i++) {
+                System.out.println(msg);
+                grupo[i] = new Usuario(msg);
             }
             System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
             op = in.nextLine();
         }
-        in.close();
     }
 }
