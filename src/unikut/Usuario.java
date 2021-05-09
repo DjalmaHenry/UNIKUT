@@ -17,6 +17,11 @@ public class Usuario implements Comparable<Usuario> {
     private String[][] mensagens;
     private String[][] senhaMensagemSecreta;
     private String senhaPadrao;
+    private boolean[] decisaoMatch; // variavel de armazenamento da decisao de match.
+    private int qtdMatch; // guarda a posicao do nome e decisao de cada match do usuario.
+    private String[] nomesMatch; // variavel de armazenagem, dos nomes do Match dos usuarios.
+    private String[] matchTotais; // variavel de armazenagem dos Match aceitos.
+    private int qtdMatchTotais; // variavel de armazenagem da quantidade de Match
 
     public String getSenhaPadrao() {
         return senhaPadrao;
@@ -38,7 +43,9 @@ public class Usuario implements Comparable<Usuario> {
         this.senhaMensagemSecreta = new String[100][1000];
         this.qtdMensagens = new int[100];
         this.horaMensagens = new String[100][1000];
-
+        this.decisaoMatch = new boolean[100];
+        this.nomesMatch = new String[100];
+        this.matchTotais = new String[100];
     }
 
     public Usuario(String login) {
@@ -171,6 +178,47 @@ public class Usuario implements Comparable<Usuario> {
     public void alterarNomeSenha(String n, String s) {
         setNome(n);
         setSenha(s);
+    }
+    
+    public int getQtdMatchTotais() {
+        return this.qtdMatchTotais;
+    }
+
+    public void setMatchTotais(String nome) {
+        this.matchTotais[this.qtdMatchTotais] = nome;
+        this.qtdMatchTotais++;
+    }
+
+    public String getMatchTotais(int pos) {
+        return this.matchTotais[pos];
+    }
+
+    public boolean getDecisaoMatch(int posicao) {
+        return this.decisaoMatch[posicao];
+    }
+
+    public int getQtdMatch() {
+        return this.qtdMatch;
+    }
+
+    public void setDecisaoMatch(boolean valor, int posicao) {
+        this.decisaoMatch[posicao] = valor;
+    }
+
+    public void setnomesMatch(String nome, int posicao) {
+        this.nomesMatch[posicao] = nome;
+    }
+
+    public String getnomesMatch(int posicao) {
+        return this.nomesMatch[posicao];
+    }
+
+    
+
+    public void executarMatch(String login) {
+        this.setDecisaoMatch(false, qtdMatch);
+        this.setnomesMatch(login, qtdMatch);
+        qtdMatch++;
     }
 
     @Override

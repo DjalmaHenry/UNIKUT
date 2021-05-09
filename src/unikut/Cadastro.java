@@ -7,12 +7,19 @@ import static unikut.CoresTerminal.*;
 public class Cadastro {
 
     public static final Scanner in = new Scanner(System.in);
-    private Usuario[] usuarios;
-    private int qtd;
+    protected Usuario[] usuarios;
+    protected boolean[] admin;
+    protected int qtd;
 
     public Cadastro() {
         usuarios = new Usuario[100];
+        admin = new boolean[100];
         this.qtd = 0;
+    }
+    
+    public boolean getAdmin(Usuario user) {
+        int qtdUsuario = buscarUsuario(user);
+        return admin[qtdUsuario];
     }
 
     public void cadastrarUsuario(String login) {
@@ -53,7 +60,7 @@ public class Cadastro {
         }
     }
 
-    private int buscarUsuario(Usuario user) {
+    protected int buscarUsuario(Usuario user) {
         int i = 0;
         if (this.qtd == 0) {
             return -1;
@@ -151,78 +158,11 @@ public class Cadastro {
         }
     }
 
-    public void aceitaAmigos(Usuario user) {
-        int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
-        if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
-            return;
-        } else {
-            String amigo;
-            System.out.println("Informe o login do amigo que deseja aceitar:");
-            amigo = in.next();
-            in.nextLine();
-            Usuario userAux = new Usuario(amigo);
-            int qtdAmigo = buscarUsuario(userAux);
-            String eu = user.getLogin();
-            boolean achou = false;
-            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
-                if (usuarios[qtdUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
-                    achou = true;
-                }
-            }
-            if (achou == false) {
-                System.err.println("Erro, amigo não encontrado na lista de pendentes!");
-            } else {
-                usuarios[qtdUsuario].setListaAmigos(amigo);
-                usuarios[qtdAmigo].setListaAmigos(eu);
-                System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
-
-            }
-        }
-    }
-
-    public void adicaoAmigos(Usuario user, String amigo) {
-        int qtdUsuario, qtdAmigo;
-        String eu = user.getLogin();
-        qtdUsuario = buscarUsuario(user);
-        Usuario userAux = new Usuario(amigo);
-        qtdAmigo = buscarUsuario(userAux);
-        if (qtdAmigo == -1) {
-            System.err.println("Erro, este usuário não existe!");
-        } else if (user.getLogin().compareTo(amigo) == 0) {
-            System.err.println("Erro, você não pode adicionar você mesmo!");
-        } else {
-            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
-                if (usuarios[qtdUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
-                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
-                    return;
-                }
-            }
-            for (int i = 0; i < usuarios[qtdAmigo].getQtdListaAmigosPendentes(); i++) {
-                if (usuarios[qtdAmigo].getListaAmigosPendentes(i).compareTo(usuarios[qtdUsuario].getLogin()) == 0) {
-                    System.err.println("Erro, pedido de amizade já enviado!");
-                    return;
-                }
-            }
-            for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
-                if (usuarios[qtdUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
-                    System.err.println("Este usuário já encontra-se na lista de amizades!");
-                    return;
-                }
-            }
-            usuarios[qtdAmigo].setListaAmigosPendentes(eu);
-            System.out.println(ANSI_GREEN + "UNIKUT - Pedido de amizade enviado com sucesso!" + ANSI_RESET);
-
-        }
-    }
-
     public void historicoMensagens(Usuario user, String amigo) {
         int i = 0, j = 0;
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
-        System.out.println("QTdAmigo: " + qtdAmigo);
         int qtdUsuario = buscarUsuario(user);
-        System.out.println("QTdUsuario: " + qtdUsuario);
         String senhaParaTestar;
         int opcaoSenhaSecreta = -1;
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
@@ -251,7 +191,7 @@ public class Cadastro {
 
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
                                     System.out.println(ANSI_BLUE
-                                            + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
+                                            + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
                                     break;
                                     // mostrando senha pq resultados batem
                                 } else {
@@ -299,7 +239,7 @@ public class Cadastro {
                                 senhaParaTestar = in.nextLine();
 
                                 if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
-                                    System.out.println(ANSI_YELLOW + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
+                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
                                     break;
                                     // mostrando senha pq resultados batem
                                 } else {
@@ -349,7 +289,7 @@ public class Cadastro {
                                 senhaParaTestar = in.nextLine();
 
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
-                                    System.out.println(ANSI_BLUE + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
+                                    System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
                                     break;
                                     // mostrando senha pq resultados batem
                                 } else {
@@ -400,7 +340,7 @@ public class Cadastro {
 
                                 if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
 
-                                    System.out.println(ANSI_YELLOW + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
+                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() +": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
                                     // mostrando senha pq resultados batem
                                     break;
                                 } else {
@@ -482,6 +422,127 @@ public class Cadastro {
 
         } else {
             System.err.println("Erro, usuário não está na lista de amizades!");
+        }
+    }
+    
+    public void adicaoAmigos(Usuario user, String amigo) {
+        int posicaoUsuario, posicaoAmigo;
+        String eu = user.getLogin();
+        posicaoUsuario = buscarUsuario(user); // buscar usuario na lista.
+        Usuario userAux = new Usuario(amigo); // criação de um usuario para o amigo a ser add.
+        posicaoAmigo = buscarUsuario(userAux); // buscar amigo a ser add.
+        if (posicaoAmigo == -1) { // amigo não se encontra na lista.
+            System.err.println("Erro, este usuário não existe!");
+        } else if (user.getLogin().compareTo(amigo) == 0) { // tentativa de adicionar a si mesmo.
+            System.err.println("Erro, você não pode adicionar você mesmo!");
+        } else {
+            // verificação de amigo a ser add, se ja se encontra na lista de pendentes.
+            for (int i = 0; i < usuarios[posicaoUsuario].getQtdListaAmigosPendentes(); i++) {
+                if (usuarios[posicaoUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
+                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
+                    return;
+                }
+            }
+
+            // verificação de pedido de amizade ja enviado.
+            for (int i = 0; i < usuarios[posicaoAmigo].getQtdListaAmigosPendentes(); i++) {
+                if (usuarios[posicaoAmigo].getListaAmigosPendentes(i).compareTo(usuarios[posicaoUsuario].getLogin()) == 0) {
+                    System.err.println("Erro, pedido de amizade já enviado!");
+                    return;
+                }
+            }
+            // verificação de amigo ja exitir na lista de amigos.
+            for (int i = 0; i < usuarios[posicaoUsuario].getQtdListaAmigos(); i++) {
+                if (usuarios[posicaoUsuario].getListaAmigos(i).compareTo(amigo) == 0) {
+                    System.err.println("Este usuário já encontra-se na lista de amizades!");
+                    return;
+                }
+            }
+            //processo de adição de amigo
+            usuarios[posicaoAmigo].setListaAmigosPendentes(eu);
+            System.out.println(ANSI_GREEN + "UNIKUT - Pedido de amizade enviado com sucesso!" + ANSI_RESET);
+            usuarios[posicaoUsuario].executarMatch(amigo);
+            adicionarMatch(usuarios[posicaoUsuario], usuarios[posicaoAmigo]);
+        }
+    }
+
+    private void adicionarMatch(Usuario user, Usuario amigo) {
+        Scanner i = new Scanner(System.in);
+        char decisao;
+        String nomeUser, nomeAmigo;
+        nomeUser = user.getNome();
+        nomeAmigo = amigo.getNome();
+        System.out.print("Voce deseja dar Match nesse usuario? S - para sim ou N - para não: ");
+        decisao = i.next().charAt(0);
+        decisao = Character.toUpperCase(decisao);
+        int posicaoUserMatch = 0;
+        int posicaoAmigoMatch = 0;
+        if (decisao == 'S') {
+            for (int j = 0; j < user.getQtdMatch(); j++) {
+                if (user.getnomesMatch(j).equals(nomeAmigo)) {
+                    posicaoUserMatch = j;
+                    break;
+                }
+            }
+            user.setDecisaoMatch(true, posicaoUserMatch);
+            System.out.println(ANSI_GREEN + "UNIKUT - Match salvo como sim para: " + nomeAmigo + ANSI_RESET);
+        } else {
+            System.err.println("UNIKUT - Voce não deu Match para: " + nomeAmigo);
+            user.setDecisaoMatch(false, posicaoUserMatch);
+        }
+
+        for (int j = 0; j < amigo.getQtdMatch(); j++) {
+            if (amigo.getnomesMatch(j).equals(nomeUser)) {
+                posicaoAmigoMatch = j;
+                break;
+            }
+        }
+        // verificação se o match nos dois esta esta de acordo.
+        if (user.getDecisaoMatch(posicaoUserMatch) == true && amigo.getDecisaoMatch(posicaoAmigoMatch) == true) {
+            user.setMatchTotais(nomeAmigo);
+            amigo.setMatchTotais(nomeUser);
+            System.out.println(ANSI_GREEN + "UNIKUT - Opa, deu Match, entre voce e " + nomeAmigo + ANSI_RESET);
+        }
+    }
+
+    public void aceitaAmigos(Usuario user) {
+        int posicaoUsuario;
+        posicaoUsuario = buscarUsuario(user); // buscar usuario na lista.
+        if (usuarios[posicaoUsuario].getQtdListaAmigosPendentes() != 0) {
+            String amigo;
+            System.out.println("UNIKUT - Informe o login do amigo que deseja aceitar:");
+            amigo = in.next();
+            in.nextLine();
+            Usuario userAux = new Usuario(amigo); // criação do usuario apartir da entrada do usuario.
+            int posicaoAmigo = buscarUsuario(userAux); // posição
+            String eu = user.getLogin();
+            boolean achou = false;
+            for (int i = 0; i < usuarios[posicaoUsuario].getQtdListaAmigosPendentes(); i++) {
+                // condição de buscar de amigo na lista de amigos pendentes.
+                if (usuarios[posicaoUsuario].getListaAmigosPendentes(i).compareTo(amigo) == 0) {
+                    achou = true;
+                }
+            }
+            if (achou == false) {
+                System.err.println("Erro, amigo não encontrado na lista de pendentes!");
+            } else { // processo de aceitação de amigo.
+                usuarios[posicaoUsuario].setListaAmigos(amigo);
+                usuarios[posicaoAmigo].setListaAmigos(eu);
+                System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
+                // inicio do processo de match
+                usuarios[posicaoUsuario].executarMatch(amigo);
+                adicionarMatch(usuarios[posicaoUsuario], usuarios[posicaoAmigo]);
+            }
+        }
+    }
+
+    public void exibirMatch(Usuario user) {
+        if (user.getQtdMatchTotais() != 0) {
+            for (int i = 0; i < user.getQtdMatchTotais(); i++) {
+                System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + user.getMatchTotais(i) + ANSI_RESET);
+            }
+        } else {
+            System.err.println("UNIKUT - Você não tem nenhum Match!");
         }
     }
 
