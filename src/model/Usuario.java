@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import static view.CoresTerminal.*;
 
 public class Usuario implements Comparable<Usuario> {
