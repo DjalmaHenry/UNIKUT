@@ -553,43 +553,19 @@ public class Cadastro {
         }
     }
 
-//    public void Mural(Usuario user, String amigos) {
-//        System.out.println("Quantos amigos você deseja adicionar?");
-//        String msg, op;
-//        int n = in.nextInt();
-//        Usuario[] grupo = new Usuario[n];
-//        for (int i = 0; i < grupo.length; i++) {
-//            String usuarios = in.nextLine();
-//            grupo[i] = new Usuario(usuarios);
-//        }
-//
-//        System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
-//        op = in.nextLine();
-//        while (op.compareTo("sim") == 0) {
-//            System.out.print("Digite uma mensagem ");
-//            msg = in.nextLine();
-//            for (int i = 0; i < grupo.length; i++) {
-//                System.out.println(msg);
-//                grupo[i] = new Usuario(msg);
-//            }
-//            System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
-//            op = in.nextLine();
-//        }
-//    }
     public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
         String mensagem;
         boolean option = true;
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
         int qtdUsuario = buscarUsuario(user);
-        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
-        if (resultado == true) {
+        if (qtdAmigo != -1) {
             while (option != false) {
                 System.out.println("=============================");
                 System.out.println("Digite a mensagem para o mural:");
                 System.out.print("-> ");
                 mensagem = in.nextLine();
-                usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, mensagem);
+                usuarios[qtdAmigo].setSolicitacaoMural(qtdUsuario, mensagem);
                 System.out.println("Deseja enviar outra mensagem? [true/false]");
                 option = in.nextBoolean();
                 in.nextLine();
@@ -600,39 +576,49 @@ public class Cadastro {
     }
 
     public void exibeMural() {
-        for (int i = 0; i != qtdMural; i++) {
-            System.out.println(autorMural[i] + ": " + mural[i]);
-        }
-    }
-
-    void solicitacaoMural(Usuario user) {
-        boolean opcao;
-        int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
-        if (usuarios[qtdUsuario].getQtdSolicicacoesMuralGeral() == 0) {
-            System.err.println("Lista de solicitações pendentes para seu mural está vázia!");
+        if (qtdMural == 0) {
+            System.err.println("Erro, mural vazio!!");
         } else {
-            for (int i = 0; i < 100; i++) {
-                for (int j = 0; j < usuarios[qtdUsuario].getQtdSolicicacoesMural().length; j++) {
-                    if (usuarios[qtdUsuario].getSolicitacaoMural(i, j) != null) {
-                        System.out.println("Deseja adicionar essa mensagem ao mural público?");
-                        opcao = in.nextBoolean();
-                        in.nextLine();
-                        if (opcao) {
-                            mural[qtdMural] = usuarios[qtdUsuario].getSolicitacaoMural(i, j);
-                        } 
-                        
-                        
-//                        else{
-//                            
-//                        }
-                    }
-
-                }
-
+            System.out.println("MURAL:");
+            for (int i = 0; i != qtdMural; i++) {
+                System.out.println(autorMural[i] + ": " + mural[i]);
             }
-
         }
     }
 
+    public void solicitacaoMural(Usuario user, String amigo) {
+        boolean opcao;
+        String mensagem, autor;
+        int qtdUsuario, qtdSolicitacoes;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        qtdUsuario = buscarUsuario(user);
+        if (qtdAmigo != -1) {
+            qtdSolicitacoes = usuarios[qtdUsuario].getQtdSolicicacoesMural(qtdAmigo);
+            if (qtdSolicitacoes == 0) {
+                System.err.println("Lista de solicitações pendentes para seu mural está vázia!");
+            } else {
+                for (int i = 0; i != qtdSolicitacoes; i++) {
+                    mensagem = usuarios[qtdUsuario].getSolicitacaoMural(qtdAmigo, i);
+                    autor = usuarios[qtdAmigo].getNome();
+                    System.out.println(autor + ": " + mensagem);
+                    System.out.println("Deseja adicionar essa mensagem ao mural público? [true/false]");
+                    System.out.print("-> ");
+                    opcao = in.nextBoolean();
+                    in.nextLine();
+                    if (opcao) {
+                        mural[qtdMural] = mensagem;
+                        autorMural[qtdMural] = autor;
+                        qtdMural++;
+                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                    } else {
+                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                    }
+                }
+                usuarios[qtdUsuario].setQtdSolicicacoesMural(0, qtdAmigo);
+            }
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
+        }
+    }
 }

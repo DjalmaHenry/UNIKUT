@@ -131,7 +131,10 @@ public class Aplicacao {
                     break;
                 case 9:
                     //mural pendentes
-                    cadastro.solicitacaoMural(user);
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.solicitacaoMural(user, amigo);
                     break;
                 case 10:
                     //mostrar mural
@@ -205,6 +208,10 @@ public class Aplicacao {
                     break;
                 case 9:
                     //mural pendentes
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.solicitacaoMural(user, amigo);
                     break;
                 case 10:
                     //mostrar mural

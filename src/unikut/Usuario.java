@@ -25,33 +25,7 @@ public class Usuario implements Comparable<Usuario> {
     private int qtdMatchTotais; // variavel de armazenagem da quantidade de Match
     private int[] qtdMensagens;
     private int[] qtdSolicicacoesMural;
-    private int qtdSolicicacoesMuralGeral;
     private String[][] horaMensagens;
-
-    public int[] getQtdSolicicacoesMural() {
-        return qtdSolicicacoesMural;
-    }
-
-    public void setQtdSolicicacoesMural(int[] qtdSolicicacoesMural) {
-        this.qtdSolicicacoesMural = qtdSolicicacoesMural;
-    }
-
-    public void setQtdSolicicacoesMuralGeral(int qtdSolicicacoesMuralGeral) {
-        this.qtdSolicicacoesMuralGeral = qtdSolicicacoesMuralGeral;
-    }
-    
-    public int getQtdSolicicacoesMuralGeral() {
-        return qtdSolicicacoesMuralGeral;
-    }
-
-
-    public String getSenhaPadrao() {
-        return senhaPadrao;
-    }
-
-    public void setSenhaPadrao(String senhaPadrao) {
-        this.senhaPadrao = senhaPadrao;
-    }
 
     public Usuario(String login, String senha, String nome) {
         this.login = login;
@@ -72,6 +46,22 @@ public class Usuario implements Comparable<Usuario> {
     
     public Usuario(String login) {
         this.login = login;
+    }
+    
+    public int getQtdSolicicacoesMural(int amigo) {
+        return qtdSolicicacoesMural[amigo];
+    }
+
+    public void setQtdSolicicacoesMural(int qtd, int amigo) {
+        this.qtdSolicicacoesMural[amigo] = qtd;
+    }
+
+    public String getSenhaPadrao() {
+        return senhaPadrao;
+    }
+
+    public void setSenhaPadrao(String senhaPadrao) {
+        this.senhaPadrao = senhaPadrao;
     }
 
     public boolean buscaAmigo(String amigo) {
@@ -97,8 +87,8 @@ public class Usuario implements Comparable<Usuario> {
 
     }
 
-    public String getSolicitacaoMural(int eu, int mensagem) {
-        return mensagens[eu][mensagem];
+    public String getSolicitacaoMural(int amigo, int mensagem) {
+        return solicitacaoMural[amigo][mensagem];
     }
 
     public void setMensagens(int amigo, String mensagem) {
@@ -136,7 +126,6 @@ public class Usuario implements Comparable<Usuario> {
         } else {
             this.solicitacaoMural[amigo][this.qtdSolicicacoesMural[amigo]] = mensagem;
             this.qtdSolicicacoesMural[amigo]++;
-            this.qtdSolicicacoesMuralGeral++;
             System.out.println(ANSI_GREEN + "Solicitação enviada!" + ANSI_RESET);
         }
     }
@@ -254,10 +243,6 @@ public class Usuario implements Comparable<Usuario> {
         this.setDecisaoMatch(false, qtdMatch);
         this.setnomesMatch(login, qtdMatch);
         qtdMatch++;
-    }
-    
-    public void mostrarMuralPendentes(User){
-        
     }
 
     @Override
