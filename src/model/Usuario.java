@@ -1,9 +1,9 @@
-package unikut;
+package model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import static unikut.CoresTerminal.*;
+import static view.CoresTerminal.*;
 
 public class Usuario implements Comparable<Usuario> {
 

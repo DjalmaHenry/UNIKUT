@@ -1,10 +1,11 @@
-package unikut;
+package model;
 
+import model.Usuario;
 import java.util.Scanner;
 
-import static unikut.CoresTerminal.*;
+import static view.CoresTerminal.*;
 
-public class Cadastro {
+public class Contas {
 
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
@@ -14,7 +15,7 @@ public class Cadastro {
     protected int qtdMural;
     protected int qtd;
 
-    public Cadastro() {
+    public Contas() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
         autorMural = new String[1000];

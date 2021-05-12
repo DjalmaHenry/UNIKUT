@@ -1,10 +1,12 @@
-package unikut;
+package model;
 
-import static unikut.CoresTerminal.*;
+import model.Contas;
+import model.Usuario;
+import static view.CoresTerminal.*;
 
-public class CadastroAdmin extends Cadastro{
+public class ContasAdmin extends Contas{
     
-    public CadastroAdmin() {
+    public ContasAdmin() {
         super();
     }
     

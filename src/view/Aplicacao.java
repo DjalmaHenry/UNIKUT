@@ -1,14 +1,17 @@
-package unikut;
+package view;
 
+import model.Usuario;
 import java.util.Scanner;
-import static unikut.CoresTerminal.*;
+import model.Contas;
+import model.ContasAdmin;
+import static view.CoresTerminal.*;
 
 public class Aplicacao {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Cadastro cadastro = new CadastroAdmin();
-        CadastroAdmin cadastroAux;
+        Contas cadastro = new ContasAdmin();
+        ContasAdmin cadastroAux;
         int op;
 
         String login, senha;
@@ -32,9 +35,9 @@ public class Aplicacao {
                     if (senha.compareTo(combinacao) == 0) {
                         System.out.print("Digite o login: ");
                         login = in.nextLine();
-                        cadastroAux = (CadastroAdmin) cadastro;
+                        cadastroAux = (ContasAdmin) cadastro;
                         cadastroAux.cadastrarUsuarioAdmin(login);
-                        cadastro = (Cadastro) cadastroAux;
+                        cadastro = (Contas) cadastroAux;
                     } else {
                         System.err.println("UNIKUT - Chave de registro inválida!");
                     }
@@ -53,9 +56,9 @@ public class Aplicacao {
                             System.out.println("___________________________________________________");
                             System.out.println(ANSI_GREEN + "Você logou em sua conta admin!" + ANSI_RESET);
                             System.out.println("___________________________________________________");
-                            cadastroAux = (CadastroAdmin) cadastro;
+                            cadastroAux = (ContasAdmin) cadastro;
                             logadoAdmin(cadastroAux, in, user);
-                            cadastro = (Cadastro) cadastroAux;
+                            cadastro = (Contas) cadastroAux;
                         } else {
                             System.out.println("___________________________________________________");
                             System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
@@ -75,7 +78,7 @@ public class Aplicacao {
         } while (op != 0);
     }
 
-    public static void logado(Cadastro cadastro, Scanner in, Usuario user) {
+    public static void logado(Contas cadastro, Scanner in, Usuario user) {
         int op;
         System.out.println("Bem vindo, " + user.getNome() + ".");
         do {
@@ -153,7 +156,7 @@ public class Aplicacao {
         } while (op != 1);
     }
 
-    public static void logadoAdmin(CadastroAdmin cadastro, Scanner in, Usuario user) {
+    public static void logadoAdmin(ContasAdmin cadastro, Scanner in, Usuario user) {
         int op;
         String login, amigo;
         do {

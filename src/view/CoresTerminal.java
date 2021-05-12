@@ -1,5 +1,4 @@
-
-package unikut;
+package view;
 
 public class CoresTerminal {
     //cores colocadas visando melhor visualização
