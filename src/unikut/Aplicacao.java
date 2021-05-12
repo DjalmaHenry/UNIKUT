@@ -131,6 +131,7 @@ public class Aplicacao {
                     break;
                 case 9:
                     //mural pendentes
+                    cadastro.solicitacaoMural(user);
                     break;
                 case 10:
                     //mostrar mural
