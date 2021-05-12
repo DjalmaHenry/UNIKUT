@@ -124,12 +124,17 @@ public class Aplicacao {
                     break;
                 case 8:
                     //enviar mensagem para mural
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.enviarSolicitacaoMural(user, amigo, in);
                     break;
                 case 9:
                     //mural pendentes
                     break;
                 case 10:
                     //mostrar mural
+                    cadastro.exibeMural();
                     break;
                 case 11:
                     cadastro.exibirMatch(user);
@@ -192,12 +197,17 @@ public class Aplicacao {
                     break;
                 case 8:
                     //enviar mensagem para mural
+                    System.out.println("Informe o login do amigo:");
+                    amigo = in.next();
+                    in.nextLine();
+                    cadastro.enviarSolicitacaoMural(user, amigo, in);
                     break;
                 case 9:
                     //mural pendentes
                     break;
                 case 10:
                     //mostrar mural
+                    cadastro.exibeMural();
                     break;
                 case 11:
                     cadastro.exibirMatch(user);

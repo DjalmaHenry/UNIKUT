@@ -9,6 +9,7 @@ public class Cadastro {
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
     protected boolean[] admin;
+    protected String[] autorMural;
     protected String[] mural;
     protected int qtdMural;
     protected int qtd;
@@ -16,6 +17,7 @@ public class Cadastro {
     public Cadastro() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
+        autorMural = new String[1000];
         mural = new String[1000];
         this.qtdMural = 0;
         this.qtd = 0;
@@ -571,6 +573,35 @@ public class Cadastro {
             }
             System.out.println("Deseja mandar alguma mensagem? (sim/nao)");
             op = in.nextLine();
+        }
+    }
+
+    public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
+        String mensagem;
+        boolean option = true;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        int qtdUsuario = buscarUsuario(user);
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        if (resultado == true) {
+            while (option != false) {
+                System.out.println("=============================");
+                System.out.println("Digite a mensagem para o mural:");
+                System.out.print("-> ");
+                mensagem = in.nextLine();
+                usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, mensagem);
+                System.out.println("Deseja enviar outra mensagem? [true/false]");
+                option = in.nextBoolean();
+                in.nextLine();
+            }
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
+        }
+    }
+
+    public void exibeMural() {
+        for (int i = 0; i != qtdMural; i++) {
+            System.out.println(autorMural[i] + ": " + mural[i]);
         }
     }
 }
