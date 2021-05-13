@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/unikut/Aplicacao.java</file>
-            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/unikut/Usuario.java</file>
-            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/unikut/Cadastro.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/view/CoresTerminal.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/controller/Cadastro.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/view/Aplicacao.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/model/Contas.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/view/Logado.java</file>
+            <file>file:/C:/Users/djalm/Documents/GitHub/UNIKUT/src/model/Usuario.java</file>
         </group>
     </open-files>
 </project-private>
