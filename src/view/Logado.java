@@ -9,7 +9,7 @@ public class Logado {
     
     private static Scanner in = new Scanner(System.in);
     
-    public static void logado(Usuario user) {
+    public static void logado(Usuario user, Cadastro cadastro) {
         System.out.println("___________________________________________________");
         System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
         System.out.println("___________________________________________________");
@@ -24,7 +24,7 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    cadastro.alterarDados(user);
+                    cadastro.alteraDados(user); //parei aqui, ainda precisa arrumar esse metodo
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -90,7 +90,7 @@ public class Logado {
         } while (op != 1);
     }
 
-    public static void logadoAdmin(Usuario user) {
+    public static void logadoAdmin(Usuario user, Cadastro cadastro) {
         System.out.println("___________________________________________________");
         System.out.println(ANSI_GREEN + "Você logou em sua conta admin!" + ANSI_RESET);
         System.out.println("___________________________________________________");

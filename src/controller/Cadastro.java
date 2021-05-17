@@ -24,17 +24,21 @@ public class Cadastro {
         contas = (Contas) aux;
     }
 
-    public void logaConta(String login, String senha) throws Exception {
+    public void logaConta(String login, String senha, Cadastro cadastro) throws Exception {
         Usuario user = contas.procurarUsuario(login, senha);
         if (user != null) {
             boolean admin = contas.getAdmin(user);
             if (admin == true) {
-                logadoAdmin(user);
+                logadoAdmin(user, cadastro);
             } else {
-                logado(user);
+                logado(user, cadastro);
             }
         } else {
             throw new Exception("UNIKUT - Login ou senha incorretos!");
         }
+    }
+    
+    public void alteraDados(Usuario user){
+        contas.alterarDados(user);
     }
 }
