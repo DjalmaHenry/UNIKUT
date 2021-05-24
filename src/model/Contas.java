@@ -58,7 +58,6 @@ public class Contas {
                     default:
                         System.err.println("Opção invalida!");
                 }
-
             } while (op != 1 && op != 2);
             usuarios[this.qtd] = new Usuario(login, senha, nome);
             this.qtd++; // usuario cadastrado.
@@ -94,52 +93,6 @@ public class Contas {
         } else {
             return null; // login não encontrado.
         }
-    }
-
-    public void alterarDados(Usuario user) {
-        int op;
-        String novoNome, novaSenha;
-        do {
-            System.out.println("Menu de opções\n" + "1 - Alterar nome\n" + "2 - Alterar senha\n"
-                    + "3 - Alterar nome e senha\n" + "4- Voltar ao menu anterior");
-
-            op = in.nextInt();
-            in.nextLine();
-            switch (op) {
-                case 1:
-                    // altera nome
-                    System.out.println("Digite seu NOVO nome: ");
-                    novoNome = in.nextLine();
-                    user.alterarNome(novoNome);
-                    System.out.println(ANSI_GREEN + "Nome alterado com sucesso!" + ANSI_RESET);
-                    break;
-                case 2:
-                    // altera senha
-                    System.out.println("Digite sua NOVA senha: ");
-                    novaSenha = in.nextLine();
-                    user.alterarSenha(novaSenha);
-                    System.out.println(ANSI_GREEN + "Senha alterado com sucesso!" + ANSI_RESET);
-                    break;
-                case 3:
-                    // altera nome e senha
-                    System.out.println("Digite seu NOVO nome: ");
-                    novoNome = in.nextLine();
-                    System.out.println("Digite sua NOVA senha: ");
-                    novaSenha = in.nextLine();
-                    user.alterarNomeSenha(novoNome, novaSenha);
-                    System.out.println(ANSI_GREEN + "Nome e senha alterado com sucesso!" + ANSI_RESET);
-                    break;
-                case 4:
-                    // encerra e volta ao menu anterior
-                    System.out.println("Voltando ao menu...");
-                    return;
-                default:
-                    // verificação de numeros fora do menu
-                    System.err.println("Opção inválida!");
-                    break;
-            }
-
-        } while (op != 4);
     }
 
     public void exibeListaAmigosPendentes(Usuario user) {
@@ -433,16 +386,16 @@ public class Contas {
         }
     }
 
-    public void adicaoAmigos(Usuario user, String amigo) {
+    public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
         posicaoUsuario = buscarUsuario(user); // buscar usuario na lista.
         Usuario userAux = new Usuario(amigo); // criação de um usuario para o amigo a ser add.
         posicaoAmigo = buscarUsuario(userAux); // buscar amigo a ser add.
         if (posicaoAmigo == -1) { // amigo não se encontra na lista.
-            System.err.println("Erro, este usuário não existe!");
+            throw new Exception("UNIKUT - Erro, este usuário não existe!");
         } else if (user.getLogin().compareTo(amigo) == 0) { // tentativa de adicionar a si mesmo.
-            System.err.println("Erro, você não pode adicionar você mesmo!");
+            throw new Exception("UNIKUT - Erro, você não pode adicionar você mesmo!");
         } else {
             // verificação de amigo a ser add, se ja se encontra na lista de pendentes.
             for (int i = 0; i < usuarios[posicaoUsuario].getQtdListaAmigosPendentes(); i++) {

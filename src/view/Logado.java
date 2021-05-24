@@ -6,9 +6,9 @@ import model.Usuario;
 import static view.CoresTerminal.*;
 
 public class Logado {
-    
+
     private static Scanner in = new Scanner(System.in);
-    
+
     public static void logado(Usuario user, Cadastro cadastro) {
         System.out.println("___________________________________________________");
         System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
@@ -24,7 +24,49 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    cadastro.alteraDados(user); //parei aqui, ainda precisa arrumar esse metodo
+                    String novoNome,
+                     novaSenha;
+                    do {
+                        System.out.println("Menu de opções\n" + "1 - Alterar nome\n" + "2 - Alterar senha\n"
+                                + "3 - Alterar nome e senha\n" + "4- Voltar ao menu anterior");
+
+                        op = in.nextInt();
+                        in.nextLine();
+                        switch (op) {
+                            case 1:
+                                // altera nome
+                                System.out.println("Digite seu NOVO nome: ");
+                                novoNome = in.nextLine();
+                                cadastro.alteraNome(user, novoNome);
+                                System.out.println(ANSI_GREEN + "Nome alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 2:
+                                // altera senha
+                                System.out.println("Digite sua NOVA senha: ");
+                                novaSenha = in.nextLine();
+                                cadastro.alteraSenha(user, novaSenha);
+                                System.out.println(ANSI_GREEN + "Senha alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 3:
+                                // altera nome e senha
+                                System.out.println("Digite seu NOVO nome: ");
+                                novoNome = in.nextLine();
+                                System.out.println("Digite sua NOVA senha: ");
+                                novaSenha = in.nextLine();
+                                cadastro.alteraDados(user, novoNome, novaSenha);
+                                System.out.println(ANSI_GREEN + "Nome e senha alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 4:
+                                // encerra e volta ao menu anterior
+                                System.out.println("Voltando ao menu...");
+                                return;
+                            default:
+                                // verificação de numeros fora do menu
+                                System.err.println("Opção inválida!");
+                                break;
+                        }
+
+                    } while (op != 4);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -33,17 +75,20 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.adicaoAmigos(user, amigo);
+                    try {
+                        cadastro.adicaoAmigos(user, amigo);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
                     System.out.println("Aceitar amigos pendentes:");
-                    cadastro.exibeListaAmigosPendentes(user);
-                    cadastro.aceitaAmigos(user);
+                    cadastro.pedidosAmizades(user);
                     break;
                 case 5:
                     //ver lista de amizades
-                    cadastro.exibeListaAmigos(user);
+                    cadastro.listaAmizades(user);
                     break;
                 case 6:
                     //Exibir histórico de mensagens
@@ -187,7 +232,7 @@ public class Logado {
             }
         } while (op != 1);
     }
-    
+
     public static void menuLog() {
         System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");

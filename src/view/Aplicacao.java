@@ -48,7 +48,6 @@ public class Aplicacao {
                     //pós login \/
                     try {
                         cadastro.logaConta(login, senha, cadastro);
-                        cadastro.logaConta(login, senha);
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }

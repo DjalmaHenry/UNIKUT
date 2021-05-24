@@ -37,8 +37,29 @@ public class Cadastro {
             throw new Exception("UNIKUT - Login ou senha incorretos!");
         }
     }
-    
-    public void alteraDados(Usuario user){
-        contas.alterarDados(user);
+
+    public void alteraNome(Usuario user, String nome) {
+        user.alterarNome(nome);
+    }
+
+    public void alteraSenha(Usuario user, String senha) {
+        user.alterarSenha(senha);
+    }
+
+    public void alteraDados(Usuario user, String nome, String senha) {
+        user.alterarNomeSenha(nome, senha);
+    }
+
+    public void adicaoAmigos(Usuario user, String amigo) throws Exception {
+        contas.adicaoAmigos(user, amigo);
+    }
+
+    public void pedidosAmizades(Usuario user) {
+        contas.exibeListaAmigosPendentes(user);
+        contas.aceitaAmigos(user);
+    }
+
+    public void listaAmizades(Usuario user) {
+        contas.exibeListaAmigos(user);
     }
 }
