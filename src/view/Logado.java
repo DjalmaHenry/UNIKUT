@@ -115,18 +115,31 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.enviarSolicitacaoMural(user, amigo, in); //PENDENTE <---
+                    try{
+                    cadastro.enviaSolicitacaoMural(cadastro, user, amigo);
+                    } catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 9:
                     //mural pendentes
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.solicitacaoMural(user, amigo); //PENDENTE <---
+                    try{
+                    cadastro.solicitacaoMural(user, amigo);
+                    } catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 10:
                     //mostrar mural
-                    cadastro.exibeMural(); //PENDENTE <---
+                    System.out.println("MURAL:");
+                    try{
+                    cadastro.exibirMural(cadastro);
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 11:
                     cadastro.exibirMatch(user); //PENDENTE <---
@@ -253,7 +266,7 @@ public class Logado {
                     break;
                 case 10:
                     //mostrar mural
-                    cadastro.exibeMural();
+                    cadastro.exibirMural(cadastro);
                     break;
                 case 11:
                     cadastro.exibirMatch(user);
