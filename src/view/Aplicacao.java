@@ -1,12 +1,10 @@
 package view;
 
 import controller.Cadastro;
-import model.Usuario;
 import java.util.Scanner;
-import static view.CoresTerminal.*;
 
 public class Aplicacao {
-    
+
     protected Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -21,20 +19,17 @@ public class Aplicacao {
             switch (op) {
                 case 1:
                     //criação de conta
-                    System.out.print("Digite o login: ");
-                    login = in.nextLine();
-                    cadastro.cadastraConta(login);
+                    Registra.cadastra(cadastro, in);
                     //pós criação \/
                     break;
+
                 case 2:
                     //criação de conta admin
                     String combinacao = "admin123";
                     System.out.println("Informe a chave de registro de admin:");
                     senha = in.nextLine();
                     if (senha.compareTo(combinacao) == 0) {
-                        System.out.print("Digite o login: ");
-                        login = in.nextLine();
-                        cadastro.cadastraContaAdmin(login);
+                        Registra.cadastraAdmin(cadastro, in);
                     } else {
                         System.err.println("UNIKUT - Chave de registro inválida!");
                     }

@@ -77,6 +77,7 @@ public class Logado {
                     in.nextLine();
                     try {
                         cadastro.adicaoAmigos(user, amigo);
+                        System.out.println(ANSI_GREEN + "UNIKUT - Pedido de amizade enviado com sucesso!" + ANSI_RESET);
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
@@ -84,46 +85,51 @@ public class Logado {
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
                     System.out.println("Aceitar amigos pendentes:");
-                    cadastro.pedidosAmizades(user);
+                    cadastro.pedidosAmizades(user); //PENDENTE <---
                     break;
                 case 5:
                     //ver lista de amizades
-                    cadastro.listaAmizades(user);
+                    cadastro.listaAmizades(user); //PENDENTE <---
                     break;
                 case 6:
                     //Exibir histórico de mensagens
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.historicoMensagens(user, amigo);
+                    cadastro.historicoMensagens(user, amigo); //PENDENTE <---
                     break;
                 case 7:
                     //Enviar mensagem
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.enviarMensagem(user, amigo, in);
+                    try{
+                    cadastro.enviarMensagem(user, amigo, in); //INCOMPLETO <---
+                    System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 8:
                     //enviar mensagem para mural
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.enviarSolicitacaoMural(user, amigo, in);
+                    cadastro.enviarSolicitacaoMural(user, amigo, in); //PENDENTE <---
                     break;
                 case 9:
                     //mural pendentes
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.solicitacaoMural(user, amigo);
+                    cadastro.solicitacaoMural(user, amigo); //PENDENTE <---
                     break;
                 case 10:
                     //mostrar mural
-                    cadastro.exibeMural();
+                    cadastro.exibeMural(); //PENDENTE <---
                     break;
                 case 11:
-                    cadastro.exibirMatch(user);
+                    cadastro.exibirMatch(user); //PENDENTE <---
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -150,7 +156,49 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    cadastro.alterarDados(user);
+                    String novoNome,
+                     novaSenha;
+                    do {
+                        System.out.println("Menu de opções\n" + "1 - Alterar nome\n" + "2 - Alterar senha\n"
+                                + "3 - Alterar nome e senha\n" + "4- Voltar ao menu anterior");
+
+                        op = in.nextInt();
+                        in.nextLine();
+                        switch (op) {
+                            case 1:
+                                // altera nome
+                                System.out.println("Digite seu NOVO nome: ");
+                                novoNome = in.nextLine();
+                                cadastro.alteraNome(user, novoNome);
+                                System.out.println(ANSI_GREEN + "Nome alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 2:
+                                // altera senha
+                                System.out.println("Digite sua NOVA senha: ");
+                                novaSenha = in.nextLine();
+                                cadastro.alteraSenha(user, novaSenha);
+                                System.out.println(ANSI_GREEN + "Senha alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 3:
+                                // altera nome e senha
+                                System.out.println("Digite seu NOVO nome: ");
+                                novoNome = in.nextLine();
+                                System.out.println("Digite sua NOVA senha: ");
+                                novaSenha = in.nextLine();
+                                cadastro.alteraDados(user, novoNome, novaSenha);
+                                System.out.println(ANSI_GREEN + "Nome e senha alterado com sucesso!" + ANSI_RESET);
+                                break;
+                            case 4:
+                                // encerra e volta ao menu anterior
+                                System.out.println("Voltando ao menu...");
+                                return;
+                            default:
+                                // verificação de numeros fora do menu
+                                System.err.println("Opção inválida!");
+                                break;
+                        }
+
+                    } while (op != 4);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -158,7 +206,12 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.adicaoAmigos(user, amigo);
+                    try {
+                        cadastro.adicaoAmigos(user, amigo);
+                        System.out.println(ANSI_GREEN + "UNIKUT - Pedido de amizade enviado com sucesso!" + ANSI_RESET);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
@@ -220,8 +273,12 @@ public class Logado {
                     System.out.println("Informe o login da conta que deseja excluir:");
                     login = in.next();
                     in.nextLine();
-                    Usuario userExclui = new Usuario(login, "", "");
-                    cadastro.excluiConta(userExclui);
+                    try{
+                    cadastro.excluiConta(login);
+                    System.out.println(ANSI_GREEN + "UNIKUT - Usuário excluido com sucesso!" + ANSI_RESET);
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");

@@ -90,9 +90,9 @@ public class Usuario implements Comparable<Usuario> {
         return solicitacaoMural[amigo][mensagem];
     }
 
-    public void setMensagens(int amigo, String mensagem) {
+    public void setMensagens(int amigo, String mensagem) throws Exception {
         if (this.qtdMensagens[amigo] == 100) {
-            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+            throw new Exception("UNIKUT - Erro, mensagem NÃO enviada, memória cheia!!!");
         } else {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             String hora = (dtf.format(LocalDateTime.now()));
@@ -100,14 +100,12 @@ public class Usuario implements Comparable<Usuario> {
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
             // System.out.println(horaMensagens[amigo][this.qtdMensagens[amigo]]);
             this.qtdMensagens[amigo]++;
-            System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
-
         }
     }
 
-    public void setMensagensSecreta(int amigo, String mensagem, String senha) {
+    public void setMensagensSecreta(int amigo, String mensagem, String senha) throws Exception {
         if (this.qtdMensagens[amigo] == 100) {
-            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+            throw new Exception("UNIKUT - Erro, mensagem NÃO enviada, memória cheia!!!");
         } else {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             String hora = (dtf.format(LocalDateTime.now()));
@@ -115,7 +113,6 @@ public class Usuario implements Comparable<Usuario> {
             this.horaMensagens[amigo][this.qtdMensagens[amigo]] = hora;
             this.senhaMensagemSecreta[amigo][this.qtdMensagens[amigo]] = senha;
             this.qtdMensagens[amigo]++;
-            System.out.println(ANSI_GREEN + "Mensagem secreta enviada! o usuario que recebe deve digita a senha definida por você" + ANSI_RESET);
         }
     }
 

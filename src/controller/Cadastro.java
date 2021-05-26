@@ -12,15 +12,22 @@ public class Cadastro {
     public Cadastro() {
         contas = new ContasAdmin();
     }
-
-    public void cadastraConta(String login) {
-        contas.cadastrarUsuario(login);
+    
+    public int buscaUsuario(String login){
+        Usuario userAux = new Usuario(login);
+        int achouUsuario;
+        achouUsuario = contas.buscarUsuario(userAux);
+        return achouUsuario;
     }
 
-    public void cadastraContaAdmin(String login) {
+    public void cadastraConta(String login, String senha, String nome) {
+        contas.cadastrarUsuario(login, senha, nome);
+    }
+
+    public void cadastraContaAdmin(String login, String senha, String nome) {
         ContasAdmin aux;
         aux = (ContasAdmin) contas;
-        aux.cadastrarUsuarioAdmin(login);
+        aux.cadastrarUsuarioAdmin(login, senha, nome);
         contas = (Contas) aux;
     }
 
@@ -61,5 +68,12 @@ public class Cadastro {
 
     public void listaAmizades(Usuario user) {
         contas.exibeListaAmigos(user);
+    }
+    
+    public void excluiConta(String login) throws Exception {
+        ContasAdmin aux;
+        aux = (ContasAdmin) contas;
+        aux.excluirConta(login);
+        contas = (Contas) aux;
     }
 }
