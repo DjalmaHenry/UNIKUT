@@ -12,11 +12,9 @@ public class Cadastro {
     public Cadastro() {
         contas = new ContasAdmin();
     }
-    
-    public int buscaUsuario(String login){
-        Usuario userAux = new Usuario(login);
-        int achouUsuario;
-        achouUsuario = contas.buscarUsuario(userAux);
+
+    public int buscaUsuario(String login) {
+        int achouUsuario = contas.buscarUsuario(login);
         return achouUsuario;
     }
 
@@ -69,7 +67,7 @@ public class Cadastro {
     public void listaAmizades(Usuario user) {
         contas.exibeListaAmigos(user);
     }
-    
+
     public void excluiConta(String login) throws Exception {
         ContasAdmin aux;
         aux = (ContasAdmin) contas;
