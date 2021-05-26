@@ -3,9 +3,11 @@ package controller;
 import model.Usuario;
 import model.Contas;
 import model.ContasAdmin;
+import view.Exibicao;
 import static view.Logado.*;
 
 public class Cadastro {
+
 
     private Contas contas;
 
@@ -58,15 +60,28 @@ public class Cadastro {
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         contas.adicaoAmigos(user, amigo);
     }
+    
+    //////////////////////////////////////////////////////////////////////////
 
-    public void pedidosAmizades(Usuario user) {
+    public void pedidosAmizades(Usuario user) throws Exception{
         contas.exibeListaAmigosPendentes(user);
         contas.aceitaAmigos(user);
     }
-
-    public void listaAmizades(Usuario user) {
-        contas.exibeListaAmigos(user);
+    
+    public static void exibirAmigosPendentes (String amigosPendentes) {
+        Exibicao.exibirAmigosPendentes(amigosPendentes);
     }
+    
+    public void listaAmizades(Usuario user) throws Exception{
+        contas.exibeListaAmigos(user);
+        
+    }
+    
+    public static void exibirAmigos (String amigo) {
+        Exibicao.exibirAmigos(amigo);
+    }
+    
+   //////////////////////////////////////////////////////////////////////////////
 
     public void excluiConta(String login) throws Exception {
         ContasAdmin aux;
@@ -74,4 +89,16 @@ public class Cadastro {
         aux.excluirConta(login);
         contas = (Contas) aux;
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public void exibirMatch(Usuario user) throws Exception{
+        contas.exibirMatch(user);
+    }
+    
+    public static void exibirMatch (String match) {
+        Exibicao.exibirAmigos(match);
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
 }

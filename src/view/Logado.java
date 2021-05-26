@@ -84,12 +84,22 @@ public class Logado {
                     break;
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
-                    System.out.println("Aceitar amigos pendentes:");
-                    cadastro.pedidosAmizades(user); //PENDENTE <---
+                    try {
+                        System.out.println("Aceitar amigos pendentes:");
+                        cadastro.pedidosAmizades(user);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 5:
                     //ver lista de amizades
-                    cadastro.listaAmizades(user); //PENDENTE <---
+                    try {
+                        System.out.println("Lista de Amigos: ");
+                        cadastro.listaAmizades(user);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
+
                     break;
                 case 6:
                     //Exibir histórico de mensagens
@@ -103,10 +113,10 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    try{
-                    cadastro.enviarMensagem(user, amigo, in); //INCOMPLETO <---
-                    System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
-                    }catch(Exception e){
+                    try {
+                        cadastro.enviarMensagem(user, amigo, in); //INCOMPLETO <---
+                        System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -129,7 +139,14 @@ public class Logado {
                     cadastro.exibeMural(); //PENDENTE <---
                     break;
                 case 11:
-                    cadastro.exibirMatch(user); //PENDENTE <---
+                    ///////////////////////////////////////////////////////////
+                    try {
+                        cadastro.exibirMatch(user);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
+
+                    //////////////////////////////////////////////////////////
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -273,10 +290,10 @@ public class Logado {
                     System.out.println("Informe o login da conta que deseja excluir:");
                     login = in.next();
                     in.nextLine();
-                    try{
-                    cadastro.excluiConta(login);
-                    System.out.println(ANSI_GREEN + "UNIKUT - Usuário excluido com sucesso!" + ANSI_RESET);
-                    } catch (Exception e){
+                    try {
+                        cadastro.excluiConta(login);
+                        System.out.println(ANSI_GREEN + "UNIKUT - Usuário excluido com sucesso!" + ANSI_RESET);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;

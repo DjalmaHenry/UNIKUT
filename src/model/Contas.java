@@ -2,6 +2,7 @@ package model;
 
 import model.Usuario;
 import java.util.Scanner;
+import controller.Cadastro;
 
 import static view.CoresTerminal.*;
 
@@ -35,7 +36,7 @@ public class Contas {
     }
 
     public int buscarUsuario(String login) {
-        Usuario userAux = new Usuario(login);
+        Usuario user = new Usuario(login);
         int i = 0;
         if (this.qtd == 0) {
             return -1;
@@ -62,31 +63,38 @@ public class Contas {
             return null; // login não encontrado.
         }
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
 
-    public void exibeListaAmigosPendentes(Usuario user) {
+    public void exibeListaAmigosPendentes(Usuario user) throws Exception{
         int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
+        qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
-            System.err.println("Lista de amigos pendentes vázia!");
+            System.err.println("Lista de amigos pendentesn vázia!");
+            throw new Exception ("UNIKUT ERRO - Lista de amigos pendentesn vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
                 System.out.println(usuarios[qtdUsuario].getListaAmigosPendentes(i));
+                String amigoPendente = usuarios[qtdUsuario].getListaAmigosPendentes(i);
+                Cadastro.exibirAmigosPendentes(amigoPendente);
             }
         }
     }
-
-    public void exibeListaAmigos(Usuario user) {
+    
+    public void exibeListaAmigos(Usuario user) throws Exception {
         int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
+        qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigos() == 0) {
-            System.err.println("Lista de amigos vázia!");
+            throw new Exception("ERRO - Lista de amigos vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
-                System.out.println(usuarios[qtdUsuario].getListaAmigos(i));
+                String amigo = usuarios[qtdUsuario].getListaAmigos(i);
+                Cadastro.exibirAmigos(amigo);
             }
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
     public void historicoMensagens(Usuario user, String amigo) {
         int i = 0, j = 0;
         Usuario amigoA = new Usuario(amigo);
@@ -459,17 +467,22 @@ public class Contas {
             }
         }
     }
+//////////////////////////////////////////////////////////////////////////////
 
-    public void exibirMatch(Usuario user) {
+    public void exibirMatch(Usuario user) throws Exception {
         if (user.getQtdMatchTotais() != 0) {
+
             for (int i = 0; i < user.getQtdMatchTotais(); i++) {
-                System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + user.getMatchTotais(i) + ANSI_RESET);
+                
+                String match = user.getMatchTotais(i);
+                Cadastro.exibirMatch(match);
             }
         } else {
-            System.err.println("UNIKUT - Você não tem nenhum Match!");
+            throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
 
+///////////////////////////////////////////////////////////////////////////////
     public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
         String mensagem;
         boolean option = true;
