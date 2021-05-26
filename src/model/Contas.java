@@ -93,7 +93,23 @@ public class Contas {
             }
         }
     }
+    
+     public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
+        
 
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA.getLogin());
+        int qtdUsuario = buscarUsuario(user.getLogin());
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
+        
+        Cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao, user);
+        
+    }
+
+     public  void setMsgSecreta(Usuario user, int qtdUsuario, String auxSenha) {
+        user[qtdUsuario].setSenhaPadrao(auxSenha);
+    }
     ///////////////////////////////////////////////////////////////////////////
     public void historicoMensagens(Usuario user, String amigo) {
         int i = 0, j = 0;
@@ -318,48 +334,7 @@ public class Contas {
         }
     }
 
-    public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
-        String mensagem, senha;
-
-        Usuario amigoA = new Usuario(amigo);
-        int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user);
-        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
-        int opcaoMensagemSecreta;
-        String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
-        if (resultado == true) {
-
-            System.out.println("=============================");
-            System.out.println("Digite a mensagem:");
-            System.out.print("-> ");
-            mensagem = in.nextLine();
-            System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-            opcaoMensagemSecreta = in.nextInt();
-            in.nextLine();
-
-            while (opcaoMensagemSecreta != 1 && opcaoMensagemSecreta != 2) {
-                System.out.println("Opçao inválida!");
-                System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-
-            }
-
-            if (opcaoMensagemSecreta == 1) {
-                if (senhaPadrao == null) {
-                    String auxSenha;
-                    System.out.println("Digite a senha da mensagem: ");
-                    auxSenha = in.nextLine();
-                    usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
-                } else {
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
-                }
-            } else {
-                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
-            }
-        } else {
-            throw new Exception("UNIKUT - Erro, usuário não está na lista de amizades!");
-        }
-    }
+   
 
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
@@ -551,4 +526,6 @@ public class Contas {
             System.err.println("Erro, usuário não está na lista de amizades!");
         }
     }
+
+    
 }

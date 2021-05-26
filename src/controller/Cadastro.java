@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Scanner;
 import model.Usuario;
 import model.Contas;
 import model.ContasAdmin;
@@ -7,6 +8,8 @@ import view.Exibicao;
 import static view.Logado.*;
 
 public class Cadastro {
+
+   
 
 
     private Contas contas;
@@ -100,5 +103,18 @@ public class Cadastro {
         Exibicao.exibirAmigos(match);
     }
     
+    public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception{
+        contas.enviarMensagem(user, amigo, in);
+    }
+    
+    public static void exibirMensagem (boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Usuario user) throws Exception{
+        Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao, user);
+    }
+    
+    public void setMsgSecreta(Usuario usuarios, int qtdUsuario, String auxSenha) {
+        contas.setMsgSecreta(usuarios, qtdUsuario, auxSenha);
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
+    
 }
