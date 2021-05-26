@@ -34,8 +34,8 @@ public class Contas {
         this.qtd++; // usuario cadastrado.
     }
 
-    public int buscarUsuario(Usuario user) {
-
+    public int buscarUsuario(String login) {
+        Usuario userAux = new Usuario(login);
         int i = 0;
         if (this.qtd == 0) {
             return -1;
@@ -50,7 +50,7 @@ public class Contas {
 
     public Usuario procurarUsuario(String login, String senha) {
         int achouUsuario;
-        Usuario userAux = new Usuario(login, "", "");
+        Usuario userAux = new Usuario(login);
         achouUsuario = buscarUsuario(userAux);
         if (achouUsuario >= 0) {
             if (senha.equals(usuarios[achouUsuario].getSenha())) {
