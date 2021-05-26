@@ -201,20 +201,22 @@ public class Usuario implements Comparable<Usuario> {
         setNome(n);
         setSenha(s);
     }
-
+///////////////////////////////////////////////////////////////////////
     public int getQtdMatchTotais() {
         return this.qtdMatchTotais;
     }
-
+////////////////////////////////////////////////////////////////////////
     public void setMatchTotais(String nome) {
         this.matchTotais[this.qtdMatchTotais] = nome;
         this.qtdMatchTotais++;
     }
-
+////////////////////////////////////////////////////////////////////////
+    
     public String getMatchTotais(int pos) {
         return this.matchTotais[pos];
     }
-
+    
+//////////////////////////////////////////////////////////////////////
     public boolean getDecisaoMatch(int posicao) {
         return this.decisaoMatch[posicao];
     }
