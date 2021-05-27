@@ -63,15 +63,14 @@ public class Contas {
             return null; // login não encontrado.
         }
     }
-    
-    ///////////////////////////////////////////////////////////////////////////
 
-    public void exibeListaAmigosPendentes(Usuario user) throws Exception{
+    ///////////////////////////////////////////////////////////////////////////
+    public void exibeListaAmigosPendentes(Usuario user) throws Exception {
         int qtdUsuario;
         qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
             System.err.println("Lista de amigos pendentesn vázia!");
-            throw new Exception ("UNIKUT ERRO - Lista de amigos pendentesn vázia!");
+            throw new Exception("UNIKUT ERRO - Lista de amigos pendentesn vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
                 System.out.println(usuarios[qtdUsuario].getListaAmigosPendentes(i));
@@ -80,7 +79,7 @@ public class Contas {
             }
         }
     }
-    
+
     public void exibeListaAmigos(Usuario user) throws Exception {
         int qtdUsuario;
         qtdUsuario = buscarUsuario(user.getLogin());
@@ -93,23 +92,32 @@ public class Contas {
             }
         }
     }
-    
-     public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
-        
 
+    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA.getLogin());
         int qtdUsuario = buscarUsuario(user.getLogin());
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
         String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
-        
-        Cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao, user);
-        
+        Cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
     }
 
-     public  void setMsgSecreta(Usuario user, int qtdUsuario, String auxSenha) {
-        user[qtdUsuario].setSenhaPadrao(auxSenha);
+    public void setMsgSecreta(int qtdUsuario, String auxSenha) {
+        usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
     }
+
+    public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
+    }
+
+    public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
+        usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
+    }
+
+    public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     public void historicoMensagens(Usuario user, String amigo) {
         int i = 0, j = 0;
@@ -334,8 +342,6 @@ public class Contas {
         }
     }
 
-   
-
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
@@ -448,7 +454,7 @@ public class Contas {
         if (user.getQtdMatchTotais() != 0) {
 
             for (int i = 0; i < user.getQtdMatchTotais(); i++) {
-                
+
                 String match = user.getMatchTotais(i);
                 Cadastro.exibirMatch(match);
             }
@@ -527,5 +533,4 @@ public class Contas {
         }
     }
 
-    
 }

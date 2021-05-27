@@ -12,21 +12,21 @@ public class Exibicao {
         System.out.println(amigo);
         System.out.println(ANSI_GREEN + "UNIKUT - Você tem o amigo " + amigo + ANSI_RESET);
     }
-    
+
     public static void exibirMatch(String match) {
         System.out.println(match);
         System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + match + ANSI_RESET);
     }
-    
+
     public static void exibirAmigosPendentes(String amigosPendentes) {
         System.out.println(amigosPendentes);
         System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + amigosPendentes + ANSI_RESET);
     }
-    
-    public static void exibirMsg (boolean resul, int qtdAmigo, int qtdUsuario,  String senhaPadrao, Usuario usuarios) throws Exception{
+
+    public static void exibirMsg(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {
         int opcaoMensagemSecreta;
         String mensagem;
-        Scanner in = new Scanner (System.in);
+        Scanner in = new Scanner(System.in);
         if (resul == true) {
             System.out.println("=============================");
             System.out.println("Digite a mensagem:");
@@ -47,20 +47,30 @@ public class Exibicao {
                     String auxSenha;
                     System.out.println("Digite a senha da mensagem: ");
                     auxSenha = in.nextLine();
-                    Cadastro.setMsgSecreta(usuarios, qtdUsuario, auxSenha);
-                    
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
+                    cadastro.setMsgSecreta(qtdUsuario, auxSenha);
+                    try {
+                        cadastro.setMensagensSecretaPadrao(qtdUsuario, qtdAmigo, mensagem);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                 } else {
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
+                    try {
+                        cadastro.setMensagensSecreta(qtdUsuario, qtdAmigo, mensagem, senhaPadrao);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                 }
             } else {
-                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+                try {
+                    cadastro.setMensagem(qtdUsuario, qtdAmigo, mensagem);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
         } else {
             throw new Exception("UNIKUT - Erro, usuário não está na lista de amizades!");
         }
-        
+
     }
 
-    
 }

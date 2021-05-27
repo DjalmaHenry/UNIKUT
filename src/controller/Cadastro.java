@@ -103,16 +103,28 @@ public class Cadastro {
         Exibicao.exibirAmigos(match);
     }
     
-    public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception{
-        contas.enviarMensagem(user, amigo, in);
+    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception{
+        contas.enviarMensagem(user, amigo, in, cadastro);
     }
     
-    public static void exibirMensagem (boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Usuario user) throws Exception{
-        Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao, user);
+    public static void exibirMensagem (boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception{
+        Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
     }
     
-    public void setMsgSecreta(Usuario usuarios, int qtdUsuario, String auxSenha) {
-        contas.setMsgSecreta(usuarios, qtdUsuario, auxSenha);
+    public void setMsgSecreta(int qtdUsuario, String auxSenha) {
+        contas.setMsgSecreta(qtdUsuario, auxSenha);
+    }
+    
+    public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        contas.setMensagensSecretaPadrao(qtdUsuario, qtdAmigo, mensagem);
+    }
+    
+    public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
+        contas.setMensagensSecreta(qtdUsuario, qtdAmigo, mensagem, senhaPadrao);
+    }
+    
+    public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        contas.setMensagem(qtdUsuario, qtdAmigo, mensagem);
     }
     
     ///////////////////////////////////////////////////////////////////////////

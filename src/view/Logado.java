@@ -114,7 +114,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.enviarMensagem(user, amigo, in); //INCOMPLETO <---
+                        cadastro.enviarMensagem(user, amigo, in, cadastro); //INCOMPLETO <---
                         System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
