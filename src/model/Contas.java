@@ -1,5 +1,6 @@
 package model;
 
+import controller.Cadastro;
 import model.Usuario;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class Contas {
     }
 
     public int buscarUsuario(String login) {
-        Usuario userAux = new Usuario(login);
+        Usuario user = new Usuario(login);
         int i = 0;
         if (this.qtd == 0) {
             return -1;
@@ -467,75 +468,6 @@ public class Contas {
             }
         } else {
             System.err.println("UNIKUT - Você não tem nenhum Match!");
-        }
-    }
-
-    public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
-        String mensagem;
-        boolean option = true;
-        Usuario amigoA = new Usuario(amigo);
-        int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user);
-        if (qtdAmigo != -1) {
-            while (option != false) {
-                System.out.println("=============================");
-                System.out.println("Digite a mensagem para o mural:");
-                System.out.print("-> ");
-                mensagem = in.nextLine();
-                usuarios[qtdAmigo].setSolicitacaoMural(qtdUsuario, mensagem);
-                System.out.println("Deseja enviar outra mensagem? [true/false]");
-                option = in.nextBoolean();
-                in.nextLine();
-            }
-        } else {
-            System.err.println("Erro, usuário não está na lista de amizades!");
-        }
-    }
-
-    public void exibeMural() {
-        if (qtdMural == 0) {
-            System.err.println("Erro, mural vazio!!");
-        } else {
-            System.out.println("MURAL:");
-            for (int i = 0; i != qtdMural; i++) {
-                System.out.println(autorMural[i] + ": " + mural[i]);
-            }
-        }
-    }
-
-    public void solicitacaoMural(Usuario user, String amigo) {
-        boolean opcao;
-        String mensagem, autor;
-        int qtdUsuario, qtdSolicitacoes;
-        Usuario amigoA = new Usuario(amigo);
-        int qtdAmigo = buscarUsuario(amigoA);
-        qtdUsuario = buscarUsuario(user);
-        if (qtdAmigo != -1) {
-            qtdSolicitacoes = usuarios[qtdUsuario].getQtdSolicicacoesMural(qtdAmigo);
-            if (qtdSolicitacoes == 0) {
-                System.err.println("Lista de solicitações pendentes para seu mural está vázia!");
-            } else {
-                for (int i = 0; i != qtdSolicitacoes; i++) {
-                    mensagem = usuarios[qtdUsuario].getSolicitacaoMural(qtdAmigo, i);
-                    autor = usuarios[qtdAmigo].getNome();
-                    System.out.println(autor + ": " + mensagem);
-                    System.out.println("Deseja adicionar essa mensagem ao mural público? [true/false]");
-                    System.out.print("-> ");
-                    opcao = in.nextBoolean();
-                    in.nextLine();
-                    if (opcao) {
-                        mural[qtdMural] = mensagem;
-                        autorMural[qtdMural] = autor;
-                        qtdMural++;
-                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
-                    } else {
-                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
-                    }
-                }
-                usuarios[qtdUsuario].setQtdSolicicacoesMural(0, qtdAmigo);
-            }
-        } else {
-            System.err.println("Erro, usuário não está na lista de amizades!");
         }
     }
 }

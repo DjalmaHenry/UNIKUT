@@ -3,11 +3,15 @@ package controller;
 import model.Usuario;
 import model.Contas;
 import model.ContasAdmin;
+import model.Mural;
+import view.Exibicao;
+import view.Logado;
 import static view.Logado.*;
 
 public class Cadastro {
 
     private Contas contas;
+    private Mural mural;
 
     public Cadastro() {
         contas = new ContasAdmin();
@@ -73,5 +77,30 @@ public class Cadastro {
         aux = (ContasAdmin) contas;
         aux.excluirConta(login);
         contas = (Contas) aux;
+    }
+    
+    public void printarMural(String mensagem){
+        Exibicao.printaMural(mensagem);
+    }
+    
+    public void exibirMural(Cadastro cadastro) throws Exception {
+        mural.exibeMural(cadastro);
+    }
+    
+    public void enviaSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception{
+        mural.enviarSolicitacaoMural(cadastro, user, amigo);
+    }
+
+    public void mensagemMural(Cadastro cadastro, int qtdUsuario, int qtdAmigo){
+        Exibicao.mensagemMural(cadastro, qtdUsuario, qtdAmigo);
+    }
+    
+    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo,String mensagem){
+        mural.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
+    }
+    
+    public static String printaSolicitacaoMural(String solicitacao){
+        String opcao = Exibicao.printaSolicitacaoMural(solicitacao);
+        return opcao;
     }
 }
