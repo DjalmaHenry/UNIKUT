@@ -3,6 +3,7 @@ package model;
 import controller.Cadastro;
 import model.Usuario;
 import java.util.Scanner;
+import controller.Cadastro;
 
 import static view.CoresTerminal.*;
 
@@ -64,30 +65,62 @@ public class Contas {
         }
     }
 
-    public void exibeListaAmigosPendentes(Usuario user) {
+    ///////////////////////////////////////////////////////////////////////////
+    public void exibeListaAmigosPendentes(Usuario user) throws Exception {
         int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
+        qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
-            System.err.println("Lista de amigos pendentes vázia!");
+            System.err.println("Lista de amigos pendentesn vázia!");
+            throw new Exception("UNIKUT ERRO - Lista de amigos pendentesn vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
                 System.out.println(usuarios[qtdUsuario].getListaAmigosPendentes(i));
+                String amigoPendente = usuarios[qtdUsuario].getListaAmigosPendentes(i);
+                Cadastro.exibirAmigosPendentes(amigoPendente);
             }
         }
     }
 
-    public void exibeListaAmigos(Usuario user) {
+    public void exibeListaAmigos(Usuario user) throws Exception {
         int qtdUsuario;
-        qtdUsuario = buscarUsuario(user);
+        qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigos() == 0) {
-            System.err.println("Lista de amigos vázia!");
+            throw new Exception("ERRO - Lista de amigos vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigos(); i++) {
-                System.out.println(usuarios[qtdUsuario].getListaAmigos(i));
+                String amigo = usuarios[qtdUsuario].getListaAmigos(i);
+                Cadastro.exibirAmigos(amigo);
             }
         }
     }
 
+
+    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA.getLogin());
+        int qtdUsuario = buscarUsuario(user.getLogin());
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
+        Cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
+    }
+
+    public void setMsgSecreta(int qtdUsuario, String auxSenha) {
+        usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
+    }
+
+    public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
+    }
+
+    public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
+        usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
+    }
+
+    public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     public void historicoMensagens(Usuario user, String amigo) throws Exception {
         int i = 0, j = 0;
         Usuario amigoA = new Usuario(amigo);
@@ -219,49 +252,6 @@ public class Contas {
         }
     }
 
-    public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
-        String mensagem, senha;
-
-        Usuario amigoA = new Usuario(amigo);
-        int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user);
-        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
-        int opcaoMensagemSecreta;
-        String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
-        if (resultado == true) {
-
-            System.out.println("=============================");
-            System.out.println("Digite a mensagem:");
-            System.out.print("-> ");
-            mensagem = in.nextLine();
-            System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-            opcaoMensagemSecreta = in.nextInt();
-            in.nextLine();
-
-            while (opcaoMensagemSecreta != 1 && opcaoMensagemSecreta != 2) {
-                System.out.println("Opçao inválida!");
-                System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-
-            }
-
-            if (opcaoMensagemSecreta == 1) {
-                if (senhaPadrao == null) {
-                    String auxSenha;
-                    System.out.println("Digite a senha da mensagem: ");
-                    auxSenha = in.nextLine();
-                    usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
-                } else {
-                    usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
-                }
-            } else {
-                usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
-            }
-        } else {
-            throw new Exception("UNIKUT - Erro, usuário não está na lista de amizades!");
-        }
-    }
-
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
@@ -368,14 +358,89 @@ public class Contas {
             }
         }
     }
+//////////////////////////////////////////////////////////////////////////////
 
-    public void exibirMatch(Usuario user) {
+    public void exibirMatch(Usuario user) throws Exception {
         if (user.getQtdMatchTotais() != 0) {
+
             for (int i = 0; i < user.getQtdMatchTotais(); i++) {
-                System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + user.getMatchTotais(i) + ANSI_RESET);
+
+                String match = user.getMatchTotais(i);
+                Cadastro.exibirMatch(match);
             }
         } else {
-            System.err.println("UNIKUT - Você não tem nenhum Match!");
+            throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
+
+///////////////////////////////////////////////////////////////////////////////
+    public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
+        String mensagem;
+        boolean option = true;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        int qtdUsuario = buscarUsuario(user);
+        if (qtdAmigo != -1) {
+            while (option != false) {
+                System.out.println("=============================");
+                System.out.println("Digite a mensagem para o mural:");
+                System.out.print("-> ");
+                mensagem = in.nextLine();
+                usuarios[qtdAmigo].setSolicitacaoMural(qtdUsuario, mensagem);
+                System.out.println("Deseja enviar outra mensagem? [true/false]");
+                option = in.nextBoolean();
+                in.nextLine();
+            }
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
+        }
+    }
+
+    public void exibeMural() {
+        if (qtdMural == 0) {
+            System.err.println("Erro, mural vazio!!");
+        } else {
+            System.out.println("MURAL:");
+            for (int i = 0; i != qtdMural; i++) {
+                System.out.println(autorMural[i] + ": " + mural[i]);
+            }
+        }
+    }
+
+    public void solicitacaoMural(Usuario user, String amigo) {
+        boolean opcao;
+        String mensagem, autor;
+        int qtdUsuario, qtdSolicitacoes;
+        Usuario amigoA = new Usuario(amigo);
+        int qtdAmigo = buscarUsuario(amigoA);
+        qtdUsuario = buscarUsuario(user);
+        if (qtdAmigo != -1) {
+            qtdSolicitacoes = usuarios[qtdUsuario].getQtdSolicicacoesMural(qtdAmigo);
+            if (qtdSolicitacoes == 0) {
+                System.err.println("Lista de solicitações pendentes para seu mural está vázia!");
+            } else {
+                for (int i = 0; i != qtdSolicitacoes; i++) {
+                    mensagem = usuarios[qtdUsuario].getSolicitacaoMural(qtdAmigo, i);
+                    autor = usuarios[qtdAmigo].getNome();
+                    System.out.println(autor + ": " + mensagem);
+                    System.out.println("Deseja adicionar essa mensagem ao mural público? [true/false]");
+                    System.out.print("-> ");
+                    opcao = in.nextBoolean();
+                    in.nextLine();
+                    if (opcao) {
+                        mural[qtdMural] = mensagem;
+                        autorMural[qtdMural] = autor;
+                        qtdMural++;
+                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                    } else {
+                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                    }
+                }
+                usuarios[qtdUsuario].setQtdSolicicacoesMural(0, qtdAmigo);
+            }
+        } else {
+            System.err.println("Erro, usuário não está na lista de amizades!");
+        }
+    }
+
 }
