@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Scanner;
 import controller.Cadastro;
 
 import static view.CoresTerminal.*;
@@ -63,7 +62,6 @@ public class Contas {
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////
     public void exibeListaAmigosPendentes(Usuario user) throws Exception {
         int qtdUsuario;
         String mensagem;
@@ -117,7 +115,6 @@ public class Contas {
         usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
     public void historicoMensagens(Usuario user, String amigoA) throws Exception {
         int i = 0, j = 0;
         // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
@@ -291,12 +288,10 @@ public class Contas {
     private void adicionarMatch(Usuario user, Usuario amigo) {
         Scanner i = new Scanner(System.in);
         char decisao;
-        String nomeUser, nomeAmigo;
+        String nomeUser, nomeAmigo, resultado;
         nomeUser = user.getNome();
         nomeAmigo = amigo.getNome();
-        System.out.print("Voce deseja dar Match nesse usuario? S - para sim ou N - para não: ");
-        
-        decisao = i.next().charAt(0);
+        decisao = Cadastro.perguntaMatch();
         decisao = Character.toUpperCase(decisao);
         int posicaoUserMatch = 0;
         int posicaoAmigoMatch = 0;
@@ -308,9 +303,11 @@ public class Contas {
                 }
             }
             user.setDecisaoMatch(true, posicaoUserMatch);
-            System.out.println(ANSI_GREEN + "UNIKUT - Match salvo como sim para: " + nomeAmigo + ANSI_RESET);
+            resultado = "UNIKUT - Match salvo como sim para: " + nomeAmigo;
+            Cadastro.resultadoMatch(resultado);
         } else {
-            System.err.println("UNIKUT - Voce não deu Match para: " + nomeAmigo);
+            resultado = "UNIKUT - Voce não deu Match para: " + nomeAmigo;
+            Cadastro.resultadoMatch(resultado);
             user.setDecisaoMatch(false, posicaoUserMatch);
         }
 
@@ -324,19 +321,17 @@ public class Contas {
         if (user.getDecisaoMatch(posicaoUserMatch) == true && amigo.getDecisaoMatch(posicaoAmigoMatch) == true) {
             user.setMatchTotais(nomeAmigo);
             amigo.setMatchTotais(nomeUser);
-            System.out.println(ANSI_GREEN + "UNIKUT - Opa, deu Match, entre voce e " + nomeAmigo + ANSI_RESET);
+            resultado = "UNIKUT - Opa, deu Match, entre voce e " + nomeAmigo;
+            Cadastro.resultadoMatch(resultado);
         }
     }
-
-    public void aceitaAmigos(Usuario user) {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public void aceitaAmigos(Usuario user) throws Exception {
         int posicaoUsuario;
         // $$$$$$$$$$$$
         posicaoUsuario = buscarUsuario(user.getNome()); // buscar usuario na lista.
         if (usuarios[posicaoUsuario].getQtdListaAmigosPendentes() != 0) {
-            String amigo;
-            System.out.println("UNIKUT - Informe o login do amigo que deseja aceitar:");
-            amigo = in.next();
-            in.nextLine();
+            String amigo = Cadastro.informaLogin();
             // $$$$$$$$$$$$
             // refatorando par auma busca direta de Usuario 
             //userAux = new Usuario(amigo); // criação do usuario apartir da entrada do usuario.
@@ -352,32 +347,26 @@ public class Contas {
                 }
             }
             if (achou == false) {
-                System.err.println("Erro, amigo não encontrado na lista de pendentes!");
+                throw new Exception("UNIKUT - Erro, amigo não encontrado na lista de pendentes!");
             } else { // processo de aceitação de amigo.
                 usuarios[posicaoUsuario].setListaAmigos(amigo);
                 usuarios[posicaoAmigo].setListaAmigos(eu);
-                System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
                 // inicio do processo de match
                 usuarios[posicaoUsuario].executarMatch(amigo);
                 adicionarMatch(usuarios[posicaoUsuario], usuarios[posicaoAmigo]);
             }
         }
     }
-//////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
     public void exibirMatch(Usuario user) throws Exception {
         if (user.getQtdMatchTotais() != 0) {
-
             for (int i = 0; i < user.getQtdMatchTotais(); i++) {
-
                 String match = user.getMatchTotais(i);
-                Cadastro.exibirMatch(match);
+                Cadastro.mostraMatch(match);
             }
         } else {
             throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
-
-///////////////////////////////////////////////////////////////////////////////
-
 }

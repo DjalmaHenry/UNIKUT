@@ -24,8 +24,12 @@ public class Exibicao {
             System.out.println("Digite a mensagem para o mural:");
             System.out.print("-> ");
             mensagem = in.nextLine();
-            cadastro.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
-            System.out.println("UNIKUT - Mensagem enviada com sucesso!");
+            try {
+                cadastro.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
+                System.out.println("UNIKUT - Mensagem enviada com sucesso!");
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
             System.out.println("Deseja enviar outra mensagem? [Sim/Não]");
             option = in.next();
         }
@@ -106,6 +110,23 @@ public class Exibicao {
     public static void exibirMatch(String match) {
         System.out.println(match);
         System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + match + ANSI_RESET);
+    }
+
+    public static void resultadoMatch(String resultado){
+        System.out.println(resultado);
+    }
+
+    public static char perguntaMatch(){
+        System.out.print("Voce deseja dar Match nesse usuario? S - para sim ou N - para não: ");
+        char decisao = i.next().charAt(0);
+        return decisao;
+    }
+
+    public static String informaLogin(){
+        System.out.println("UNIKUT - Informe o login do amigo que deseja aceitar:");
+        String amigo = in.next();
+        in.nextLine();
+        return amigo;
     }
 
     public static void exibirAmigosPendentes(String amigosPendentes) {

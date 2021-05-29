@@ -18,7 +18,7 @@ public class Mural extends Contas {
         }
     }
 
-    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo, String mensagem) {
+    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         usuarios[qtdAmigo].setSolicitacaoMural(qtdUsuario, mensagem);
     }
 

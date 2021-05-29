@@ -103,7 +103,12 @@ public class Cadastro {
         contas.exibeListaAmigosPendentes(user);
         contas.aceitaAmigos(user);
     }
-    
+
+    public static String informaLogin(){
+        String amigo = Exibicao.informaLogin();
+        return amigo;
+    }
+
     public static void exibirAmigosPendentes (String amigosPendentes) {
         Exibicao.exibirAmigosPendentes(amigosPendentes);
     }
@@ -140,7 +145,7 @@ public class Cadastro {
         Exibicao.mensagemMural(cadastro, qtdUsuario, qtdAmigo);
     }
     
-    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo,String mensagem){
+    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo,String mensagem) throws Exception{
         mural.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
     }
     
@@ -153,10 +158,19 @@ public class Cadastro {
         contas.exibirMatch(user);
     }
     
-    public static void exibirMatch (String match) {
-        Exibicao.exibirAmigos(match);
+    public static void mostraMatch (String match) {
+        Exibicao.exibirMatch(match);
     }
-    
+
+    public static void resultadoMatch(String resultado){
+        Exibicao.resultadoMatch(resultado);
+    }
+
+    public static char perguntaMatch(){
+        char decisao = Exibicao.perguntaMatch();
+        return decisao;
+    }
+
     public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception{
         contas.enviarMensagem(user, amigo, in, cadastro);
     }

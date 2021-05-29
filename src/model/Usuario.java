@@ -116,13 +116,12 @@ public class Usuario implements Comparable<Usuario> {
         }
     }
 
-    public void setSolicitacaoMural(int amigo, String mensagem) {
+    public void setSolicitacaoMural(int amigo, String mensagem) throws Exception {
         if (this.qtdSolicicacoesMural[amigo] == 10) {
-            System.err.println("Mensagem NÃO enviada, memória cheia!!!");
+            throw new Exception("UNIKUT - Erro, mensagem NÃO enviada, memória cheia!!!");
         } else {
             this.solicitacaoMural[amigo][this.qtdSolicicacoesMural[amigo]] = mensagem;
             this.qtdSolicicacoesMural[amigo]++;
-            System.out.println(ANSI_GREEN + "Solicitação enviada!" + ANSI_RESET);
         }
     }
 
@@ -201,22 +200,20 @@ public class Usuario implements Comparable<Usuario> {
         setNome(n);
         setSenha(s);
     }
-///////////////////////////////////////////////////////////////////////
+
     public int getQtdMatchTotais() {
         return this.qtdMatchTotais;
     }
-////////////////////////////////////////////////////////////////////////
+
     public void setMatchTotais(String nome) {
         this.matchTotais[this.qtdMatchTotais] = nome;
         this.qtdMatchTotais++;
     }
-////////////////////////////////////////////////////////////////////////
     
     public String getMatchTotais(int pos) {
         return this.matchTotais[pos];
     }
-    
-//////////////////////////////////////////////////////////////////////
+
     public boolean getDecisaoMatch(int posicao) {
         return this.decisaoMatch[posicao];
     }
