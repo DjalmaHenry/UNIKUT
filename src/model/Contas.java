@@ -1,7 +1,5 @@
 package model;
 
-import controller.Cadastro;
-import model.Usuario;
 import java.util.Scanner;
 import controller.Cadastro;
 
@@ -26,7 +24,7 @@ public class Contas {
         this.qtd = 0;
     }
 
-    public boolean getAdmin(Usuario user) {
+    public boolean getAdmin(String user) { // $$$$$$$$$$$$
         int qtdUsuario = buscarUsuario(user);
         return admin[qtdUsuario];
     }
@@ -52,8 +50,8 @@ public class Contas {
 
     public Usuario procurarUsuario(String login, String senha) {
         int achouUsuario;
-        Usuario userAux = new Usuario(login);
-        achouUsuario = buscarUsuario(userAux);
+        // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
+        achouUsuario = buscarUsuario(login); // $$$$$$$$$$$$
         if (achouUsuario >= 0) {
             if (senha.equals(usuarios[achouUsuario].getSenha())) {
                 return usuarios[achouUsuario]; // retorna o usuario.
@@ -70,7 +68,6 @@ public class Contas {
         int qtdUsuario;
         qtdUsuario = buscarUsuario(user.getLogin());
         if (usuarios[qtdUsuario].getQtdListaAmigosPendentes() == 0) {
-            System.err.println("Lista de amigos pendentesn vázia!");
             throw new Exception("UNIKUT ERRO - Lista de amigos pendentesn vázia!");
         } else {
             for (int i = 0; i < usuarios[qtdUsuario].getQtdListaAmigosPendentes(); i++) {
@@ -93,7 +90,6 @@ public class Contas {
             }
         }
     }
-
 
     public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
         Usuario amigoA = new Usuario(amigo);
@@ -121,14 +117,14 @@ public class Contas {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    public void historicoMensagens(Usuario user, String amigo) throws Exception {
+    public void historicoMensagens(Usuario user, String amigoA) throws Exception {
         int i = 0, j = 0;
-        Usuario amigoA = new Usuario(amigo);
+        // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user);
+        int qtdUsuario = buscarUsuario(user.getNome()); // $$$$$$$$$$$$ user -> user.getNome
         String senhaParaTestar;
         int opcaoSenhaSecreta = -1;
-        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
+        boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigoA);
         String mensagemHora, mensagem, mensagemAmigo, mensagemSecreta, nome;
         if (resultado == true) {// true = são amigos;
             if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
@@ -255,9 +251,11 @@ public class Contas {
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
-        posicaoUsuario = buscarUsuario(user); // buscar usuario na lista.
-        Usuario userAux = new Usuario(amigo); // criação de um usuario para o amigo a ser add.
-        posicaoAmigo = buscarUsuario(userAux); // buscar amigo a ser add.
+        posicaoUsuario = buscarUsuario(user.getNome()); // buscar usuario na lista.
+        // $$$$$$$$$$$$
+        // retirei o Usuario userAux = new Usuario(amigo); // criação de um usuario para o amigo a ser add.
+        // $$$$$$$$$$$$ e foi passado como parametro aqui
+        posicaoAmigo = buscarUsuario(amigo); // buscar amigo a ser add.
         if (posicaoAmigo == -1) { // amigo não se encontra na lista.
             throw new Exception("UNIKUT - Erro, este usuário não existe!");
         } else if (user.getLogin().compareTo(amigo) == 0) { // tentativa de adicionar a si mesmo.
@@ -330,14 +328,19 @@ public class Contas {
 
     public void aceitaAmigos(Usuario user) {
         int posicaoUsuario;
-        posicaoUsuario = buscarUsuario(user); // buscar usuario na lista.
+        // $$$$$$$$$$$$
+        posicaoUsuario = buscarUsuario(user.getNome()); // buscar usuario na lista.
         if (usuarios[posicaoUsuario].getQtdListaAmigosPendentes() != 0) {
             String amigo;
             System.out.println("UNIKUT - Informe o login do amigo que deseja aceitar:");
             amigo = in.next();
             in.nextLine();
-            Usuario userAux = new Usuario(amigo); // criação do usuario apartir da entrada do usuario.
-            int posicaoAmigo = buscarUsuario(userAux); // posição
+            // $$$$$$$$$$$$
+            // refatorando par auma busca direta de Usuario 
+            //userAux = new Usuario(amigo); // criação do usuario apartir da entrada do usuario.
+            // $$$$$$$$$$$$
+
+            int posicaoAmigo = buscarUsuario(amigo); // posição
             String eu = user.getLogin();
             boolean achou = false;
             for (int i = 0; i < usuarios[posicaoUsuario].getQtdListaAmigosPendentes(); i++) {
@@ -374,12 +377,13 @@ public class Contas {
     }
 
 ///////////////////////////////////////////////////////////////////////////////
-    public void enviarSolicitacaoMural(Usuario user, String amigo, Scanner in) {
+    public void enviarSolicitacaoMural(Usuario user, String amigoA, Scanner in) {
         String mensagem;
         boolean option = true;
-        Usuario amigoA = new Usuario(amigo);
+        // $$$$$$$$$$$$
+       // refatorando para uma busca direta Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user);
+        int qtdUsuario = buscarUsuario(user.getNome());
         if (qtdAmigo != -1) {
             while (option != false) {
                 System.out.println("=============================");
@@ -407,13 +411,14 @@ public class Contas {
         }
     }
 
-    public void solicitacaoMural(Usuario user, String amigo) {
+    public void solicitacaoMural(Usuario user, String amigoA) {
         boolean opcao;
         String mensagem, autor;
         int qtdUsuario, qtdSolicitacoes;
-        Usuario amigoA = new Usuario(amigo);
+        // $$$$$$$$$$$$
+        // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
-        qtdUsuario = buscarUsuario(user);
+        qtdUsuario = buscarUsuario(user.getNome());
         if (qtdAmigo != -1) {
             qtdSolicitacoes = usuarios[qtdUsuario].getQtdSolicicacoesMural(qtdAmigo);
             if (qtdSolicitacoes == 0) {

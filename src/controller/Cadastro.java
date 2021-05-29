@@ -72,7 +72,7 @@ public class Cadastro {
     public void logaConta(String login, String senha, Cadastro cadastro) throws Exception {
         Usuario user = contas.procurarUsuario(login, senha);
         if (user != null) {
-            boolean admin = contas.getAdmin(user);
+            boolean admin = contas.getAdmin(user.getNome());
             if (admin == true) {
                 logadoAdmin(user, cadastro);
             } else {
