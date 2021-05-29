@@ -9,7 +9,7 @@ import static model.Contas.in;
 import static view.CoresTerminal.*;
 
 public class Exibicao {
-    
+
     public static Scanner in = new Scanner(System.in);
 
     public static void printaMural(String mensagem) {
@@ -37,7 +37,7 @@ public class Exibicao {
         System.out.println("Deseja adicionar essa mensagem ao mural público? [Sim/Não]");
         System.out.print("-> ");
         opcao = in.next();
-        if(opcao.charAt(0) == 's' || opcao.charAt(0) == 'S'){
+        if (opcao.charAt(0) == 's' || opcao.charAt(0) == 'S') {
             System.out.println("UNIKUT - Mensagem postada no mural com sucesso!");
         } else {
             System.err.println("UNIKUT - Mensagem recusada com sucesso!");
@@ -50,6 +50,7 @@ public class Exibicao {
         System.out.print(ANSI_BLUE + mensagem + ANSI_RESET);
         pularLinha();
     }
+
     public static void mensagemAmigo(String mensagem) { //amigo
         pularLinha();
         System.out.print(ANSI_YELLOW + mensagem + ANSI_RESET);

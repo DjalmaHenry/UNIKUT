@@ -181,4 +181,5 @@ public class Cadastro {
         contas.setMensagem(qtdUsuario, qtdAmigo, mensagem);
     }
     
+
 }

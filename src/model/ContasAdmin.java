@@ -18,8 +18,9 @@ public class ContasAdmin extends Contas {
 
     public void excluirConta(String login) throws Exception {
         int qtdUsuario;
-        Usuario user = new Usuario(login);
-        qtdUsuario = buscarUsuario(user);
+        // $$$$$$$$$$
+        // Usuario user = new Usuario(login);
+        qtdUsuario = buscarUsuario(login);
         if (qtdUsuario == -1) { // login ja encontrado no vetor.
             throw new Exception("UNIKUT - Erro, usuário não cadastrado!");
         } else {
@@ -35,14 +36,4 @@ public class ContasAdmin extends Contas {
         }
     }
 
-    public Usuario procurarUsuario(String login) {
-        int achouUsuario;
-        Usuario userAux = new Usuario(login, "", "");
-        achouUsuario = buscarUsuario(userAux);
-        if (achouUsuario >= 0) {
-            return super.usuarios[achouUsuario]; // retorna o usuario.
-        } else {
-            return null; // login não encontrado.
-        }
-    }
 }
