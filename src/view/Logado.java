@@ -96,7 +96,12 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    cadastro.historicoMensagens(user, amigo); //PENDENTE <---
+                    try {
+                        cadastro.historicoMensagens(user, amigo); //PENDENTE <--- Working
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
+                    
                     break;
                 case 7:
                     //Enviar mensagem

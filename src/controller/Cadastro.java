@@ -6,10 +6,45 @@ import model.ContasAdmin;
 import model.Mural;
 import view.Exibicao;
 import view.Logado;
+import view.Exibicao;
 import static view.Logado.*;
 
 public class Cadastro {
 
+    public static int tratamentoSenhaErrada() {
+        int tratamentoSenha = Exibicao.tratamentoSenha();
+        return tratamentoSenha;
+    }
+
+    public static void solicitacaoSecretaMensagem() {
+        Exibicao.solicitacaoSecretaMensagem();
+    }
+
+    public static void enviarMensagemSecreta(String nome) {
+        Exibicao.mensagemSecreta(nome);
+    }
+
+    public static void enviarMensagemSecretaAmigo(String nome) {
+        Exibicao.mensagemSecretaAmigo(nome);
+    }
+
+    public static void enviarMensagemAmigo(String mensagem) {
+        Exibicao.mensagemAmigo(mensagem);
+    }
+
+    public void historicoMensagens(Usuario user, String amigo) throws Exception {
+        contas.historicoMensagens(user, amigo);
+    }
+
+    public static void enviarMensagem(String mensagem) {
+        Exibicao.mensagem(mensagem);
+    }
+
+    public static void enviarMensagemHora(String mensagem) {
+        Exibicao.mensagemHora(mensagem);
+    }
+
+    
     private Contas contas;
     private Mural mural;
 
@@ -103,4 +138,5 @@ public class Cadastro {
         String opcao = Exibicao.printaSolicitacaoMural(solicitacao);
         return opcao;
     }
+
 }

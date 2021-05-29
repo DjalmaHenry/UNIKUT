@@ -88,7 +88,7 @@ public class Contas {
         }
     }
 
-    public void historicoMensagens(Usuario user, String amigo) {
+    public void historicoMensagens(Usuario user, String amigo) throws Exception {
         int i = 0, j = 0;
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
@@ -96,218 +96,126 @@ public class Contas {
         String senhaParaTestar;
         int opcaoSenhaSecreta = -1;
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigo);
-        if (resultado == true) {
-            System.out.println("=============================");
-            System.out.println("Histórico de mensagens:");
+        String mensagemHora, mensagem, mensagemAmigo, mensagemSecreta, nome;
+        if (resultado == true) {// true = são amigos;
             if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
-                System.err.println("Histórico de mensagens vázio!");
+                throw new Exception("Histórico de mensagens vázio!"); // tratando ambas mensagens vazias
             } else {
                 while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
                     if (usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) == null) {
                         //hora
-                        System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
-                        // mensagemV
-                        // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
-                        // mostra direto
-
-                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
-                            System.out.println("");
-                            System.err.print("[Mens. Secreta]");
-                            System.out.print(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ANSI_RESET);
-                            System.out.println("");
+                        mensagemHora = usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i);
+                        controller.Cadastro.enviarMensagemHora(mensagemHora);
+                        // mensagem abaixo 
+                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é secreta
+                            nome = usuarios[qtdUsuario].getNome();
+                            controller.Cadastro.enviarMensagemSecreta(nome);
                             do {
-                                System.out.print("A mensagem é secreta! digite a senha: ");
+                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
                                 senhaParaTestar = in.nextLine();
-
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
-                                    System.out.println(ANSI_BLUE
-                                            + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
+                                    // senha igual :. exibi mensagem secreta
+                                    mensagem = usuarios[qtdUsuario].getNome() + ": "
+                                            + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
+                                    controller.Cadastro.enviarMensagem(mensagem);
                                     break;
-                                    // mostrando senha pq resultados batem
                                 } else {
-
-                                    System.out.println("Senha errada, 1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                    opcaoSenhaSecreta = in.nextInt();
-                                    in.nextLine();
-                                    switch (opcaoSenhaSecreta) {
-                                        case 1:
-                                            System.err.println("Tentando novamente");
-                                            break;
-                                        case 2:
-                                            System.err.println("Mensagem continuará oculta");
-                                            break;
-                                        default:
-                                            System.out.println("Ops, sua opção é invalida, tente novamente");
-                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                            opcaoSenhaSecreta = in.nextInt();
-                                            in.nextLine();
-                                            break;
-                                    }
-
+                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
                                 }
                             } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-                        } else { // caso seja null é pq é mensagem normal
-                            System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": "
-                                    + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo que já estava
+                        } else { // caso seja null é pq é mensagem normal, logo exibimos
+                            mensagem = usuarios[qtdUsuario].getNome() + ": "
+                                    + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
+                            controller.Cadastro.enviarMensagem(mensagem);
                         }
-
                         i++;
-                        //____________________________________________
-                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {
+
+                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {  // se for diferente de null é secreta
                         //hora
-                        //resolvido-solicita  a senha apenas para quem recebe
-                        System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
-                        // mensagemV
-                        // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
-                        // mostra direto
+                        mensagemHora = usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j);
+                        controller.Cadastro.enviarMensagemHora(mensagemHora);
+                        // mensagem abaixo 
                         if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) {
-                            System.err.print("[Mens. Secreta]");
-                            System.out.print(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ANSI_RESET);
-                            System.out.println("");
+                            nome = usuarios[qtdAmigo].getNome();
+                            controller.Cadastro.enviarMensagemSecretaAmigo(nome);
                             do {
-                                System.out.print("A mensagem é secreta! digite a senha: ");
+                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
                                 senhaParaTestar = in.nextLine();
 
                                 if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
-                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
+                                    // senha igual :. exibi mensagem secreta
+                                    mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
+                                    controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
                                     break;
-                                    // mostrando senha pq resultados batem
+
                                 } else {
-                                    // tratando exceçao de senha errada
-                                    System.out
-                                            .println("Senha errada, 1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                    opcaoSenhaSecreta = in.nextInt();
-                                    in.nextLine();
-                                    //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
-                                    switch (opcaoSenhaSecreta) {
-                                        case 1:
-                                            System.err.println("Tentando novamente");
-                                            break;
-                                        case 2:
-                                            System.err.println("Mensagem continuará oculta");
-                                            break;
-                                        default:
-                                            System.out.println("Ops, sua opção é invalida, tente novamente");
-                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                            opcaoSenhaSecreta = in.nextInt();
-                                            in.nextLine();
-
-                                    }
-
+                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
                                 }
                             } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
                         } else { // caso seja null é pq é mensagem normal
-                            System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET);// codigo que já estava
+                            mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
+                            controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
                         }
-
                         j++;
 
-//____________________________________________
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) < 0) {
                         //hora
-                        System.out.println(ANSI_PURPLE + usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) + ANSI_RESET);
-
-                        // mensagemV
-                        // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
-                        // mostra direto
-                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
-                            System.err.print("[Mens. Secreta]");
-                            System.out.print(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ANSI_RESET);
-                            System.out.print("");
+                        mensagemHora = usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i);
+                        controller.Cadastro.enviarMensagemHora(mensagemHora);
+                        // mensagem abaixo 
+                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) {  // se for diferente de null é secreta
+                            nome = usuarios[qtdUsuario].getNome();
+                            controller.Cadastro.enviarMensagemSecreta(nome);
                             do {
-                                System.out.print("A mensagem é secreta! digite a senha: ");
+                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
                                 senhaParaTestar = in.nextLine();
 
                                 if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
-                                    System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET); // codigo q já estava
+                                    // senha igual :. exibi mensagem secreta
+                                    mensagem = usuarios[qtdUsuario].getNome() + ": "
+                                            + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
+                                    controller.Cadastro.enviarMensagem(mensagem);
                                     break;
-                                    // mostrando senha pq resultados batem
                                 } else {
-                                    // tratando exceçao de senha errada
-                                    System.out
-                                            .println("Senha errada, 1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                    opcaoSenhaSecreta = in.nextInt();
-                                    in.nextLine();
-                                    //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
-                                    switch (opcaoSenhaSecreta) {
-
-                                        case 1:
-                                            System.err.println("Tentando novamente");
-                                            break;
-                                        case 2:
-                                            System.err.println("Mensagem continuará oculta");
-                                            break;
-                                        default:
-                                            System.out.println("Ops, sua opção é invalida, tente novamente");
-                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                            opcaoSenhaSecreta = in.nextInt();
-                                            in.nextLine();
-                                    }
-
+                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
                                 }
                             } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
                         } else { // caso seja null é pq é mensagem normal
-                            System.out.println(ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET);// codigo que já estava
+                            mensagem = ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET;
+                            controller.Cadastro.enviarMensagem(mensagem);
                         }
-
                         i++;
 
-//____________________________________________                        
                     } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) > 0) {
                         //hora
-                        System.out.println(ANSI_PURPLE + usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) + ANSI_RESET);
-                        // mensagemV
-                        // confirmando se tem senha | caso tenha solicita e verificar | caso nao já
-                        // mostra direto
-                        if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) { // se for diferente de null é pq é secreta, caso não já printa a msg direto
-                            System.err.print("[Mens. Secreta]");
-                            System.out.print(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ANSI_RESET);
-                            System.out.print("");
-
+                        mensagemHora = usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j);
+                        controller.Cadastro.enviarMensagemHora(mensagemHora);
+                        // mensagem abaixo 
+                        if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) {  // se for diferente de null é secreta 
+                            nome = usuarios[qtdAmigo].getNome();
+                            controller.Cadastro.enviarMensagemSecretaAmigo(nome);
                             do {
-                                System.out.print("A mensagem é secreta! digite a senha: ");
+                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
                                 senhaParaTestar = in.nextLine();
-
                                 if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
-
-                                    System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET); // codigo q já estava
-                                    // mostrando senha pq resultados batem
+                                    // senha igual :. exibi mensagem secreta
+                                    mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
+                                    controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
                                     break;
                                 } else {
-                                    // tratando exceçao de senha errada
-                                    System.out
-                                            .println("Senha errada, 1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                    opcaoSenhaSecreta = in.nextInt();
-                                    in.nextLine();
-                                    //while (opcaoSenhaSecreta != 1 || opcaoSenhaSecreta != 2) {
-                                    switch (opcaoSenhaSecreta) {
-                                        case 1:
-                                            System.err.println("Tentando novamente");
-                                            break;
-                                        case 2:
-                                            System.err.println("Mensagem continuará oculta");
-                                            break;
-                                        default:
-                                            System.out.println("Ops, sua opção é invalida, tente novamente");
-                                            System.out.println("1- Tentar novamente ou 2 - Pular mensagem oculta");
-                                            opcaoSenhaSecreta = in.nextInt();
-                                            in.nextLine();
-                                    }
-
+                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
                                 }
-
                             } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-
                         } else { // caso seja null é pq é mensagem normal
-                            System.out.println(ANSI_YELLOW + usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j) + ANSI_RESET);// codigo que já estava
+                            mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
+                            controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
                         }
-
                         j++;
                     }
                 }
             }
-        } else {
-            System.err.println("Erro, usuário não está na lista de amizades!");
+        } else { // não são amigos, throws Exception
+            throw new Exception("Erro, usuário não está na lista de amizades!");
         }
     }
 
