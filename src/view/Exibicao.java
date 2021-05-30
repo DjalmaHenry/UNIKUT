@@ -27,7 +27,7 @@ public class Exibicao {
             try {
                 cadastro.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
                 System.out.println("UNIKUT - Mensagem enviada com sucesso!");
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
             System.out.println("Deseja enviar outra mensagem? [Sim/Não]");
@@ -103,26 +103,24 @@ public class Exibicao {
     }
 
     public static void exibirAmigos(String amigo) {
-        System.out.println(amigo);
-        System.out.println(ANSI_GREEN + "UNIKUT - Você tem o amigo " + amigo + ANSI_RESET);
+        System.out.println(ANSI_GREEN + amigo + ANSI_RESET);
     }
 
     public static void exibirMatch(String match) {
-        System.out.println(match);
         System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + match + ANSI_RESET);
     }
 
-    public static void resultadoMatch(String resultado){
+    public static void resultadoMatch(String resultado) {
         System.out.println(resultado);
     }
 
-    public static char perguntaMatch(){
+    public static char perguntaMatch() {
         System.out.print("Voce deseja dar Match nesse usuario? S - para sim ou N - para não: ");
-        char decisao = i.next().charAt(0);
+        char decisao = in.next().charAt(0);
         return decisao;
     }
 
-    public static String informaLogin(){
+    public static String informaLogin() {
         System.out.println("UNIKUT - Informe o login do amigo que deseja aceitar:");
         String amigo = in.next();
         in.nextLine();
@@ -131,7 +129,6 @@ public class Exibicao {
 
     public static void exibirAmigosPendentes(String amigosPendentes) {
         System.out.println(amigosPendentes);
-        System.out.println(ANSI_GREEN + "UNIKUT - Você deu Match com " + amigosPendentes + ANSI_RESET);
     }
 
     public static void exibirMsg(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {

@@ -42,11 +42,11 @@ public class Usuario implements Comparable<Usuario> {
         this.nomesMatch = new String[100];
         this.matchTotais = new String[100];
     }
-    
+
     public Usuario(String login) {
         this.login = login;
     }
-    
+
     public int getQtdSolicicacoesMural(int amigo) {
         return qtdSolicicacoesMural[amigo];
     }
@@ -209,7 +209,7 @@ public class Usuario implements Comparable<Usuario> {
         this.matchTotais[this.qtdMatchTotais] = nome;
         this.qtdMatchTotais++;
     }
-    
+
     public String getMatchTotais(int pos) {
         return this.matchTotais[pos];
     }

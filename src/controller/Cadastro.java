@@ -12,10 +12,9 @@ import static view.Logado.*;
 
 public class Cadastro {
 
-        
     private Contas contas;
     private Mural mural;
-    
+
     public Cadastro() {
         contas = new ContasAdmin();
     }
@@ -83,6 +82,11 @@ public class Cadastro {
         }
     }
 
+    public Usuario procurarUsuario(String login) {
+        Usuario user = contas.procurarUsuario(login);
+        return user;
+    }
+
     public void alteraNome(Usuario user, String nome) {
         user.alterarNome(nome);
     }
@@ -99,26 +103,26 @@ public class Cadastro {
         contas.adicaoAmigos(user, amigo);
     }
 
-    public void pedidosAmizades(Usuario user) throws Exception{
+    public void pedidosAmizades(Usuario user) throws Exception {
         contas.exibeListaAmigosPendentes(user);
         contas.aceitaAmigos(user);
     }
 
-    public static String informaLogin(){
+    public static String informaLogin() {
         String amigo = Exibicao.informaLogin();
         return amigo;
     }
 
-    public static void exibirAmigosPendentes (String amigosPendentes) {
+    public static void exibirAmigosPendentes(String amigosPendentes) {
         Exibicao.exibirAmigosPendentes(amigosPendentes);
     }
-    
-    public void listaAmizades(Usuario user) throws Exception{
+
+    public void listaAmizades(Usuario user) throws Exception {
         contas.exibeListaAmigos(user);
-        
+
     }
-    
-    public static void exibirAmigos (String amigo) {
+
+    public static void exibirAmigos(String amigo) {
         Exibicao.exibirAmigos(amigo);
     }
 
@@ -128,72 +132,75 @@ public class Cadastro {
         aux.excluirConta(login);
         contas = (Contas) aux;
     }
-    
-    public void printarMural(String mensagem){
+
+    public void printarMural(String mensagem) {
         Exibicao.printaMural(mensagem);
     }
-    
+
     public void exibirMural(Cadastro cadastro) throws Exception {
         mural.exibeMural(cadastro);
     }
-    
-    public void enviaSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception{
+
+    public void solicitacaoMural(Usuario user, String amigo) throws Exception {
+        mural.solicitacaoMural(user, amigo);
+    }
+
+    public void enviaSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception {
         mural.enviarSolicitacaoMural(cadastro, user, amigo);
     }
 
-    public void mensagemMural(Cadastro cadastro, int qtdUsuario, int qtdAmigo){
+    public void mensagemMural(Cadastro cadastro, int qtdUsuario, int qtdAmigo) {
         Exibicao.mensagemMural(cadastro, qtdUsuario, qtdAmigo);
     }
-    
-    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo,String mensagem) throws Exception{
+
+    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         mural.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
     }
-    
-    public static String printaSolicitacaoMural(String solicitacao){
+
+    public static String printaSolicitacaoMural(String solicitacao) {
         String opcao = Exibicao.printaSolicitacaoMural(solicitacao);
         return opcao;
     }
-    
-    public void exibirMatch(Usuario user) throws Exception{
+
+    public void exibirMatch(Usuario user) throws Exception {
         contas.exibirMatch(user);
     }
-    
-    public static void mostraMatch (String match) {
+
+    public static void mostraMatch(String match) {
         Exibicao.exibirMatch(match);
     }
 
-    public static void resultadoMatch(String resultado){
+    public static void resultadoMatch(String resultado) {
         Exibicao.resultadoMatch(resultado);
     }
 
-    public static char perguntaMatch(){
+    public static char perguntaMatch() {
         char decisao = Exibicao.perguntaMatch();
         return decisao;
     }
 
-    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception{
+    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
         contas.enviarMensagem(user, amigo, in, cadastro);
     }
-    
-    public static void exibirMensagem (boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception{
+
+    public static void exibirMensagem(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {
         Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
     }
-    
+
     public void setMsgSecreta(int qtdUsuario, String auxSenha) {
         contas.setMsgSecreta(qtdUsuario, auxSenha);
     }
-    
+
     public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         contas.setMensagensSecretaPadrao(qtdUsuario, qtdAmigo, mensagem);
     }
-    
+
     public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
         contas.setMensagensSecreta(qtdUsuario, qtdAmigo, mensagem, senhaPadrao);
     }
-    
+
     public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         contas.setMensagem(qtdUsuario, qtdAmigo, mensagem);
     }
-    
 
 }

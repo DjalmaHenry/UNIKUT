@@ -1,7 +1,7 @@
 package model;
 
 import controller.Cadastro;
-
+import java.util.Scanner;
 import static view.CoresTerminal.*;
 
 public class Contas {
@@ -60,6 +60,13 @@ public class Contas {
         } else {
             return null; // login não encontrado.
         }
+    }
+    
+    public Usuario procurarUsuario(String login) {
+        int achouUsuario;
+        // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
+        achouUsuario = buscarUsuario(login); // $$$$$$$$$$$$
+        return usuarios[achouUsuario];
     }
 
     public void exibeListaAmigosPendentes(Usuario user) throws Exception {
@@ -325,6 +332,7 @@ public class Contas {
             Cadastro.resultadoMatch(resultado);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////////////////
     public void aceitaAmigos(Usuario user) throws Exception {
         int posicaoUsuario;

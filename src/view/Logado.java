@@ -24,7 +24,7 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    alteraDados(user);
+                    alteraDados(user, cadastro);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -43,22 +43,22 @@ public class Logado {
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
                     try {
-                        System.out.println("Aceitar amigos pendentes:");
-                        cadastro.pedidosAmizades(user);
-                        System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    break;
+                    System.out.println("Aceitar amigos pendentes:");
+                    cadastro.pedidosAmizades(user);
+                    System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
                 case 5:
                     //ver lista de amizades
                     try {
-                        System.out.println("Lista de Amigos: ");
-                        cadastro.listaAmizades(user);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    break;
+                    System.out.println("Lista de Amigos: ");
+                    cadastro.listaAmizades(user);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
                 case 6:
                     //Exibir histórico de mensagens
                     System.out.println("Informe o login do amigo:");
@@ -87,9 +87,9 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    try{
-                    cadastro.enviaSolicitacaoMural(cadastro, user, amigo);
-                    } catch(Exception e){
+                    try {
+                        cadastro.enviaSolicitacaoMural(cadastro, user, amigo);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -98,30 +98,30 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    try{
-                    cadastro.solicitacaoMural(user, amigo);
-                    } catch(Exception e){
+                    try {
+                        cadastro.solicitacaoMural(user, amigo);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case 10:
                     //mostrar mural
                     System.out.println("MURAL:");
-                    try{
-                    cadastro.exibirMural(cadastro);
-                    }catch(Exception e){
+                    try {
+                        cadastro.exibirMural(cadastro);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case 11:
                     ///////////////////////////////////////////////////////////
                     try {
-                        cadastro.exibirMatch(user);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    //////////////////////////////////////////////////////////
-                    break;
+                    cadastro.exibirMatch(user);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                //////////////////////////////////////////////////////////
+                break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
                     System.exit(0);
@@ -147,7 +147,7 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    alteraDados(user);
+                    alteraDados(user, cadastro);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -165,22 +165,22 @@ public class Logado {
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
                     try {
-                        System.out.println("Aceitar amigos pendentes:");
-                        cadastro.pedidosAmizades(user);
-                        System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    break;
+                    System.out.println("Aceitar amigos pendentes:");
+                    cadastro.pedidosAmizades(user);
+                    System.out.println(ANSI_GREEN + "UNIKUT - Pedido aceito com sucesso!" + ANSI_RESET);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
                 case 5:
                     //ver lista de amizades
                     try {
-                        System.out.println("Lista de Amigos: ");
-                        cadastro.listaAmizades(user);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    break;
+                    System.out.println("Lista de Amigos: ");
+                    cadastro.listaAmizades(user);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
                 case 6:
                     //Exibir histórico de mensagens
                     System.out.println("Informe o login do amigo:");
@@ -209,9 +209,9 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    try{
+                    try {
                         cadastro.enviaSolicitacaoMural(cadastro, user, amigo);
-                    } catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -220,35 +220,35 @@ public class Logado {
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
                     in.nextLine();
-                    try{
+                    try {
                         cadastro.solicitacaoMural(user, amigo);
-                    } catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case 10:
                     //mostrar mural
                     System.out.println("MURAL:");
-                    try{
+                    try {
                         cadastro.exibirMural(cadastro);
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case 11:
                     try {
-                        cadastro.exibirMatch(user);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                    }
-                    break;
+                    cadastro.exibirMatch(user);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
                 case 12:
                     System.out.println("Informe o login da conta que deseja alterar:");
                     login = in.next();
                     in.nextLine();
                     Usuario userAltera = cadastro.procurarUsuario(login);
                     if (userAltera != null) {
-                        alteraDados(userAltera);
+                        alteraDados(userAltera, cadastro);
                     } else {
                         System.err.println("UNIKUT - Usuário não cadastrado!");
                     }
@@ -274,7 +274,8 @@ public class Logado {
         } while (op != 1);
     }
 
-    public static void alteraDados(Usuario User){
+    public static void alteraDados(Usuario user, Cadastro cadastro) {
+        int op;
         String novoNome,
                 novaSenha;
         do {
