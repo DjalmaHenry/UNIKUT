@@ -143,25 +143,25 @@ public class Exibicao {
     }
 
     public static void exibirMsg(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {
-        int opcaoMensagemSecreta;
+        String opcaoMensagemSecreta;
         String mensagem;
+        char sim = 's', nao = 'n';
         Scanner in = new Scanner(System.in);
         if (resul == true) {
             System.out.println("=============================");
             System.out.println("Digite a mensagem:");
             System.out.print("-> ");
             mensagem = in.nextLine();
-            System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-            opcaoMensagemSecreta = in.nextInt();
-            in.nextLine();
+            System.out.println("Mensagem será secreta? [sim/não]");
+            opcaoMensagemSecreta = in.nextLine().toLowerCase();
 
-            while (opcaoMensagemSecreta != 1 && opcaoMensagemSecreta != 2) {
+            while (sim != opcaoMensagemSecreta.charAt(0) && nao != opcaoMensagemSecreta.charAt(0)) {
                 System.out.println("Opçao inválida!");
-                System.out.println("Mensagem será secreta? 1-Sim  2-Não");
-
+                System.out.println("Mensagem será secreta? [sim/não]");
+                opcaoMensagemSecreta = in.nextLine().toLowerCase();
             }
 
-            if (opcaoMensagemSecreta == 1) {
+            if (sim == opcaoMensagemSecreta.charAt(0)) {
                 if (senhaPadrao == null) {
                     String auxSenha;
                     System.out.println("Digite a senha da mensagem: ");

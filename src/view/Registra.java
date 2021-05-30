@@ -8,7 +8,8 @@ public class Registra {
 
     public static void cadastra(Cadastro cadastro, Scanner in) {
         String login, senha, nome = "";
-        int op;
+        char sim = 's', nao = 'n'; // verifica a senha
+        String op;
         System.out.print("Digite o login: ");
         login = in.nextLine();
         int achouUsuario;
@@ -20,23 +21,20 @@ public class Registra {
             System.out.print("Informe sua senha: ");
             senha = in.nextLine();
             System.out.println("Deseja inserir um nome na sua conta?");
+            
             do {
-                System.out.print("Digite 1 - para sim ou 2 - para não: ");
-                op = in.nextInt();
-                in.nextLine();
-                switch (op) {
-                    case 1:
-                        System.out.print("Informe o nome: ");
-                        nome = in.nextLine();
-                        break;
-                    case 2:
-                        nome = "Convidado";
-                        System.out.println(ANSI_GREEN + "UNIKUT - Seu nome foi definido como 'Convidado!'" + ANSI_RESET);
-                        break;
-                    default:
-                        System.err.println("Opção invalida!");
+                System.out.print("Digite [sim/não]: ");
+                op = in.nextLine().toLowerCase();
+                if (sim == op.charAt(0)) {
+                    System.out.print("Informe o nome: ");
+                    nome = in.nextLine();
+                } else if (nao == op.charAt(0)) {
+                    nome = "Convidado";
+                    System.out.println(ANSI_GREEN + "UNIKUT - Seu nome foi definido como 'Convidado!'" + ANSI_RESET);
+                } else {
+                    System.err.println("Opção invalida!");
                 }
-            } while (op != 1 && op != 2);
+            } while (sim != op.charAt(0) && nao != op.charAt(0));
             cadastro.cadastraConta(login, senha, nome);
             System.out.println(ANSI_GREEN + "UNIKUT - Usuário cadastrado!" + ANSI_RESET);
         }
