@@ -17,6 +17,7 @@ class ThreadUsuario extends Thread implements Runnable {
         this.qtdAmigo = qtdAmigo;
     }
 
+    @Override
     public void run() {
         String nome, mensagemHora, mensagem, senhaParaTestar;
         int opcaoSenhaSecreta = -1;
@@ -77,12 +78,11 @@ class ThreadUsuario extends Thread implements Runnable {
                     }
                     contUsuario++;
                 } else {
-                    Thread.sleep(50);
+                    Thread.sleep(0);
                 }
             }
             System.out.println("FIM usuario");
         } catch (Exception e) {
-            System.err.println("ERRO");
         }
     }
 ;
