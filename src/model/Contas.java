@@ -5,33 +5,37 @@ import java.util.Scanner;
 import static view.CoresTerminal.*;
 
 public class Contas {
-
+    
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
     protected boolean[] admin;
     protected Mural mural;
     protected int qtd;
-
+    
     public Contas() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
         mural = new Mural();
     }
-
+    
     public boolean getAdmin(String user) { // $$$$$$$$$$$$
         int qtdUsuario = buscarUsuario(user);
         return admin[qtdUsuario];
     }
-
+    
     public int getQtd() { // $$$$$$$$$$$$
         return qtd;
     }
-
+    
+    protected Usuario[] getUsuarios() {
+        return usuarios;
+    }
+    
     public void cadastrarUsuario(String login, String senha, String nome) {
         usuarios[this.qtd] = new Usuario(login, senha, nome);
         this.qtd++; // usuario cadastrado.
     }
-
+    
     public int buscarUsuario(String login) {
         Usuario user = new Usuario(login);
         int i = 0;
@@ -45,7 +49,7 @@ public class Contas {
         }
         return -1; // login não encontrado.
     }
-
+    
     public Usuario procurarUsuario(String login, String senha) {
         int achouUsuario;
         // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
@@ -60,14 +64,14 @@ public class Contas {
             return null; // login não encontrado.
         }
     }
-
+    
     public Usuario procurarUsuario(String login) {
         int achouUsuario;
         // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
         achouUsuario = buscarUsuario(login); // $$$$$$$$$$$$
         return usuarios[achouUsuario];
     }
-
+    
     public void exibeListaAmigosPendentes(Usuario user) throws Exception {
         int qtdUsuario;
         String mensagem;
@@ -82,7 +86,7 @@ public class Contas {
             }
         }
     }
-
+    
     public void exibeListaAmigos(Usuario user) throws Exception {
         int qtdUsuario;
         qtdUsuario = buscarUsuario(user.getLogin());
@@ -95,7 +99,7 @@ public class Contas {
             }
         }
     }
-
+    
     public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
         Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA.getLogin());
@@ -104,23 +108,23 @@ public class Contas {
         String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
         Cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
     }
-
+    
     public void setMsgSecreta(int qtdUsuario, String auxSenha) {
         usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
     }
-
+    
     public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
     }
-
+    
     public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
         usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
     }
-
+    
     public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
     }
-
+    
     public void historicoMensagens(Usuario user, String amigoA) throws Exception {
         int i = 0, j = 0;
         // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
@@ -134,124 +138,13 @@ public class Contas {
             if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
                 throw new Exception("Histórico de mensagens vázio!"); // tratando ambas mensagens vazias
             } else {
-                while (i < usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) || j < usuarios[qtdAmigo].getQtdMensagens(qtdUsuario)) {
-                    if (usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j) == null) {
-                        //hora
-                        mensagemHora = usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i);
-                        controller.Cadastro.enviarMensagemHora(mensagemHora);
-                        // mensagem abaixo 
-                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) { // se for diferente de null é secreta
-                            nome = usuarios[qtdUsuario].getNome();
-                            controller.Cadastro.enviarMensagemSecreta(nome);
-                            do {
-                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
-                                senhaParaTestar = in.nextLine();
-                                if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
-                                    // senha igual :. exibi mensagem secreta
-                                    mensagem = usuarios[qtdUsuario].getNome() + ": "
-                                            + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
-                                    controller.Cadastro.enviarMensagem(mensagem);
-                                    break;
-                                } else {
-                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
-                                }
-                            } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-                        } else { // caso seja null é pq é mensagem normal, logo exibimos
-                            mensagem = usuarios[qtdUsuario].getNome() + ": "
-                                    + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
-                            controller.Cadastro.enviarMensagem(mensagem);
-                        }
-                        i++;
-
-                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i) == null) {  // se for diferente de null é secreta
-                        //hora
-                        mensagemHora = usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j);
-                        controller.Cadastro.enviarMensagemHora(mensagemHora);
-                        // mensagem abaixo 
-                        if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) {
-                            nome = usuarios[qtdAmigo].getNome();
-                            controller.Cadastro.enviarMensagemSecretaAmigo(nome);
-                            do {
-                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
-                                senhaParaTestar = in.nextLine();
-
-                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
-                                    // senha igual :. exibi mensagem secreta
-                                    mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
-                                    controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
-                                    break;
-
-                                } else {
-                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
-                                }
-                            } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-                        } else { // caso seja null é pq é mensagem normal
-                            mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
-                            controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
-                        }
-                        j++;
-
-                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) < 0) {
-                        //hora
-                        mensagemHora = usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i);
-                        controller.Cadastro.enviarMensagemHora(mensagemHora);
-                        // mensagem abaixo 
-                        if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i) != null) {  // se for diferente de null é secreta
-                            nome = usuarios[qtdUsuario].getNome();
-                            controller.Cadastro.enviarMensagemSecreta(nome);
-                            do {
-                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
-                                senhaParaTestar = in.nextLine();
-
-                                if (usuarios[qtdUsuario].getSenhaMensagemSecreta(qtdAmigo, i).compareTo(senhaParaTestar) == 0) {
-                                    // senha igual :. exibi mensagem secreta
-                                    mensagem = usuarios[qtdUsuario].getNome() + ": "
-                                            + usuarios[qtdUsuario].getMensagem(qtdAmigo, i);
-                                    controller.Cadastro.enviarMensagem(mensagem);
-                                    break;
-                                } else {
-                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
-                                }
-                            } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-                        } else { // caso seja null é pq é mensagem normal
-                            mensagem = ANSI_BLUE + usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, i) + ANSI_RESET;
-                            controller.Cadastro.enviarMensagem(mensagem);
-                        }
-                        i++;
-
-                    } else if (usuarios[qtdUsuario].getHoraMensagens(qtdAmigo, i).compareTo(usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j)) > 0) {
-                        //hora
-                        mensagemHora = usuarios[qtdAmigo].getHoraMensagens(qtdUsuario, j);
-                        controller.Cadastro.enviarMensagemHora(mensagemHora);
-                        // mensagem abaixo 
-                        if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j) != null) {  // se for diferente de null é secreta 
-                            nome = usuarios[qtdAmigo].getNome();
-                            controller.Cadastro.enviarMensagemSecretaAmigo(nome);
-                            do {
-                                controller.Cadastro.solicitacaoSecretaMensagem(); // pede para o usuario digitar senha
-                                senhaParaTestar = in.nextLine();
-                                if (usuarios[qtdAmigo].getSenhaMensagemSecreta(qtdUsuario, j).compareTo(senhaParaTestar) == 0) {
-                                    // senha igual :. exibi mensagem secreta
-                                    mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
-                                    controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
-                                    break;
-                                } else {
-                                    opcaoSenhaSecreta = controller.Cadastro.tratamentoSenhaErrada();
-                                }
-                            } while (opcaoSenhaSecreta == 1 || opcaoSenhaSecreta != 2);
-                        } else { // caso seja null é pq é mensagem normal
-                            mensagemAmigo = usuarios[qtdAmigo].getNome() + ": " + usuarios[qtdAmigo].getMensagem(qtdUsuario, j);
-                            controller.Cadastro.enviarMensagemAmigo(mensagemAmigo);
-                        }
-                        j++;
-                    }
-                }
+                ThreadHistoricoMensagens.executaParalelo(usuarios, qtdUsuario, qtdAmigo);
             }
         } else { // não são amigos, throws Exception
             throw new Exception("Erro, usuário não está na lista de amizades!");
         }
     }
-
+    
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
@@ -290,7 +183,7 @@ public class Contas {
             adicionarMatch(usuarios[posicaoUsuario], usuarios[posicaoAmigo]);
         }
     }
-
+    
     private void adicionarMatch(Usuario user, Usuario amigo) {
         Scanner i = new Scanner(System.in);
         char decisao;
@@ -315,7 +208,7 @@ public class Contas {
             Cadastro.resultadoMatch(resultado);
             user.setDecisaoMatch(false, posicaoUserMatch);
         }
-
+        
         for (int j = 0; j < amigo.getQtdMatch(); j++) {
             if (amigo.getnomesMatch(j).equals(nomeUser)) {
                 posicaoAmigoMatch = j;
@@ -375,19 +268,19 @@ public class Contas {
             throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
-
+    
     public void enviarSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception {
         mural.enviarSolicitacaoMural(cadastro, user, usuarios, amigo);
     }
-
+    
     public void setSolicitacaoMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         mural.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
     }
-
+    
     public void solicitacaoMural(Usuario user, Cadastro cadastro, String amigo) throws Exception {
         mural.solicitacaoMural(user, usuarios, cadastro, amigo);
     }
-
+    
     public void exibirMural(Cadastro cadastro) throws Exception {
         mural.exibeMural(cadastro);
     }
