@@ -13,19 +13,20 @@ public class Exibicao {
     public static Scanner in = new Scanner(System.in);
 
     public static void printaMural(String mensagem) {
-        System.out.println(mensagem);
+        System.out.println(ANSI_PURPLE + mensagem + ANSI_RESET);
     }
 
-    public static void mensagemMural(Cadastro cadastro, int qtdUsuario, int qtdAmigo) {
+    public static void mensagemMural(Cadastro cadastro, Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+        Scanner ins = new Scanner(System.in);
         String mensagem;
         String option = "sim";
         while (option.charAt(0) == 's' || option.charAt(0) == 'S') {
             System.out.println("=============================");
             System.out.println("Digite a mensagem para o mural:");
             System.out.print("-> ");
-            mensagem = in.nextLine();
+            mensagem = ins.nextLine();
             try {
-                cadastro.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
+                cadastro.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
                 System.out.println("UNIKUT - Mensagem enviada com sucesso!");
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -42,7 +43,7 @@ public class Exibicao {
         System.out.print("-> ");
         opcao = in.next();
         if (opcao.charAt(0) == 's' || opcao.charAt(0) == 'S') {
-            System.out.println("UNIKUT - Mensagem postada no mural com sucesso!");
+            System.out.println(ANSI_GREEN + "UNIKUT - Mensagem postada no mural com sucesso!" + ANSI_RESET);
         } else {
             System.err.println("UNIKUT - Mensagem recusada com sucesso!");
         }
@@ -115,8 +116,18 @@ public class Exibicao {
     }
 
     public static char perguntaMatch() {
-        System.out.print("Voce deseja dar Match nesse usuario? S - para sim ou N - para não: ");
-        char decisao = in.next().charAt(0);
+        char decisao;
+        System.out.println("Voce deseja dar Match nesse usuario?");
+        System.out.print("S - para sim ou N - para não: ");
+        decisao = in.next().charAt(0);
+        decisao = Character.toUpperCase(decisao);
+        while (decisao != 'S' && decisao != 'N') {
+            System.err.println("Erro, o valor inserido é invalido!");
+            System.out.println("Voce deseja dar Match nesse usuario?");
+            System.out.print("S - para sim ou N - para não: ");
+            decisao = in.next().charAt(0);
+            decisao = Character.toUpperCase(decisao);
+        }
         return decisao;
     }
 

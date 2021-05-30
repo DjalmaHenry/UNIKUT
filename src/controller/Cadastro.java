@@ -13,7 +13,6 @@ import static view.Logado.*;
 public class Cadastro {
 
     private Contas contas;
-    private Mural mural;
 
     public Cadastro() {
         contas = new ContasAdmin();
@@ -71,7 +70,7 @@ public class Cadastro {
     public void logaConta(String login, String senha, Cadastro cadastro) throws Exception {
         Usuario user = contas.procurarUsuario(login, senha);
         if (user != null) {
-            boolean admin = contas.getAdmin(user.getNome());
+            boolean admin = contas.getAdmin(user.getLogin());
             if (admin == true) {
                 logadoAdmin(user, cadastro);
             } else {
@@ -138,23 +137,23 @@ public class Cadastro {
     }
 
     public void exibirMural(Cadastro cadastro) throws Exception {
-        mural.exibeMural(cadastro);
+        contas.exibirMural(cadastro);
     }
 
-    public void solicitacaoMural(Usuario user, String amigo) throws Exception {
-        mural.solicitacaoMural(user, amigo);
+    public void solicitacaoMural(Usuario user, Cadastro cadastro, String amigo) throws Exception {
+        contas.solicitacaoMural(user, cadastro, amigo);
     }
 
     public void enviaSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception {
-        mural.enviarSolicitacaoMural(cadastro, user, amigo);
+        contas.enviarSolicitacaoMural(cadastro, user, amigo);
     }
 
-    public void mensagemMural(Cadastro cadastro, int qtdUsuario, int qtdAmigo) {
-        Exibicao.mensagemMural(cadastro, qtdUsuario, qtdAmigo);
+    public void mensagemMural(Cadastro cadastro, Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+        Exibicao.mensagemMural(cadastro, usuarios, qtdUsuario, qtdAmigo);
     }
 
-    public void setSolicitacaoMural(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
-        mural.setSolicitacaoMural(qtdUsuario, qtdAmigo, mensagem);
+    public void setSolicitacaoMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        contas.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
     }
 
     public static String printaSolicitacaoMural(String solicitacao) {
@@ -203,4 +202,7 @@ public class Cadastro {
         contas.setMensagem(qtdUsuario, qtdAmigo, mensagem);
     }
 
+    public int getQtd() { // $$$$$$$$$$$$
+        return contas.getQtd();
+    }
 }

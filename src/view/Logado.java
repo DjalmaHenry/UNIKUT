@@ -99,7 +99,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.solicitacaoMural(user, amigo);
+                        cadastro.solicitacaoMural(user, cadastro, amigo);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -221,7 +221,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.solicitacaoMural(user, amigo);
+                        cadastro.solicitacaoMural(user, cadastro, amigo);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }

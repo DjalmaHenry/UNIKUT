@@ -9,23 +9,22 @@ public class Contas {
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
     protected boolean[] admin;
-    protected String[] autorMural;
-    protected String[] mural;
-    protected int qtdMural;
+    protected Mural mural;
     protected int qtd;
 
     public Contas() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
-        autorMural = new String[1000];
-        mural = new String[1000];
-        this.qtdMural = 0;
-        this.qtd = 0;
+        mural = new Mural();
     }
 
     public boolean getAdmin(String user) { // $$$$$$$$$$$$
         int qtdUsuario = buscarUsuario(user);
         return admin[qtdUsuario];
+    }
+
+    public int getQtd() { // $$$$$$$$$$$$
+        return qtd;
     }
 
     public void cadastrarUsuario(String login, String senha, String nome) {
@@ -61,7 +60,7 @@ public class Contas {
             return null; // login não encontrado.
         }
     }
-    
+
     public Usuario procurarUsuario(String login) {
         int achouUsuario;
         // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
@@ -299,7 +298,6 @@ public class Contas {
         nomeUser = user.getNome();
         nomeAmigo = amigo.getNome();
         decisao = Cadastro.perguntaMatch();
-        decisao = Character.toUpperCase(decisao);
         int posicaoUserMatch = 0;
         int posicaoAmigoMatch = 0;
         if (decisao == 'S') {
@@ -376,5 +374,21 @@ public class Contas {
         } else {
             throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
+    }
+
+    public void enviarSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception {
+        mural.enviarSolicitacaoMural(cadastro, user, usuarios, amigo);
+    }
+
+    public void setSolicitacaoMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
+        mural.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
+    }
+
+    public void solicitacaoMural(Usuario user, Cadastro cadastro, String amigo) throws Exception {
+        mural.solicitacaoMural(user, usuarios, cadastro, amigo);
+    }
+
+    public void exibirMural(Cadastro cadastro) throws Exception {
+        mural.exibeMural(cadastro);
     }
 }
