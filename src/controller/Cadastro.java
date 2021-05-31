@@ -132,7 +132,7 @@ public class Cadastro {
         contas = (Contas) aux;
     }
 
-    public void printarMural(String mensagem) {
+    public static void printarMural(String mensagem) {
         Exibicao.printaMural(mensagem);
     }
 

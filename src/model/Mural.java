@@ -50,9 +50,27 @@ public class Mural {
         if (qtdMural == 0) {
             throw new Exception("UNIKUT - Erro, mural vazio!!");
         } else {
-            for (int i = 0; i != qtdMural; i++) {
-                mensagem = autorMural[i] + ": " + mural[i];
-                cadastro.printarMural(mensagem);
+            Exibe exibe = new Exibe();
+            Thread e = new Thread(exibe);
+            e.start();
+            synchronized (e){
+                e.notifyAll();
+                e.join(50);
+            }
+        }
+    }
+
+    private class Exibe implements Runnable {
+
+        public void run() {
+            String mensagem;
+            try {
+                for (int i = 0; i != qtdMural; i++) {
+                    mensagem = autorMural[i] + ": " + mural[i];
+                    Cadastro.printarMural(mensagem);
+                }
+            } catch (Exception e) {
+                System.err.println("ERRO");
             }
         }
     }
