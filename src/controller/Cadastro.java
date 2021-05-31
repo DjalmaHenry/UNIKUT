@@ -9,6 +9,7 @@ import view.Exibicao;
 import view.Logado;
 import view.Exibicao;
 import static view.Logado.*;
+import static view.LogadoAdmin.*;
 
 public class Cadastro {
 
@@ -136,8 +137,8 @@ public class Cadastro {
         Exibicao.printaMural(mensagem);
     }
 
-    public void exibirMural(Cadastro cadastro) throws Exception {
-        contas.exibirMural(cadastro);
+    public void exibirMural() throws Exception {
+        contas.exibirMural();
     }
 
     public void solicitacaoMural(Usuario user, Cadastro cadastro, String amigo) throws Exception {

@@ -282,7 +282,7 @@ public class Contas {
         mural.solicitacaoMural(user, usuarios, cadastro, amigo);
     }
     
-    public void exibirMural(Cadastro cadastro) throws Exception {
-        mural.exibeMural(cadastro);
+    public void exibirMural() throws Exception {
+        mural.exibeMural();
     }
 }

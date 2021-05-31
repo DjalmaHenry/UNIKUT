@@ -5,18 +5,18 @@ import java.util.Scanner;
 import model.Usuario;
 import static view.CoresTerminal.*;
 
-public class Logado {
+public class LogadoAdmin {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void logado(Usuario user, Cadastro cadastro) {
+    public static void logadoAdmin(Usuario user, Cadastro cadastro) {
         System.out.println("___________________________________________________");
-        System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Você logou em sua conta admin!" + ANSI_RESET);
         System.out.println("___________________________________________________");
         int op;
-        System.out.println("Bem vindo, " + user.getNome() + ".");
+        String login, amigo;
         do {
-            menuLog();
+            menuLogAdmin();
             op = in.nextInt();
             switch (op) {
                 case 1:
@@ -28,7 +28,6 @@ public class Logado {
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
-                    String amigo;
                     System.out.println("UNIKUT - Adicionar amigos:");
                     System.out.println("Informe o login do amigo:");
                     amigo = in.next();
@@ -114,14 +113,34 @@ public class Logado {
                     }
                     break;
                 case 11:
-                    ///////////////////////////////////////////////////////////
                     try {
                     cadastro.exibirMatch(user);
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
-                //////////////////////////////////////////////////////////
                 break;
+                case 12:
+                    System.out.println("Informe o login da conta que deseja alterar:");
+                    login = in.next();
+                    in.nextLine();
+                    Usuario userAltera = cadastro.procurarUsuario(login);
+                    if (userAltera != null) {
+                        alteraDados(userAltera, cadastro);
+                    } else {
+                        System.err.println("UNIKUT - Usuário não cadastrado!");
+                    }
+                    break;
+                case 13:
+                    System.out.println("Informe o login da conta que deseja excluir:");
+                    login = in.next();
+                    in.nextLine();
+                    try {
+                        cadastro.excluiConta(login);
+                        System.out.println(ANSI_GREEN + "UNIKUT - Usuário excluido com sucesso!" + ANSI_RESET);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
                     System.exit(0);
@@ -179,10 +198,10 @@ public class Logado {
         } while (op != 4);
     }
 
-    public static void menuLog() {
+    public static void menuLogAdmin() {
         System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");
-        System.out.println("2 - Alterar perfil.");
+        System.out.println("2 - Alterar meu perfil.");
         System.out.println("3 - Adicionar amigo.");
         System.out.println("4 - Aceitar pedido de amizade.");
         System.out.println("5 - Ver lista de amizades.");
@@ -192,6 +211,8 @@ public class Logado {
         System.out.println("9 - Mural pendentes.");
         System.out.println("10 - Mostrar mural.");
         System.out.println("11 - Exibir Matchs.");
+        System.out.println(ANSI_BLUE + "12 - Alterar perfil de uma conta." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "13 - Excluir uma conta." + ANSI_RESET);
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");

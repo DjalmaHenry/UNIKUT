@@ -45,32 +45,21 @@ public class Mural {
         usuarios[qtdAmigo].setSolicitacaoMural(qtdUsuario, mensagem);
     }
 
-    public void exibeMural(Cadastro cadastro) throws Exception {
-        String mensagem;
+    public void exibeMural() throws Exception {
         if (qtdMural == 0) {
             throw new Exception("UNIKUT - Erro, mural vazio!!");
         } else {
-            Exibe exibe = new Exibe();
-            Thread e = new Thread(exibe);
-            e.start();
-            synchronized (e){
-                e.notifyAll();
-                e.join(50);
-            }
-        }
-    }
-
-    private class Exibe implements Runnable {
-
-        public void run() {
-            String mensagem;
-            try {
+            Thread e = new Thread(() -> { // Lambda Expression
+                String mensagem;
                 for (int i = 0; i != qtdMural; i++) {
                     mensagem = autorMural[i] + ": " + mural[i];
                     Cadastro.printarMural(mensagem);
                 }
-            } catch (Exception e) {
-                System.err.println("ERRO");
+            });
+            e.start();
+            synchronized (e) {
+                e.notifyAll();
+                e.join(50);
             }
         }
     }
