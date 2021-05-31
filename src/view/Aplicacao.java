@@ -10,6 +10,8 @@ public class Aplicacao {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
+        cadastro.cadastraConta("al", "", "alyson");
+        cadastro.cadastraConta("dj", "", "djalma");
         int op;
         String login, senha;
         do {

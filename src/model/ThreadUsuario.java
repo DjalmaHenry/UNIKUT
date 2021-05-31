@@ -4,7 +4,7 @@ import static model.Contas.in;
 import static model.ThreadHistoricoMensagens.contAmigo;
 import static model.ThreadHistoricoMensagens.contUsuario;
 
-class ThreadUsuario extends Thread implements Runnable {
+class ThreadUsuario implements Runnable {
 
     private Usuario[] usuarios;
     private int qtdUsuario, qtdAmigo;

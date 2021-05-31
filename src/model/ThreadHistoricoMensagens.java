@@ -8,7 +8,7 @@ public class ThreadHistoricoMensagens {
     public static void executaParalelo(Usuario[] usuarios, int qtdUsuario, int qtdAmigo) throws InterruptedException { //exibição das mensagens em paralelo
         ThreadUsuario usuario = new ThreadUsuario(usuarios, qtdUsuario, qtdAmigo);
         ThreadAmigo amigo = new ThreadAmigo(usuarios, qtdUsuario, qtdAmigo);
-        usuario.start();
-        amigo.start();
+        usuario.run();
+        amigo.run();
     }
 }

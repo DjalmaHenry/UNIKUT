@@ -148,7 +148,7 @@ public class Contas {
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
-        posicaoUsuario = buscarUsuario(user.getNome()); // buscar usuario na lista.
+        posicaoUsuario = buscarUsuario(user.getLogin()); // buscar usuario na lista.
         // $$$$$$$$$$$$
         // retirei o Usuario userAux = new Usuario(amigo); // criação de um usuario para o amigo a ser add.
         // $$$$$$$$$$$$ e foi passado como parametro aqui
