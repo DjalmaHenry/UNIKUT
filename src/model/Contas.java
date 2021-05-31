@@ -129,7 +129,7 @@ public class Contas {
         int i = 0, j = 0;
         // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
         int qtdAmigo = buscarUsuario(amigoA);
-        int qtdUsuario = buscarUsuario(user.getNome()); // $$$$$$$$$$$$ user -> user.getNome
+        int qtdUsuario = buscarUsuario(user.getLogin()); // $$$$$$$$$$$$ user -> user.getNome
         String senhaParaTestar;
         int opcaoSenhaSecreta = -1;
         boolean resultado = usuarios[qtdUsuario].buscaAmigo(amigoA);
@@ -138,7 +138,8 @@ public class Contas {
             if (usuarios[qtdUsuario].getQtdMensagens(qtdAmigo) == 0 && usuarios[qtdAmigo].getQtdMensagens(qtdUsuario) == 0) {
                 throw new Exception("Histórico de mensagens vázio!"); // tratando ambas mensagens vazias
             } else {
-                ThreadHistoricoMensagens.executaParalelo(usuarios, qtdUsuario, qtdAmigo);
+                HistoricoMensagens historico = new HistoricoMensagens();
+                historico.executa(usuarios, qtdUsuario, qtdAmigo);
             }
         } else { // não são amigos, throws Exception
             throw new Exception("Erro, usuário não está na lista de amizades!");
@@ -228,7 +229,7 @@ public class Contas {
     public void aceitaAmigos(Usuario user) throws Exception {
         int posicaoUsuario;
         // $$$$$$$$$$$$
-        posicaoUsuario = buscarUsuario(user.getNome()); // buscar usuario na lista.
+        posicaoUsuario = buscarUsuario(user.getLogin()); // buscar usuario na lista.
         if (usuarios[posicaoUsuario].getQtdListaAmigosPendentes() != 0) {
             String amigo = Cadastro.informaLogin();
             // $$$$$$$$$$$$

@@ -96,11 +96,11 @@ public class Exibicao {
     }
 
     public static void mensagemSecreta(String nome) {
-        System.out.println(ANSI_RED + "[Mens. Secreta]" + ANSI_RESET + ANSI_BLUE + nome + ANSI_RESET);
+        System.out.println(ANSI_RED + "[Mens. Secreta]" + ANSI_RESET + ANSI_BLUE + nome + ":" + ANSI_RESET);
     }
 
     public static void mensagemSecretaAmigo(String nome) {
-        System.out.print(ANSI_RED + "[Mens. Secreta]" + ANSI_RESET + ANSI_YELLOW + nome + ANSI_RESET);
+        System.out.println(ANSI_RED + "[Mens. Secreta]" + ANSI_RESET + ANSI_YELLOW + nome + ":" + ANSI_RESET);
     }
 
     public static void exibirAmigos(String amigo) {
