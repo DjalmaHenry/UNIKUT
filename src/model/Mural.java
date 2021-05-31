@@ -58,7 +58,6 @@ public class Mural {
             });
             e.start();
             synchronized (e) {
-                e.notifyAll();
                 e.join(50);
             }
         }
