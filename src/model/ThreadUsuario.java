@@ -76,9 +76,9 @@ class ThreadUsuario extends Thread implements Runnable {
                         mensagem = usuarios[qtdUsuario].getNome() + ": " + usuarios[qtdUsuario].getMensagem(qtdAmigo, contUsuario);
                         controller.Cadastro.enviarMensagem(mensagem);
                     }
-                    contUsuario++;
+                    contaMais();
                 } else {
-                    Thread.sleep(0);
+                    Thread.sleep(50);
                 }
             }
             System.out.println("FIM usuario");
@@ -86,4 +86,8 @@ class ThreadUsuario extends Thread implements Runnable {
         }
     }
 ;
+    
+    public synchronized static void contaMais(){
+        contUsuario++;
+    }
 }

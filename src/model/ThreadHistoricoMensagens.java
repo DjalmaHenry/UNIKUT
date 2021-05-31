@@ -10,13 +10,5 @@ public class ThreadHistoricoMensagens {
         ThreadAmigo amigo = new ThreadAmigo(usuarios, qtdUsuario, qtdAmigo);
         usuario.start();
         amigo.start();
-        synchronized (usuario) {
-            usuario.join(0,0);
-        }
-        synchronized (amigo) {
-            amigo.join(0,0);
-        }
-        
     }
-
 }
