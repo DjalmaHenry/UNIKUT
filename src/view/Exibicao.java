@@ -18,6 +18,7 @@ public class Exibicao {
 
     public static void mensagemMural(Cadastro cadastro, Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
         Scanner ins = new Scanner(System.in);
+        int qtdSolicitacoes;
         String mensagem;
         String option = "sim";
         while (option.charAt(0) == 's' || option.charAt(0) == 'S') {
@@ -30,9 +31,11 @@ public class Exibicao {
                 System.out.println("UNIKUT - Mensagem enviada com sucesso!");
             } catch (Exception e) {
                 System.err.println(e.getMessage());
+                break;
             }
             System.out.println("Deseja enviar outra mensagem? [Sim/Não]");
             option = in.next();
+            qtdSolicitacoes = cadastro.getQtdSolicicacoesMural(usuarios, qtdUsuario, qtdAmigo);
         }
     }
 

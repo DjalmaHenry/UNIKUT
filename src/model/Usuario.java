@@ -116,6 +116,10 @@ public class Usuario implements Comparable<Usuario> {
         }
     }
 
+    public void removeSolicitacaoMural(int amigo, int posicao) throws Exception {
+        this.solicitacaoMural[amigo][posicao] = null;
+    }
+
     public void setSolicitacaoMural(int amigo, String mensagem) throws Exception {
         if (this.qtdSolicicacoesMural[amigo] == 10) {
             throw new Exception("UNIKUT - Erro, mensagem NÃO enviada, memória cheia!!!");

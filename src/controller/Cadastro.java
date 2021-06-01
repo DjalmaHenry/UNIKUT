@@ -153,6 +153,11 @@ public class Cadastro {
         Exibicao.mensagemMural(cadastro, usuarios, qtdUsuario, qtdAmigo);
     }
 
+    public int getQtdSolicicacoesMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+        int qtd = usuarios[qtdUsuario].getQtdSolicicacoesMural(qtdAmigo);
+        return qtd;
+    }
+
     public void setSolicitacaoMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         contas.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
     }

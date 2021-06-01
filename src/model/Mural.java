@@ -84,9 +84,9 @@ public class Mural {
                         mural[qtdMural] = mensagem;
                         autorMural[qtdMural] = autor;
                         qtdMural++;
-                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                        usuarios[qtdUsuario].removeSolicitacaoMural(qtdAmigo, i);
                     } else {
-                        usuarios[qtdUsuario].setSolicitacaoMural(qtdAmigo, null);
+                        usuarios[qtdUsuario].removeSolicitacaoMural(qtdAmigo, i);
                     }
                 }
                 usuarios[qtdUsuario].setQtdSolicicacoesMural(0, qtdAmigo);
