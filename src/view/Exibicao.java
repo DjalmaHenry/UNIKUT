@@ -16,7 +16,8 @@ public class Exibicao {
         System.out.println(ANSI_PURPLE + mensagem + ANSI_RESET);
     }
 
-    public static void mensagemMural(Cadastro cadastro, Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+    public static void mensagemMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+        Cadastro cadastro = Cadastro.getInstance();
         Scanner ins = new Scanner(System.in);
         int qtdSolicitacoes;
         String mensagem;
@@ -145,7 +146,8 @@ public class Exibicao {
         System.out.println(amigosPendentes);
     }
 
-    public static void exibirMsg(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {
+    public static void exibirMsg(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao) throws Exception {
+        Cadastro cadastro = Cadastro.getInstance();
         String opcaoMensagemSecreta;
         String mensagem;
         char sim = 's', nao = 'n';
@@ -192,7 +194,5 @@ public class Exibicao {
         } else {
             throw new Exception("UNIKUT - Erro, usuário não está na lista de amizades!");
         }
-
     }
-
 }

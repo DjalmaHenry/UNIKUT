@@ -9,7 +9,7 @@ public class Aplicacao {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Cadastro cadastro = new Cadastro();
+        Cadastro cadastro = Cadastro.getInstance();
         cadastro.cadastraConta("al", "", "alyson");
         cadastro.cadastraConta("dj", "", "djalma");
         int op;
@@ -21,7 +21,7 @@ public class Aplicacao {
             switch (op) {
                 case 1:
                     //criação de conta
-                    Registra.cadastra(cadastro, in);
+                    Registra.cadastra(in);
                     //pós criação \/
                     break;
 
@@ -31,7 +31,7 @@ public class Aplicacao {
                     System.out.println("Informe a chave de registro de admin:");
                     senha = in.nextLine();
                     if (senha.compareTo(combinacao) == 0) {
-                        Registra.cadastraAdmin(cadastro, in);
+                        Registra.cadastraAdmin(in);
                     } else {
                         System.err.println("UNIKUT - Chave de registro inválida!");
                     }
@@ -44,7 +44,7 @@ public class Aplicacao {
                     senha = in.nextLine();
                     //pós login \/
                     try {
-                        cadastro.logaConta(login, senha, cadastro);
+                        cadastro.logaConta(login, senha);
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }

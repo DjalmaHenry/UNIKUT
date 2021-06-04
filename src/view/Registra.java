@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class Registra {
 
-    public static void cadastra(Cadastro cadastro, Scanner in) {
+    public static void cadastra(Scanner in) {
+        Cadastro cadastro = Cadastro.getInstance();
         String login, senha, nome = "";
         char sim = 's', nao = 'n'; // verifica a senha
         String op;
@@ -40,7 +41,8 @@ public class Registra {
         }
     }
 
-    public static void cadastraAdmin(Cadastro cadastro, Scanner in) {
+    public static void cadastraAdmin(Scanner in) {
+        Cadastro cadastro = Cadastro.getInstance();
         String login, senha, nome = "";
         int op;
         System.out.print("Digite o login: ");

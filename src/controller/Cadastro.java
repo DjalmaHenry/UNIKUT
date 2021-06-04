@@ -1,25 +1,30 @@
 package controller;
 
 import java.util.Scanner;
-import model.Usuario;
 import model.Contas;
 import model.ContasAdmin;
-import model.Mural;
+import model.Usuario;
 import view.Exibicao;
-import view.Logado;
-import view.Exibicao;
-import static view.Logado.*;
-import static view.LogadoAdmin.*;
+import static view.Logado.logado;
+import static view.LogadoAdmin.logadoAdmin;
 
 public class Cadastro {
 
+    private static Cadastro instancia;
     private Contas contas;
 
-    public Cadastro() {
+    private Cadastro() {
         contas = new ContasAdmin();
     }
 
-    public static int tratamentoSenhaErrada() {
+    public static synchronized Cadastro getInstance() {
+        if (instancia == null) {
+            instancia = new Cadastro();
+        }
+        return instancia;
+    }
+    
+       public static int tratamentoSenhaErrada() {
         int tratamentoSenha = Exibicao.tratamentoSenha();
         return tratamentoSenha;
     }
@@ -68,14 +73,14 @@ public class Cadastro {
         contas = (Contas) aux;
     }
 
-    public void logaConta(String login, String senha, Cadastro cadastro) throws Exception {
+    public void logaConta(String login, String senha) throws Exception {
         Usuario user = contas.procurarUsuario(login, senha);
         if (user != null) {
             boolean admin = contas.getAdmin(user.getLogin());
             if (admin == true) {
-                logadoAdmin(user, cadastro);
+                logadoAdmin(user);
             } else {
-                logado(user, cadastro);
+                logado(user);
             }
         } else {
             throw new Exception("UNIKUT - Login ou senha incorretos!");
@@ -141,16 +146,16 @@ public class Cadastro {
         contas.exibirMural();
     }
 
-    public void solicitacaoMural(Usuario user, Cadastro cadastro, String amigo) throws Exception {
-        contas.solicitacaoMural(user, cadastro, amigo);
+    public void solicitacaoMural(Usuario user, String amigo) throws Exception {
+        contas.solicitacaoMural(user, amigo);
     }
 
-    public void enviaSolicitacaoMural(Cadastro cadastro, Usuario user, String amigo) throws Exception {
-        contas.enviarSolicitacaoMural(cadastro, user, amigo);
+    public void enviaSolicitacaoMural(Usuario user, String amigo) throws Exception {
+        contas.enviarSolicitacaoMural(user, amigo);
     }
 
-    public void mensagemMural(Cadastro cadastro, Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
-        Exibicao.mensagemMural(cadastro, usuarios, qtdUsuario, qtdAmigo);
+    public void mensagemMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
+        Exibicao.mensagemMural(usuarios, qtdUsuario, qtdAmigo);
     }
 
     public int getQtdSolicicacoesMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo) {
@@ -184,12 +189,12 @@ public class Cadastro {
         return decisao;
     }
 
-    public void enviarMensagem(Usuario user, String amigo, Scanner in, Cadastro cadastro) throws Exception {
-        contas.enviarMensagem(user, amigo, in, cadastro);
+    public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
+        contas.enviarMensagem(user, amigo, in);
     }
 
-    public static void exibirMensagem(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao, Cadastro cadastro) throws Exception {
-        Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao, cadastro);
+    public static void exibirMensagem(boolean resul, int qtdAmigo, int qtdUsuario, String senhaPadrao) throws Exception {
+        Exibicao.exibirMsg(resul, qtdAmigo, qtdUsuario, senhaPadrao);
     }
 
     public void setMsgSecreta(int qtdUsuario, String auxSenha) {
