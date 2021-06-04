@@ -9,10 +9,11 @@ public class Logado {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void logado(Usuario user, Cadastro cadastro) {
+    public static void logado(Usuario user) {
         System.out.println("___________________________________________________");
         System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
         System.out.println("___________________________________________________");
+        Cadastro cadastro = Cadastro.getInstance();
         int op;
         System.out.println("Bem vindo, " + user.getNome() + ".");
         do {
@@ -24,7 +25,7 @@ public class Logado {
                     break;
                 case 2:
                     //Alteração de perfil
-                    alteraDados(user, cadastro);
+                    alteraDados(user);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -76,7 +77,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.enviarMensagem(user, amigo, in, cadastro);
+                        cadastro.enviarMensagem(user, amigo, in);
                         System.out.println(ANSI_GREEN + "Mensagem enviada!" + ANSI_RESET);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -88,7 +89,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.enviaSolicitacaoMural(cadastro, user, amigo);
+                        cadastro.enviaSolicitacaoMural(user, amigo);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -99,7 +100,7 @@ public class Logado {
                     amigo = in.next();
                     in.nextLine();
                     try {
-                        cadastro.solicitacaoMural(user, cadastro, amigo);
+                        cadastro.solicitacaoMural(user, amigo);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -132,7 +133,8 @@ public class Logado {
         } while (op != 1);
     }
 
-    public static void alteraDados(Usuario user, Cadastro cadastro) {
+    public static void alteraDados(Usuario user) {
+        Cadastro cadastro = Cadastro.getInstance();
         int op;
         String novoNome,
                 novaSenha;
