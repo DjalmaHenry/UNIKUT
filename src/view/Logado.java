@@ -5,11 +5,12 @@ import java.util.Scanner;
 import model.Usuario;
 import static view.CoresTerminal.*;
 
-public class Logado {
+public class Logado implements InterfaceLogado {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void logado(Usuario user) {
+    @Override
+    public void logado(Usuario user) {
         System.out.println("___________________________________________________");
         System.out.println(ANSI_GREEN + "Você logou em sua conta!" + ANSI_RESET);
         System.out.println("___________________________________________________");
@@ -133,7 +134,8 @@ public class Logado {
         } while (op != 1);
     }
 
-    public static void alteraDados(Usuario user) {
+    @Override
+    public void alteraDados(Usuario user) {
         Cadastro cadastro = Cadastro.getInstance();
         int op;
         String novoNome,
@@ -181,7 +183,8 @@ public class Logado {
         } while (op != 4);
     }
 
-    public static void menuLog() {
+    @Override
+    public void menuLog() {
         System.out.println("UNIKUT - MENU:");
         System.out.println("1 - Sair da conta.");
         System.out.println("2 - Alterar perfil.");

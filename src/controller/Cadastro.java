@@ -5,8 +5,8 @@ import model.Contas;
 import model.ContasAdmin;
 import model.Usuario;
 import view.Exibicao;
-import static view.Logado.logado;
-import static view.LogadoAdmin.logadoAdmin;
+import view.Logado;
+import view.LogadoAdmin;
 
 public class Cadastro {
 
@@ -78,9 +78,11 @@ public class Cadastro {
         if (user != null) {
             boolean admin = contas.getAdmin(user.getLogin());
             if (admin == true) {
-                logadoAdmin(user);
+               LogadoAdmin logA = new LogadoAdmin();
+               logA.logado(user);
             } else {
-                logado(user);
+               Logado log = new Logado();
+               log.logado(user);
             }
         } else {
             throw new Exception("UNIKUT - Login ou senha incorretos!");
