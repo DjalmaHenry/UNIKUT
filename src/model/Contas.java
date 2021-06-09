@@ -5,37 +5,37 @@ import java.util.Scanner;
 import static view.CoresTerminal.*;
 
 public class Contas {
-    
+
     public static final Scanner in = new Scanner(System.in);
     protected Usuario[] usuarios;
     protected boolean[] admin;
     protected Mural mural;
     protected int qtd;
-    
+
     public Contas() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
         mural = new Mural();
     }
-    
+
     public boolean getAdmin(String user) { // $$$$$$$$$$$$
         int qtdUsuario = buscarUsuario(user);
         return admin[qtdUsuario];
     }
-    
+
     public int getQtd() { // $$$$$$$$$$$$
         return qtd;
     }
-    
+
     protected Usuario[] getUsuarios() {
         return usuarios;
     }
-    
+
     public void cadastrarUsuario(String login, String senha, String nome) {
         usuarios[this.qtd] = new Usuario(login, senha, nome);
         this.qtd++; // usuario cadastrado.
     }
-    
+
     public int buscarUsuario(String login) {
         Usuario user = new Usuario(login);
         int i = 0;
@@ -49,7 +49,7 @@ public class Contas {
         }
         return -1; // login não encontrado.
     }
-    
+
     public Usuario procurarUsuario(String login, String senha) {
         int achouUsuario;
         // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
@@ -64,14 +64,14 @@ public class Contas {
             return null; // login não encontrado.
         }
     }
-    
+
     public Usuario procurarUsuario(String login) {
         int achouUsuario;
         // $$$$$$$$$$$$     Usuario userAux = new Usuario(login);
         achouUsuario = buscarUsuario(login); // $$$$$$$$$$$$
         return usuarios[achouUsuario];
     }
-    
+
     public void exibeListaAmigosPendentes(Usuario user) throws Exception {
         Cadastro cadastro = Cadastro.getInstance();
         int qtdUsuario;
@@ -87,7 +87,7 @@ public class Contas {
             }
         }
     }
-    
+
     public void exibeListaAmigos(Usuario user) throws Exception {
         Cadastro cadastro = Cadastro.getInstance();
         int qtdUsuario;
@@ -101,7 +101,7 @@ public class Contas {
             }
         }
     }
-    
+
     public void enviarMensagem(Usuario user, String amigo, Scanner in) throws Exception {
         Cadastro cadastro = Cadastro.getInstance();
         Usuario amigoA = new Usuario(amigo);
@@ -111,23 +111,23 @@ public class Contas {
         String senhaPadrao = usuarios[qtdUsuario].getSenhaPadrao();
         cadastro.exibirMensagem(resultado, qtdAmigo, qtdUsuario, senhaPadrao);
     }
-    
+
     public void setMsgSecreta(int qtdUsuario, String auxSenha) {
         usuarios[qtdUsuario].setSenhaPadrao(auxSenha);
     }
-    
+
     public void setMensagensSecretaPadrao(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, usuarios[qtdUsuario].getSenhaPadrao());
     }
-    
+
     public void setMensagensSecreta(int qtdUsuario, int qtdAmigo, String mensagem, String senhaPadrao) throws Exception {
         usuarios[qtdUsuario].setMensagensSecreta(qtdAmigo, mensagem, senhaPadrao);
     }
-    
+
     public void setMensagem(int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         usuarios[qtdUsuario].setMensagens(qtdAmigo, mensagem);
     }
-    
+
     public void historicoMensagens(Usuario user, String amigoA) throws Exception {
         int i = 0, j = 0;
         // $$$$$$$$$$$$ Usuario amigoA = new Usuario(amigo);
@@ -148,7 +148,7 @@ public class Contas {
             throw new Exception("Erro, usuário não está na lista de amizades!");
         }
     }
-    
+
     public void adicaoAmigos(Usuario user, String amigo) throws Exception {
         int posicaoUsuario, posicaoAmigo;
         String eu = user.getLogin();
@@ -187,7 +187,7 @@ public class Contas {
             adicionarMatch(usuarios[posicaoUsuario], usuarios[posicaoAmigo]);
         }
     }
-    
+
     private void adicionarMatch(Usuario user, Usuario amigo) {
         Cadastro cadastro = Cadastro.getInstance();
         Scanner i = new Scanner(System.in);
@@ -213,7 +213,7 @@ public class Contas {
             cadastro.resultadoMatch(resultado);
             user.setDecisaoMatch(false, posicaoUserMatch);
         }
-        
+
         for (int j = 0; j < amigo.getQtdMatch(); j++) {
             if (amigo.getnomesMatch(j).equals(nomeUser)) {
                 posicaoAmigoMatch = j;
@@ -267,27 +267,41 @@ public class Contas {
     public void exibirMatch(Usuario user) throws Exception {
         Cadastro cadastro = Cadastro.getInstance();
         if (user.getQtdMatchTotais() != 0) {
+
             for (int i = 0; i < user.getQtdMatchTotais(); i++) {
                 String match = user.getMatchTotais(i);
                 cadastro.mostraMatch(match);
             }
+
         } else {
             throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
     
+    
+                Thread e = new Thread(() -> { // Lambda Expression
+            for (int i = 0; i < user.getQtdMatchTotais(); i++) {
+                String match = user.getMatchTotais(i);
+                cadastro.mostraMatch(match);
+            }
+            });
+            e.start();
+            synchronized (e) {
+                e.join(50);
+            }
+
     public void enviarSolicitacaoMural(Usuario user, String amigo) throws Exception {
         mural.enviarSolicitacaoMural(user, usuarios, amigo);
     }
-    
+
     public void setSolicitacaoMural(Usuario[] usuarios, int qtdUsuario, int qtdAmigo, String mensagem) throws Exception {
         mural.setSolicitacaoMural(usuarios, qtdUsuario, qtdAmigo, mensagem);
     }
-    
+
     public void solicitacaoMural(Usuario user, String amigo) throws Exception {
         mural.solicitacaoMural(user, usuarios, amigo);
     }
-    
+
     public void exibirMural() throws Exception {
         mural.exibeMural();
     }
