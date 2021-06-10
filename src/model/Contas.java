@@ -11,11 +11,16 @@ public class Contas {
     protected boolean[] admin;
     protected Mural mural;
     protected int qtd;
+    private String name; 
 
     public Contas() {
         usuarios = new Usuario[100];
         admin = new boolean[100];
         mural = new Mural();
+    }
+    
+    public Contas(String nomeAmigo) {
+        name = nomeAmigo;
     }
 
     public boolean getAdmin(String user) { // $$$$$$$$$$$$
@@ -34,6 +39,19 @@ public class Contas {
     public void cadastrarUsuario(String login, String senha, String nome) {
         usuarios[this.qtd] = new Usuario(login, senha, nome);
         this.qtd++; // usuario cadastrado.
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    @Override
+    public String toString() {
+        return name + " Foi adicionado aos Favoritos";
     }
 
     public int buscarUsuario(String login) {
@@ -181,6 +199,7 @@ public class Contas {
                     throw new Exception("UNIKUT - Erro, este usuário já encontra-se na lista de amizades!");
                 }
             }
+            
             //processo de adição de amigo
             usuarios[posicaoAmigo].setListaAmigosPendentes(eu);
             usuarios[posicaoUsuario].executarMatch(amigo);
@@ -277,18 +296,15 @@ public class Contas {
             throw new Exception("UNIKUT ERRO- Você não tem nenhum Match!");
         }
     }
-    
-    
-                Thread e = new Thread(() -> { // Lambda Expression
-            for (int i = 0; i < user.getQtdMatchTotais(); i++) {
-                String match = user.getMatchTotais(i);
-                cadastro.mostraMatch(match);
-            }
-            });
-            e.start();
-            synchronized (e) {
-                e.join(50);
-            }
+    Thread e = new Thread(() -> { // Lambda Expression
+        for (int i = 0; i < user.getQtdMatchTotais(); i++) {
+             String match = user.getMatchTotais(i);
+             cadastro.mostraMatch(match);
+        }});
+        e.start();
+        synchronized (e) {
+        e.join(50);
+    }
 
     public void enviarSolicitacaoMural(Usuario user, String amigo) throws Exception {
         mural.enviarSolicitacaoMural(user, usuarios, amigo);

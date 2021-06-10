@@ -1,13 +1,17 @@
 package view;
 
 import controller.Cadastro;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import model.Contas;
 import model.Usuario;
 import static view.CoresTerminal.*;
 
 public class LogadoAdmin {
 
     private static Scanner in = new Scanner(System.in);
+    private static List<Contas> listaAmigos = new ArrayList<>();
 
     public static void logadoAdmin(Usuario user) {
         System.out.println("___________________________________________________");
@@ -142,6 +146,39 @@ public class LogadoAdmin {
                         System.out.println(e.getMessage());
                     }
                     break;
+                case 14:
+                        System.out.println("Quantos Amigos vocês: ");
+                        int N = in.nextInt();
+                        String nomeAmigo;
+                        
+                        for (int i = 0; i < N; i++) {
+                            System.out.println("Digite o nome do " + i+"º Amigo favorito");
+                            nomeAmigo = in.nextLine();
+                            listaAmigos.add(new Contas(nomeAmigo));
+                        }
+                        
+                        // Exemplo sem Lambda Expression
+                        // Comparator<Contas> comparador = new Comparator<Contas>() {
+                        //    @Override
+                        //    public int compare(Contas c1, Contas c2) {
+                        //        return c1.getName().toUpperCase().compareTo(c2.getName().toUpperCase());
+                        //    }
+                        // };
+                        // listaAmigos.sort(comparador);
+                        
+                        // Expressão Lambda 1.0
+                        // Comparator<Contas> comparador = (c1, c2) -> {
+                        //     return c1.getName().toUpperCase().compareTo(c2.getName().toUpperCase());
+                        // };
+                        // listaAmigos.sort(comparador);
+                        
+                        // Expressão Lambda 2.0 (Código mais Limpo)
+                        //   Comparator<Contas> comparador = (c1, c2) -> c1.getName().toUpperCase().compareTo(c2.getName().toUpperCase());
+                        //   listaAmigos.sort(comparador);
+                        
+                        // Expressão Lambda 3.0 (Comparador expressão lambda "direto no argumento.")
+                            listaAmigos.sort((c1, c2) -> c1.getName().toUpperCase().compareTo(c2.getName().toUpperCase()));
+                    break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
                     System.exit(0);
@@ -215,6 +252,7 @@ public class LogadoAdmin {
         System.out.println("11 - Exibir Matchs.");
         System.out.println(ANSI_BLUE + "12 - Alterar perfil de uma conta." + ANSI_RESET);
         System.out.println(ANSI_BLUE + "13 - Excluir uma conta." + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "14 - Adicionar Amigos A Lista de Favoritos." + ANSI_BLUE);
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");
