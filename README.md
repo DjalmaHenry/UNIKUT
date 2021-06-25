@@ -1,6 +1,37 @@
-# UNIKUT
-Você pode ver o Javadoc do Projeto [aqui](https://unikut-javadoc.vercel.app/) 
-### COLABORADORES
+<h1 align="center">UNIKUT</h1>
+
+<h3 align="center">A rede social em java.</h3>
+
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-javadoc">Javadoc</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-executar">Como executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-colaboradores">Colaboradores</a>
+</p>
+
+<br>
+
+## ✨ Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- [Java](https://www.oracle.com/java/)
+
+## 💻 Projeto
+
+O UNIKUT é uma rede social 100% em java, onde você pode fazer novas amizades e relacionar-se com novas pessoas.
+
+## 📚 Javadoc
+
+Você pode acessar a javadoc online do projeto através [desse link](https://unikut-javadoc.vercel.app/).
+
+## 🚀 Como executar
+
+- Clone o repositório
+- Instale qualquer compilador ou IDE java.
+- Compile o programa.
+
+## 👨‍👦‍👦 COLABORADORES
 
 #### Nome: Djalma Henrique Silva Lima
 - Matrícula: 202013531-2
