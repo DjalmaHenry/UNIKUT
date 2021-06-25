@@ -28,8 +28,8 @@ Você pode acessar a javadoc online do projeto através [desse link](https://uni
 ## 🚀 Como executar
 
 - Clone o repositório
-- Instale qualquer compilador ou IDE java.
-- Compile o programa.
+- Instale qualquer compilador ou IDE java
+- Compile o programa
 
 ## 👨‍👦‍👦 COLABORADORES
 
